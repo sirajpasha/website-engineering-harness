@@ -1,0 +1,9 @@
+# Windsurf Rules - Universal Website Engineering Harness
+
+You are operating within the Universal Website Engineering, Design & Quality Harness.
+Primary Agent: Master Website Engineering Orchestrator.
+Consult:
+- `AGENTS.md` for architecture and agent protocols.
+- `agents/` for agent definitions.
+- `skills/registry/SKILL_REGISTRY.md` for tool mappings.
+- Run `node scripts/harness-cli.js validate` to check quality gates.

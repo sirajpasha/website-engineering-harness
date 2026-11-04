@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether Studio — Autonomous Engineering & Design Harness</title>
+  <meta name="description" content="Production-grade website engineering harness combining Taste visual craft, Impeccable critique, Emil Kowalski motion, Google Stitch design, and Playwright verification.">
+  <link rel="canonical" href="https://aether-studio.example.com/">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Aether Studio — Autonomous Engineering & Design Harness">
+  <meta property="og:description" content="High-craft autonomous website engineering and design system.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aether-studio.example.com/">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="src/styles.css">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Aether Studio",
+    "url": "https://aether-studio.example.com",
+    "description": "Autonomous website engineering, design, and quality harness.",
+    "serviceType": "Autonomous Web Engineering"
+  }
+  </script>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <a href="#hero" class="brand-logo" aria-label="Aether Studio Home">
+        <span class="brand-symbol">◈</span> AETHER
+      </a>
+
+      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation menu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <nav id="primaryNav" class="site-nav" role="navigation" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="#capabilities" class="nav-link">Capabilities</a></li>
+          <li><a href="#estimator" class="nav-link">Studio Estimator</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><button id="openAuditBtn" class="btn btn-secondary btn-sm" type="button">Request Audit</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="mainContent" role="main">
+    <!-- Hero Section (REQ-001) -->
+    <section id="hero" class="hero-section" aria-labelledby="heroTitle">
+      <div class="container hero-container">
+        <div class="status-badge" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>AUTONOMOUS HARNESS v2.0 ACTIVE</span>
+        </div>
+
+        <h1 id="heroTitle" class="hero-title">
+          Website Engineering <br><span class="accent-text">Without AI Slop.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Transforming product requirements into production-ready web platforms with 
+          Taste art direction, Impeccable design critique, Emil Kowalski motion physics, 
+          and Playwright multi-viewport verification.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#estimator" class="btn btn-primary">Launch Scope Estimator</a>
+          <button id="openAuditHeroBtn" class="btn btn-outline" type="button">Schedule Technical Audit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities Grid (REQ-002) -->
+    <section id="capabilities" class="section capabilities-section" aria-labelledby="capTitle">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">ENGINEERING PILLARS</span>
+          <h2 id="capTitle" class="section-title">Coordinated Specialist Architecture</h2>
+        </div>
+
+        <div class="capabilities-grid">
+          <article class="cap-card" aria-labelledby="cap1Title">
+            <div class="cap-meta">01 / ART DIRECTION</div>
+            <h3 id="cap1Title" class="cap-title">Taste Skill Integration</h3>
+            <p class="cap-desc">Eradicating default template tropes with bespoke typography scales, intentional 60-30-10 palettes, and genuine material craft.</p>
+          </article>
+
+          <article class="cap-card" aria-labelledby="cap2Title">
+            <div class="cap-meta">02 / USABILITY CRITIQUE</div>
+            <h3 id="cap2Title" class="cap-title">Impeccable Heuristics</h3>
+            <p class="cap-desc">24-command design vocabulary evaluating cognitive load, typography rhythm, and Jakob Nielsen's 10 usability heuristics.</p>
+          </article>
+
+          <article class="cap-card" aria-labelledby="cap3Title">
+            <div class="cap-meta">03 / MOTION CRAFT</div>
+            <h3 id="cap3Title" class="cap-title">Emil Kowalski Physics</h3>
+            <p class="cap-desc">Sub-250ms tactile feedback, natural spring easing curves, and strict <code>prefers-reduced-motion</code> compliance.</p>
+          </article>
+
+          <article class="cap-card" aria-labelledby="cap4Title">
+            <div class="cap-meta">04 / BROWSER QA</div>
+            <h3 id="cap4Title" class="cap-title">Playwright 6-Viewport QA</h3>
+            <p class="cap-desc">Deterministic automated verification across mobile (360px), tablet, and desktop (1920px) with zero horizontal overflow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Scope Estimator (REQ-003) -->
+    <section id="estimator" class="section estimator-section" aria-labelledby="estTitle">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">STUDIO ESTIMATOR</span>
+          <h2 id="estTitle" class="section-title">Interactive Scope & Budget Calculator</h2>
+        </div>
+
+        <div class="estimator-panel">
+          <div class="estimator-controls">
+            <div class="control-group">
+              <label for="pageSlider" class="control-label">
+                <span>Unique Page / Route Count:</span>
+                <strong id="pageCountDisplay" class="value-display">3 Pages</strong>
+              </label>
+              <input type="range" id="pageSlider" min="1" max="12" value="3" class="slider" aria-valuemin="1" aria-valuemax="12" aria-valuenow="3">
+            </div>
+
+            <div class="control-group">
+              <label for="motionSelect" class="control-label">Interaction & Motion Tier:</label>
+              <select id="motionSelect" class="select-input">
+                <option value="minimal">Essential (Sub-150ms Tactile)</option>
+                <option value="standard" selected>Standard (Emil Kowalski Springs)</option>
+                <option value="overdrive">Overdrive (Advanced Canvas & Physics)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="estimator-output" aria-live="polite">
+            <div class="estimate-item">
+              <span class="est-label">Estimated Engineering Sprints:</span>
+              <span id="sprintEstimate" class="est-value">2 Sprints</span>
+            </div>
+            <div class="estimate-item">
+              <span class="est-label">Quality Gate Checkpoints:</span>
+              <span id="gateEstimate" class="est-value">13 Gates (G1–G13)</span>
+            </div>
+            <div class="estimate-item highlight">
+              <span class="est-label">Estimated Delivery Scope:</span>
+              <span id="costEstimate" class="est-value font-mono">$12,000 USD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Technical Audit Request Modal Dialog (REQ-004) -->
+  <dialog id="auditModal" class="modal-dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title">Request Technical Audit</h2>
+        <button id="closeModalBtn" class="close-btn" type="button" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <form id="auditForm" class="modal-form" novalidate>
+        <div class="form-group">
+          <label for="clientName" class="form-label">Full Name</label>
+          <input type="text" id="clientName" name="name" required class="form-input" placeholder="Sarah Jenkins" autocomplete="name">
+          <span id="nameError" class="field-error" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="clientEmail" class="form-label">Work Email</label>
+          <input type="email" id="clientEmail" name="email" required class="form-input" placeholder="sarah@enterprise.com" autocomplete="email">
+          <span id="emailError" class="field-error" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="projectUrl" class="form-label">Target Website / Repository URL</label>
+          <input type="url" id="projectUrl" name="url" required class="form-input" placeholder="https://example.com" autocomplete="url">
+          <span id="urlError" class="field-error" aria-live="polite"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="submitAuditBtn" class="btn btn-primary btn-block">Submit Audit Request</button>
+        </div>
+
+        <div id="formSuccessMessage" class="form-success" role="alert" style="display: none;">
+          Audit request received! AGENT 02 & AGENT 12 will initialize discovery within 2 hours.
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-container">
+      <div class="footer-col">
+        <div class="brand-logo"><span class="brand-symbol">◈</span> AETHER STUDIO</div>
+        <p class="footer-copy">Autonomous Website Engineering & Quality Harness v2.0.0</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-legal">&copy; 2026 Aether Studio. Governed by 13 Quality Gates.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="src/app.js"></script>
+</body>
+</html>

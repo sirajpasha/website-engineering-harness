@@ -1,0 +1,41 @@
+{
+  "name": "website-engineering-harness",
+  "version": "2.0.0",
+  "description": "Universal Autonomous Website Engineering, Design & Quality Harness for Claude Code, Gemini, OpenAI Codex, Cursor, and any AI agent",
+  "main": "scripts/harness-cli.js",
+  "bin": {
+    "website-harness": "./scripts/harness-cli.js",
+    "harness": "./scripts/harness-cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "harness": "node scripts/harness-cli.js",
+    "audit": "node scripts/environment-audit/audit-environment.js",
+    "validate": "node scripts/agent-validation/validate-agents.js",
+    "validate:skills": "node scripts/skill-validation/validate-skills.js",
+    "validate:mcp": "node scripts/mcp-validation/validate-mcp.js",
+    "validate:trace": "node scripts/traceability/verify-traceability.js",
+    "validate:all": "node scripts/harness-cli.js validate",
+    "gate": "node scripts/quality-gates/check-gates.js",
+    "gates": "node scripts/quality-gates/check-gates.js --all",
+    "test": "node --test tests/**/*.test.js examples/sample-website/tests/**/*.test.js",
+    "test:browser": "node scripts/browser-validation/validate-browser.js",
+    "audit:security": "node scripts/harness-cli.js audit:security",
+    "audit:perf": "node scripts/harness-cli.js audit:perf"
+  },
+  "keywords": [
+    "ai-agent",
+    "claude-code",
+    "gemini",
+    "codex",
+    "cursor",
+    "playwright",
+    "stitch",
+    "tdd",
+    "impeccable",
+    "taste-skill",
+    "website-engineering"
+  ],
+  "author": "Principal AI Systems Architect",
+  "license": "MIT"
+}

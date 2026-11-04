@@ -1,0 +1,43 @@
+{
+  "color": {
+    "background": "#0b0c10",
+    "surface": "#12151c",
+    "surfaceElevated": "#1a1f2b",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "borderStrong": "rgba(255, 255, 255, 0.16)",
+    "textPrimary": "#f0f2f5",
+    "textSecondary": "#9aa3b2",
+    "textMuted": "#647087",
+    "accent": "#45a29e",
+    "accentHover": "#66fcf1",
+    "focusRing": "#66fcf1",
+    "danger": "#e05260",
+    "success": "#2ec4b6"
+  },
+  "typography": {
+    "fontDisplay": "Georgia, serif",
+    "fontBody": "system-ui, -apple-system, sans-serif",
+    "fontMono": "ui-monospace, SFMono-Regular, monospace",
+    "h1": "clamp(2.5rem, 5vw, 4rem)",
+    "h2": "clamp(1.75rem, 3.5vw, 2.5rem)",
+    "h3": "clamp(1.25rem, 2vw, 1.75rem)",
+    "body": "1rem",
+    "small": "0.875rem"
+  },
+  "spacing": {
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem",
+    "16": "4rem"
+  },
+  "motion": {
+    "durationTactile": "180ms",
+    "durationSpatial": "280ms",
+    "easeTactile": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "easeSpatial": "cubic-bezier(0.16, 1, 0.3, 1)"
+  }
+}
