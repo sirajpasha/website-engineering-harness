@@ -4,11 +4,13 @@
   "description": "Universal Autonomous Website Engineering, Design & Quality Harness for Claude Code, Gemini, OpenAI Codex, Cursor, and any AI agent",
   "main": "scripts/harness-cli.js",
   "bin": {
+    "website-engineering-harness": "./scripts/harness-cli.js",
     "website-harness": "./scripts/harness-cli.js",
     "harness": "./scripts/harness-cli.js"
   },
   "type": "module",
   "scripts": {
+    "website-engineering-harness": "node scripts/harness-cli.js",
     "harness": "node scripts/harness-cli.js",
     "audit": "node scripts/environment-audit/audit-environment.js",
     "validate": "node scripts/agent-validation/validate-agents.js",

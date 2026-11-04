@@ -28,8 +28,9 @@ function showHelp() {
 ===================================================================
 
 Usage:
+  website-engineering-harness <command> [options]
   node scripts/harness-cli.js <command> [options]
-  npm run harness <command>
+  npm run website-engineering-harness <command>
 
 Core Inspection Commands:
   audit                Run full environment and runtime capability audit

@@ -175,29 +175,241 @@ No website is shipped until every gate provides objective evidence:
 
 ---
 
-## ⚡ Quick Start (Any AI or Terminal)
+## 🚀 Remote Machine Setup & Usage
 
-### In Claude Code CLI:
+If you or a team member wants to use `website-engineering-harness` to create a website on a remote machine, choose one of the following methods:
+
+### Option 1: Git Clone / GitHub Template (Recommended)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/<your-username>/website-engineering-harness.git my-new-website
+   cd my-new-website
+   ```
+2. **Install dependencies and verify environment:**
+   ```bash
+   npm install
+   npm run audit
+   ```
+3. **Open with your preferred AI tool** (see the tool-specific guides below) or launch via terminal:
+   ```bash
+   npm run website-engineering-harness init
+   ```
+
+*(Tip: On GitHub, navigate to **Settings** and mark this repository as a **"Template repository"**. Anyone can then click **"Use this template"** to create an instant new website repo).*
+
+---
+
+### Option 2: Global CLI Installation
+Install the harness CLI globally on any remote machine directly from Git:
 ```bash
-/website-init
-/website-grill
-/website-design
-/website-build
-/website-test
-/website-release
+# Install globally
+npm install -g git+https://github.com/<your-username>/website-engineering-harness.git
+
+# Run commands anywhere:
+website-engineering-harness init
+website-engineering-harness grill
+website-engineering-harness design
+website-engineering-harness critique
+website-engineering-harness build
+website-engineering-harness tdd
+website-engineering-harness test:browser
+website-engineering-harness security
+website-engineering-harness perf
+website-engineering-harness gates
+website-engineering-harness release
 ```
 
-### In Gemini CLI / Antigravity / Cursor / Terminal:
+---
+
+### Option 3: Drop-In for Existing Websites (`REDESIGN` or `ENHANCE` Mode)
+To apply this harness to an existing website on a remote machine:
+1. Copy `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `mcp.json`, `agents/`, `skills/`, `standards/`, and `scripts/` into the existing project root.
+2. Run audit:
+   ```bash
+   website-engineering-harness audit
+   ```
+3. The Master Orchestrator automatically detects the existing codebase and engages:
+   - **`REDESIGN` Mode:** Catalogs UX debt in `DEFECT_REGISTER.md`, applies Impeccable critique, and crafts an anti-slop visual refresh via Taste Skill.
+   - **`ENHANCE` Mode:** Implements a scoped feature or bugfix slice under strict TDD and browser regression checks.
+
+---
+
+## 🤖 AI Tool Integration Guides
+
+Click each collapsible section below for exact setup and invocation instructions:
+
+<details>
+<summary><b>Using with Claude Code CLI</b></summary>
+
+### Overview
+Claude Code CLI has native first-class integration with this harness. When launched in the repository, it automatically reads [`CLAUDE.md`](file:///E:/Harness/Website/CLAUDE.md), discovers all 16 agents in [`.claude/agents/`](file:///E:/Harness/Website/.claude/agents/), and registers the 14 slash commands in [`.claude/commands/`](file:///E:/Harness/Website/.claude/commands/).
+
+### How to Run
+1. Open terminal in the project directory:
+   ```bash
+   claude
+   ```
+2. Run the slash commands in sequence:
+   - `/website-init`: Audits runtime capabilities and scaffolds project context.
+   - `/website-grill`: Socratic requirements grilling (AGENT 02).
+   - `/website-discover`: Generates user journeys, personas, and sitemap (AGENT 03).
+   - `/website-design`: Establishes anti-slop art direction and design tokens (AGENT 04).
+   - `/website-critique`: Impeccable 24-command heuristic review (AGENT 05).
+   - `/website-stitch`: Generates screens & tokens via Stitch MCP (AGENT 06).
+   - `/website-build`: Frontend scaffolding and component implementation (AGENT 08/09).
+   - `/website-tdd`: Executes Red-Green-Refactor development slice (AGENT 10).
+   - `/website-motion`: Emil Kowalski micro-interactions and transitions (AGENT 07).
+   - `/website-test`: Cross-viewport Playwright verification across 6 viewports (AGENT 11).
+   - `/website-security`: OWASP Top 10 & STRIDE threat audit (AGENT 12).
+   - `/website-performance`: Core Web Vitals audit with metric honesty (AGENT 13).
+   - `/website-audit`: Full-suite quality audit across G1–G13 gates.
+   - `/website-release`: Quality gate G13 audit and production release sign-off (AGENT 16).
+
+### Example Prompt
+> *"Run /website-grill. I want to build a high-craft developer documentation and API platform for financial institutions."*
+</details>
+
+<details>
+<summary><b>Using with OpenAI Codex & GitHub Copilot</b></summary>
+
+### Overview
+Codex and GitHub Copilot utilize workspace context and instructions. The harness provides [`.github/copilot-instructions.md`](file:///E:/Harness/Website/.github/copilot-instructions.md) and [`AGENTS.md`](file:///E:/Harness/Website/AGENTS.md) as the authoritative multi-agent directives.
+
+### How to Run
+1. Open the project in VS Code with the GitHub Copilot extension active.
+2. Copilot automatically loads `.github/copilot-instructions.md` as custom workspace instructions.
+3. In Copilot Chat (or Codex agent interface), invoke the Orchestrator with structured task instructions:
+   - *"Act as Master Website Orchestrator from AGENTS.md. Initiate project mode NEW_WEBSITE for an architectural design studio."*
+   - *"Adopt AGENT 02 (Requirement Grilling Specialist). Review REQUIREMENTS.md and ask me the highest-priority unresolved question."*
+   - *"Adopt AGENT 04 (Design Art Director). Follow skills/design/taste-skill.md to define the DESIGN_TOKENS.json palette and typography."*
+   - *"Adopt AGENT 10 (TDD Specialist). Write a failing test in tests/ for REQ-003, then implement the component to make it green."*
+4. Run validation scripts directly in the integrated terminal:
+   ```bash
+   website-engineering-harness validate
+   website-engineering-harness test:browser
+   website-engineering-harness gates
+   ```
+</details>
+
+<details>
+<summary><b>Using with Gemini CLI / Google Antigravity</b></summary>
+
+### Overview
+Gemini CLI and Google Antigravity ingest [`GEMINI.md`](file:///E:/Harness/Website/GEMINI.md) and [`AGENTS.md`](file:///E:/Harness/Website/AGENTS.md) at startup, automatically establishing the Master Website Orchestrator persona.
+
+### How to Run
+1. Launch Gemini CLI or open the workspace in Antigravity:
+   ```bash
+   gemini
+   # or
+   agy
+   ```
+2. The agent will confirm compliance with `AGENTS.md` and `GEMINI.md`.
+3. Command the Orchestrator:
+   - *"Start a new website project: [describe your website idea]"*
+   - *"Run Stage 2: Requirement Grilling using agents/requirement-grilling.md."*
+   - *"Audit Quality Gates: run node scripts/quality-gates/check-gates.js."*
+4. Subagents can be invoked directly:
+   - Grilling -> [`agents/requirement-grilling.md`](file:///E:/Harness/Website/agents/requirement-grilling.md)
+   - Art Direction -> [`agents/design-art-director.md`](file:///E:/Harness/Website/agents/design-art-director.md)
+   - UI Critique -> [`agents/ux-ui-designer.md`](file:///E:/Harness/Website/agents/ux-ui-designer.md)
+   - Motion -> [`agents/motion-engineer.md`](file:///E:/Harness/Website/agents/motion-engineer.md)
+   - Browser QA -> [`agents/browser-qa.md`](file:///E:/Harness/Website/agents/browser-qa.md)
+   - Security Audit -> [`agents/security-auditor.md`](file:///E:/Harness/Website/agents/security-auditor.md)
+   - Release Audit -> [`agents/production-reviewer.md`](file:///E:/Harness/Website/agents/production-reviewer.md)
+</details>
+
+<details>
+<summary><b>Using with Cursor IDE</b></summary>
+
+### Overview
+Cursor reads [`.cursorrules`](file:///E:/Harness/Website/.cursorrules) and [`mcp.json`](file:///E:/Harness/Website/mcp.json) at project root, enforcing anti-slop visual laws, TDD Red-Green-Refactor discipline, and metric honesty.
+
+### How to Run
+1. Open the project folder in Cursor: `cursor .`
+2. Configure MCP servers:
+   - Go to **Cursor Settings** -> **Features** -> **MCP Servers**.
+   - Ensure `mcp.json` is loaded (Playwright and Google Stitch servers).
+3. In Cursor Composer / Agent Chat:
+   - Reference `@AGENTS.md` to establish multi-agent roles.
+   - Reference `@agents/requirement-grilling.md` for requirement interrogation.
+   - Reference `@agents/design-art-director.md` and `@skills/design/taste-skill.md` when styling components.
+   - Reference `@agents/tdd-test-engineer.md` before generating component code.
+4. Run gate checks in Cursor terminal:
+   ```bash
+   website-engineering-harness gates
+   ```
+</details>
+
+<details>
+<summary><b>Using with Windsurf IDE</b></summary>
+
+### Overview
+Windsurf reads [`.windsurfrules`](file:///E:/Harness/Website/.windsurfrules) and uses Cascade workflows to navigate agent specifications.
+
+### How to Run
+1. Open the folder in Windsurf: `windsurf .`
+2. In Cascade Chat:
+   - Instruct Cascade: *"You are governed by AGENTS.md. Act as Master Website Orchestrator."*
+   - Trigger stages: *"Read workflows/new-website.md and execute Stage 1 through Stage 4."*
+3. Cascade can run terminal commands directly:
+   ```bash
+   website-engineering-harness validate
+   website-engineering-harness gates
+   ```
+</details>
+
+<details>
+<summary><b>Using with Terminal / Any AI Agent (Aider, OpenCode, Cline, Terminal)</b></summary>
+
+### Overview
+Any AI coding tool or developer can operate the harness purely via standardized Markdown prompt injection and CLI scripts.
+
+### How to Run
+1. Provide `AGENTS.md` as system instructions:
+   ```bash
+   # In Aider:
+   aider --read AGENTS.md
+   ```
+2. Execute tasks using the universal binary commands:
+   ```bash
+   # Initialize project
+   website-engineering-harness init
+
+   # Run automated test suites
+   npm test
+
+   # Run 6-viewport browser QA
+   website-engineering-harness test:browser
+
+   # Check compliance with G1-G13 Quality Gates
+   website-engineering-harness gates
+
+   # Full validation
+   website-engineering-harness validate
+   ```
+</details>
+
+---
+
+## ⚡ Quick Start Reference (CLI & NPM)
+
 ```bash
 # Check environment and audit harness
-npm run audit
+website-engineering-harness audit
 
 # Validate all agents, skills, and MCP configurations
-npm run validate:all
+website-engineering-harness validate
 
-# Run quality gates
-npm run gates
+# Run automated unit/integration tests
+npm test
 
-# Start master interactive CLI
-npm run harness -- --help
+# Run real browser tests across 6 viewports
+website-engineering-harness test:browser
+
+# Check all 13 Quality Gates
+website-engineering-harness gates
+
+# Display CLI help menu
+website-engineering-harness --help
 ```
