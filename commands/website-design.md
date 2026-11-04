@@ -5,7 +5,7 @@ Activates AGENT 04 (Design Art Director) using Taste Skill to establish visual i
 
 ## Invocations
 - Claude Code: `/website-design`
-- Terminal / Node: `node scripts/harness-cli.js design`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js design`
 
 ## Workflow Steps
 1. Ingest requirements and sitemap.

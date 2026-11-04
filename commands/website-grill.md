@@ -5,7 +5,7 @@ Activates AGENT 02 (Requirement Grilling Specialist) to conduct Socratic interro
 
 ## Invocations
 - Claude Code: `/website-grill`
-- Terminal / Node: `node scripts/harness-cli.js grill`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js grill`
 
 ## Workflow Steps
 1. Ingest `PROJECT_BRIEF.md` and existing prompt context.

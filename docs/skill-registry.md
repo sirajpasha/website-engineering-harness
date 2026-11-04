@@ -1,6 +1,6 @@
 # SKILL REGISTRY OVERVIEW
 
-For the complete, machine-readable inventory of skills, see [`skills/registry/SKILL_REGISTRY.md`](file:///E:/Harness/Website/skills/registry/SKILL_REGISTRY.md).
+For the complete, machine-readable inventory of skills, see [`skills/registry/SKILL_REGISTRY.md`](../skills/registry/SKILL_REGISTRY.md).
 
 ## Core Skill Repositories
 1. **Taste Skill (`Leonxlnx/taste-skill`):** Visual personality, typography scale, anti-slop frontend engineering.

@@ -127,7 +127,7 @@ website-engineering-harness/
 │   └── requirements-traceability.md
 │
 ├── scripts/                   # Executable Cross-Platform CLI & Validation Tooling
-│   ├── harness-cli.js         # Master CLI runner
+│   ├── website-engineering-harness-cli.js         # Master CLI runner
 │   ├── environment-audit/     # System capability & dependency auditor
 │   ├── agent-validation/      # Agent discoverability & contract tester
 │   ├── skill-validation/      # Skill registry & dependency validator
@@ -242,7 +242,7 @@ Click each collapsible section below for exact setup and invocation instructions
 <summary><b>Using with Claude Code CLI</b></summary>
 
 ### Overview
-Claude Code CLI has native first-class integration with this harness. When launched in the repository, it automatically reads [`CLAUDE.md`](file:///E:/Harness/Website/CLAUDE.md), discovers all 16 agents in [`.claude/agents/`](file:///E:/Harness/Website/.claude/agents/), and registers the 14 slash commands in [`.claude/commands/`](file:///E:/Harness/Website/.claude/commands/).
+Claude Code CLI has native first-class integration with this harness. When launched in the repository, it automatically reads [`CLAUDE.md`](CLAUDE.md), discovers all 16 agents in [`.claude/agents/`](.claude/agents/), and registers the 14 slash commands in [`.claude/commands/`](.claude/commands/).
 
 ### How to Run
 1. Open terminal in the project directory:
@@ -273,7 +273,7 @@ Claude Code CLI has native first-class integration with this harness. When launc
 <summary><b>Using with OpenAI Codex & GitHub Copilot</b></summary>
 
 ### Overview
-Codex and GitHub Copilot utilize workspace context and instructions. The harness provides [`.github/copilot-instructions.md`](file:///E:/Harness/Website/.github/copilot-instructions.md) and [`AGENTS.md`](file:///E:/Harness/Website/AGENTS.md) as the authoritative multi-agent directives.
+Codex and GitHub Copilot utilize workspace context and instructions. The harness provides [`.github/copilot-instructions.md`](.github/copilot-instructions.md) and [`AGENTS.md`](AGENTS.md) as the authoritative multi-agent directives.
 
 ### How to Run
 1. Open the project in VS Code with the GitHub Copilot extension active.
@@ -295,7 +295,7 @@ Codex and GitHub Copilot utilize workspace context and instructions. The harness
 <summary><b>Using with Gemini CLI / Google Antigravity</b></summary>
 
 ### Overview
-Gemini CLI and Google Antigravity ingest [`GEMINI.md`](file:///E:/Harness/Website/GEMINI.md) and [`AGENTS.md`](file:///E:/Harness/Website/AGENTS.md) at startup, automatically establishing the Master Website Orchestrator persona.
+Gemini CLI and Google Antigravity ingest [`GEMINI.md`](GEMINI.md) and [`AGENTS.md`](AGENTS.md) at startup, automatically establishing the Master Website Orchestrator persona.
 
 ### How to Run
 1. Launch Gemini CLI or open the workspace in Antigravity:
@@ -310,20 +310,20 @@ Gemini CLI and Google Antigravity ingest [`GEMINI.md`](file:///E:/Harness/Websit
    - *"Run Stage 2: Requirement Grilling using agents/requirement-grilling.md."*
    - *"Audit Quality Gates: run node scripts/quality-gates/check-gates.js."*
 4. Subagents can be invoked directly:
-   - Grilling -> [`agents/requirement-grilling.md`](file:///E:/Harness/Website/agents/requirement-grilling.md)
-   - Art Direction -> [`agents/design-art-director.md`](file:///E:/Harness/Website/agents/design-art-director.md)
-   - UI Critique -> [`agents/ux-ui-designer.md`](file:///E:/Harness/Website/agents/ux-ui-designer.md)
-   - Motion -> [`agents/motion-engineer.md`](file:///E:/Harness/Website/agents/motion-engineer.md)
-   - Browser QA -> [`agents/browser-qa.md`](file:///E:/Harness/Website/agents/browser-qa.md)
-   - Security Audit -> [`agents/security-auditor.md`](file:///E:/Harness/Website/agents/security-auditor.md)
-   - Release Audit -> [`agents/production-reviewer.md`](file:///E:/Harness/Website/agents/production-reviewer.md)
+   - Grilling -> [`agents/requirement-grilling.md`](agents/requirement-grilling.md)
+   - Art Direction -> [`agents/design-art-director.md`](agents/design-art-director.md)
+   - UI Critique -> [`agents/ux-ui-designer.md`](agents/ux-ui-designer.md)
+   - Motion -> [`agents/motion-engineer.md`](agents/motion-engineer.md)
+   - Browser QA -> [`agents/browser-qa.md`](agents/browser-qa.md)
+   - Security Audit -> [`agents/security-auditor.md`](agents/security-auditor.md)
+   - Release Audit -> [`agents/production-reviewer.md`](agents/production-reviewer.md)
 </details>
 
 <details>
 <summary><b>Using with Cursor IDE</b></summary>
 
 ### Overview
-Cursor reads [`.cursorrules`](file:///E:/Harness/Website/.cursorrules) and [`mcp.json`](file:///E:/Harness/Website/mcp.json) at project root, enforcing anti-slop visual laws, TDD Red-Green-Refactor discipline, and metric honesty.
+Cursor reads [`.cursorrules`](.cursorrules) and [`mcp.json`](mcp.json) at project root, enforcing anti-slop visual laws, TDD Red-Green-Refactor discipline, and metric honesty.
 
 ### How to Run
 1. Open the project folder in Cursor: `cursor .`
@@ -345,7 +345,7 @@ Cursor reads [`.cursorrules`](file:///E:/Harness/Website/.cursorrules) and [`mcp
 <summary><b>Using with Windsurf IDE</b></summary>
 
 ### Overview
-Windsurf reads [`.windsurfrules`](file:///E:/Harness/Website/.windsurfrules) and uses Cascade workflows to navigate agent specifications.
+Windsurf reads [`.windsurfrules`](.windsurfrules) and uses Cascade workflows to navigate agent specifications.
 
 ### How to Run
 1. Open the folder in Windsurf: `windsurf .`

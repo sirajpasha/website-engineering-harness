@@ -5,7 +5,7 @@ Activates AGENT 10 (TDD & Test Engineering Specialist) to execute strict Red-Gre
 
 ## Invocations
 - Claude Code: `/website-tdd`
-- Terminal / Node: `node scripts/harness-cli.js tdd`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js tdd`
 
 ## Workflow Steps
 1. Select target requirement (`REQ-XXX`).

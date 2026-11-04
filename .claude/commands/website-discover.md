@@ -5,7 +5,7 @@ Activates AGENT 03 (Product Discovery Specialist) to transform grilled requireme
 
 ## Invocations
 - Claude Code: `/website-discover`
-- Terminal / Node: `node scripts/harness-cli.js discover`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js discover`
 
 ## Workflow Steps
 1. Ingest `REQUIREMENTS.md`.

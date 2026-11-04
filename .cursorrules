@@ -13,4 +13,4 @@ Core Principles:
 1. Anti-Slop: Strictly adhere to Taste Skill rules and Impeccable critique. No generic SaaS cards or lazy purple gradients.
 2. TDD: Enforce Red-Green-Refactor. Verify failing tests before writing production code.
 3. Metric Honesty: Never fabricate performance numbers or browser test runs.
-4. Validation: Use `node scripts/harness-cli.js validate` or `node scripts/quality-gates/check-gates.js` to verify Quality Gates G1 through G13.
+4. Validation: Use `node scripts/website-engineering-harness-cli.js validate` or `node scripts/quality-gates/check-gates.js` to verify Quality Gates G1 through G13.

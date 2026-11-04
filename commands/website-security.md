@@ -5,7 +5,7 @@ Activates AGENT 12 (Security Auditor) based on Addy Osmani's Security Auditor st
 
 ## Invocations
 - Claude Code: `/website-security`
-- Terminal / Node: `npm run audit:security` or `node scripts/harness-cli.js security`
+- Terminal / Node: `npm run audit:security` or `node scripts/website-engineering-harness-cli.js security`
 
 ## Workflow Steps
 1. Scan repository for hardcoded credentials, API keys, or private tokens.

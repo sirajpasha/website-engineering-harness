@@ -29,7 +29,7 @@ function showHelp() {
 
 Usage:
   website-engineering-harness <command> [options]
-  node scripts/harness-cli.js <command> [options]
+  node scripts/website-engineering-harness-cli.js <command> [options]
   npm run website-engineering-harness <command>
 
 Core Inspection Commands:

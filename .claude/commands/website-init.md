@@ -5,7 +5,7 @@ Initializes project context, runs an environment audit, assesses installed capab
 
 ## Invocations
 - Claude Code: `/website-init`
-- Terminal / Node: `npm run audit` or `node scripts/harness-cli.js init`
+- Terminal / Node: `npm run audit` or `node scripts/website-engineering-harness-cli.js init`
 
 ## Workflow Steps
 1. Execute `scripts/environment-audit/audit-environment.js` to inspect runtime, tools (git, node, npm, python), and MCP configurations.

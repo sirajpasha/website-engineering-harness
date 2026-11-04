@@ -16,21 +16,21 @@ When operating within this repository, the primary AI agent acts as the **Master
 
 | ID | Agent Name | Primary Specialty | Key Skills & Source Ecosystem | Definition File |
 |---|---|---|---|---|
-| **01** | **Master Website Orchestrator** | Orchestration, routing, quality gate enforcement | System orchestration, gate enforcement | [`agents/orchestrator.md`](file:///E:/Harness/Website/agents/orchestrator.md) |
-| **02** | **Requirement Grilling Specialist** | Socratic interrogation, ambiguity reduction | Matt Pocock: `grilling`, `grill-with-docs`, `domain-modeling` | [`agents/requirement-grilling.md`](file:///E:/Harness/Website/agents/requirement-grilling.md) |
-| **03** | **Product Discovery Specialist** | User journeys, personas, sitemaps, IA | Addy Osmani: `interview-me`, product discovery | [`agents/product-discovery.md`](file:///E:/Harness/Website/agents/product-discovery.md) |
-| **04** | **Design Art Director** | Visual identity, anti-slop, aesthetics | Leonxlnx: `taste-skill` | [`agents/design-art-director.md`](file:///E:/Harness/Website/agents/design-art-director.md) |
-| **05** | **UX/UI Design Specialist** | Usability, design critique, layout, typesetting | Paul Bakaus: `impeccable` (24 commands) | [`agents/ux-ui-designer.md`](file:///E:/Harness/Website/agents/ux-ui-designer.md) |
-| **06** | **Google Stitch Design Engineer** | AI design generation, tokens, variants | Google Stitch MCP (`@google/stitch-mcp`) & Stitch CLI | [`agents/stitch-design-engineer.md`](file:///E:/Harness/Website/agents/stitch-design-engineer.md) |
-| **07** | **Frontend Architect** | Stack evaluation, modular structure, tokens | Architecture, state, routing, component contracts | [`agents/frontend-architect.md`](file:///E:/Harness/Website/agents/frontend-architect.md) |
-| **08** | **Website Implementation Engineer** | Clean code, semantic HTML, responsive frontend | Modular engineering, design fidelity, DRY principles | [`agents/implementation-engineer.md`](file:///E:/Harness/Website/agents/implementation-engineer.md) |
-| **09** | **TDD & Test Engineering Specialist** | RED-GREEN-REFACTOR, test seams, test suites | Matt Pocock: `tdd`, `diagnosing-bugs`; Addy Osmani: `tdd` | [`agents/tdd-test-engineer.md`](file:///E:/Harness/Website/agents/tdd-test-engineer.md) |
-| **10** | **Playwright Browser Engineer** | Viewport QA, real browser automation, traces | Playwright MCP, Playwright CLI, Playwright Test | [`agents/browser-qa.md`](file:///E:/Harness/Website/agents/browser-qa.md) |
-| **11** | **Security Auditor** | Threat modeling, OWASP Top 10, STRIDE | Addy Osmani: `security-auditor.md` authoritative standard | [`agents/security-auditor.md`](file:///E:/Harness/Website/agents/security-auditor.md) |
-| **12** | **Web Performance Auditor** | Core Web Vitals, bundle size, metric honesty | Addy Osmani: `web-performance-auditor.md` (Quick/Deep) | [`agents/web-performance-auditor.md`](file:///E:/Harness/Website/agents/web-performance-auditor.md) |
-| **13** | **SEO & Accessibility Specialist** | WCAG 2.2 AA, semantic hierarchy, metadata | Accessibility tree, screen readers, JSON-LD, SEO | [`agents/seo-accessibility.md`](file:///E:/Harness/Website/agents/seo-accessibility.md) |
-| **14** | **Code Review & Architecture Reviewer**| Two-dimension code & architecture audit | Matt Pocock: `code-review`, `codebase-design` | [`agents/code-reviewer.md`](file:///E:/Harness/Website/agents/code-reviewer.md) |
-| **15** | **Production Readiness & Release Reviewer** | Gate consolidation, release verification | Release engineering, operational validation | [`agents/production-reviewer.md`](file:///E:/Harness/Website/agents/production-reviewer.md) |
+| **01** | **Master Website Orchestrator** | Orchestration, routing, quality gate enforcement | System orchestration, gate enforcement | [`agents/orchestrator.md`](agents/orchestrator.md) |
+| **02** | **Requirement Grilling Specialist** | Socratic interrogation, ambiguity reduction | Matt Pocock: `grilling`, `grill-with-docs`, `domain-modeling` | [`agents/requirement-grilling.md`](agents/requirement-grilling.md) |
+| **03** | **Product Discovery Specialist** | User journeys, personas, sitemaps, IA | Addy Osmani: `interview-me`, product discovery | [`agents/product-discovery.md`](agents/product-discovery.md) |
+| **04** | **Design Art Director** | Visual identity, anti-slop, aesthetics | Leonxlnx: `taste-skill` | [`agents/design-art-director.md`](agents/design-art-director.md) |
+| **05** | **UX/UI Design Specialist** | Usability, design critique, layout, typesetting | Paul Bakaus: `impeccable` (24 commands) | [`agents/ux-ui-designer.md`](agents/ux-ui-designer.md) |
+| **06** | **Google Stitch Design Engineer** | AI design generation, tokens, variants | Google Stitch MCP (`@google/stitch-mcp`) & Stitch CLI | [`agents/stitch-design-engineer.md`](agents/stitch-design-engineer.md) |
+| **07** | **Frontend Architect** | Stack evaluation, modular structure, tokens | Architecture, state, routing, component contracts | [`agents/frontend-architect.md`](agents/frontend-architect.md) |
+| **08** | **Website Implementation Engineer** | Clean code, semantic HTML, responsive frontend | Modular engineering, design fidelity, DRY principles | [`agents/implementation-engineer.md`](agents/implementation-engineer.md) |
+| **09** | **TDD & Test Engineering Specialist** | RED-GREEN-REFACTOR, test seams, test suites | Matt Pocock: `tdd`, `diagnosing-bugs`; Addy Osmani: `tdd` | [`agents/tdd-test-engineer.md`](agents/tdd-test-engineer.md) |
+| **10** | **Playwright Browser Engineer** | Viewport QA, real browser automation, traces | Playwright MCP, Playwright CLI, Playwright Test | [`agents/browser-qa.md`](agents/browser-qa.md) |
+| **11** | **Security Auditor** | Threat modeling, OWASP Top 10, STRIDE | Addy Osmani: `security-auditor.md` authoritative standard | [`agents/security-auditor.md`](agents/security-auditor.md) |
+| **12** | **Web Performance Auditor** | Core Web Vitals, bundle size, metric honesty | Addy Osmani: `web-performance-auditor.md` (Quick/Deep) | [`agents/web-performance-auditor.md`](agents/web-performance-auditor.md) |
+| **13** | **SEO & Accessibility Specialist** | WCAG 2.2 AA, semantic hierarchy, metadata | Accessibility tree, screen readers, JSON-LD, SEO | [`agents/seo-accessibility.md`](agents/seo-accessibility.md) |
+| **14** | **Code Review & Architecture Reviewer**| Two-dimension code & architecture audit | Matt Pocock: `code-review`, `codebase-design` | [`agents/code-reviewer.md`](agents/code-reviewer.md) |
+| **15** | **Production Readiness & Release Reviewer** | Gate consolidation, release verification | Release engineering, operational validation | [`agents/production-reviewer.md`](agents/production-reviewer.md) |
 
 ---
 

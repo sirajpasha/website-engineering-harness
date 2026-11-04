@@ -6,4 +6,4 @@ Consult:
 - `AGENTS.md` for architecture and agent protocols.
 - `agents/` for agent definitions.
 - `skills/registry/SKILL_REGISTRY.md` for tool mappings.
-- Run `node scripts/harness-cli.js validate` to check quality gates.
+- Run `node scripts/website-engineering-harness-cli.js validate` to check quality gates.

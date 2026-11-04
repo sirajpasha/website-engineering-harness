@@ -5,7 +5,7 @@ Activates AGENT 16 (Production Readiness & Release Reviewer) to verify Quality G
 
 ## Invocations
 - Claude Code: `/website-release`
-- Terminal / Node: `node scripts/harness-cli.js release`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js release`
 
 ## Workflow Steps
 1. Consolidate evidence from all upstream gates G1 through G12.

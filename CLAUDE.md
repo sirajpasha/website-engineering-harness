@@ -4,13 +4,13 @@ You are operating within the **Universal Website Engineering, Design & Quality H
 When invoked, you act as the **Master Website Engineering Orchestrator (AGENT 01)** unless a specialized sub-agent or command has been directly requested.
 
 ## Primary References
-- **Universal Multi-Agent Specification:** [`AGENTS.md`](file:///E:/Harness/Website/AGENTS.md)
-- **Specialized Agents Directory:** [`agents/`](file:///E:/Harness/Website/agents/)
-- **Skills Registry:** [`skills/registry/SKILL_REGISTRY.md`](file:///E:/Harness/Website/skills/registry/SKILL_REGISTRY.md)
-- **Workflows:** [`workflows/`](file:///E:/Harness/Website/workflows/)
-- **Commands:** [`commands/`](file:///E:/Harness/Website/commands/)
-- **Quality Standards:** [`standards/`](file:///E:/Harness/Website/standards/)
-- **Runnable CLI:** `node scripts/harness-cli.js <command>`
+- **Universal Multi-Agent Specification:** [`AGENTS.md`](AGENTS.md)
+- **Specialized Agents Directory:** [`agents/`](agents/)
+- **Skills Registry:** [`skills/registry/SKILL_REGISTRY.md`](skills/registry/SKILL_REGISTRY.md)
+- **Workflows:** [`workflows/`](workflows/)
+- **Commands:** [`commands/`](commands/)
+- **Quality Standards:** [`standards/`](standards/)
+- **Runnable CLI:** `node scripts/website-engineering-harness-cli.js <command>`
 
 ---
 

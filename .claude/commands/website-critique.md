@@ -5,7 +5,7 @@ Activates AGENT 05 (UX/UI Design Specialist) using Impeccable's 24-command frame
 
 ## Invocations
 - Claude Code: `/website-critique`
-- Terminal / Node: `node scripts/harness-cli.js critique`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js critique`
 
 ## Workflow Steps
 1. Score the target view across Jakob Nielsen's 10 Usability Heuristics (out of 40).

@@ -5,7 +5,7 @@ Activates AGENT 13 (Web Performance Auditor) based on Addy Osmani's Web Performa
 
 ## Invocations
 - Claude Code: `/website-performance`
-- Terminal / Node: `npm run audit:perf` or `node scripts/harness-cli.js perf`
+- Terminal / Node: `npm run audit:perf` or `node scripts/website-engineering-harness-cli.js perf`
 
 ## Workflow Steps
 1. Execute Quick Mode static code scan (unsized images, render-blocking scripts, font preloads).

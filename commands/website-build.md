@@ -5,7 +5,7 @@ Activates AGENT 08 (Frontend Architect) and AGENT 09 (Website Implementation Eng
 
 ## Invocations
 - Claude Code: `/website-build`
-- Terminal / Node: `node scripts/harness-cli.js build`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js build`
 
 ## Workflow Steps
 1. Verify Gates G1 through G6 have passed.

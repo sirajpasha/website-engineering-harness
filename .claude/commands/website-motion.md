@@ -5,7 +5,7 @@ Activates AGENT 07 (Motion & Interaction Engineer) using Emil Kowalski skills to
 
 ## Invocations
 - Claude Code: `/website-motion`
-- Terminal / Node: `node scripts/harness-cli.js motion`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js motion`
 
 ## Workflow Steps
 1. Scan codebase for static or jarring UI components (`find-animation-opportunities`).

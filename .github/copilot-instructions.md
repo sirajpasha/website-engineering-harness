@@ -10,4 +10,4 @@ Reference `AGENTS.md` for complete agent directory, workflows, and standards.
 3. **Design Standards:** Follow Taste Skill aesthetic principles and Impeccable design vocabulary.
 4. **Testing Standards:** Write unit, component, and Playwright browser tests. Respect the 6 mandatory viewports (360x800, 390x844, 768x1024, 1024x768, 1440x900, 1920x1080).
 5. **Security & Performance:** Adhere to Addy Osmani's Security Auditor (OWASP Top 10) and Web Performance Auditor guidelines.
-6. **Tooling:** Run `node scripts/harness-cli.js <command>` for automated gate checks and validation.
+6. **Tooling:** Run `node scripts/website-engineering-harness-cli.js <command>` for automated gate checks and validation.

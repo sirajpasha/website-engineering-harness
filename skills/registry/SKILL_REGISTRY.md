@@ -25,7 +25,7 @@ This registry catalogues all approved, integrated, and evaluated skills in the W
 ---
 
 ## 2. Dynamic Discovery & Governance Policy
-Skills outside this primary registry are governed by [`skills/registry/policy.md`](file:///E:/Harness/Website/skills/registry/policy.md). Every newly considered skill must be evaluated across 10 dimensions:
+Skills outside this primary registry are governed by [`skills/registry/policy.md`](policy.md). Every newly considered skill must be evaluated across 10 dimensions:
 1. **Relevance** to production website engineering.
 2. **Quality & Maintainability** of codebase.
 3. **Source Credibility** (official or respected author).

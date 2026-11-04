@@ -5,7 +5,7 @@ Activates AGENT 06 (Google Stitch Design Engineer) to generate UI screens, desig
 
 ## Invocations
 - Claude Code: `/website-stitch`
-- Terminal / Node: `node scripts/harness-cli.js stitch`
+- Terminal / Node: `node scripts/website-engineering-harness-cli.js stitch`
 
 ## Workflow Steps
 1. Ingest approved `REQUIREMENTS.md` and `DESIGN_DIRECTION.md`.
