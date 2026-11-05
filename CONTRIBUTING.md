@@ -10,7 +10,7 @@ git clone https://github.com/sirajpasha/website-engineering-harness
 cd website-engineering-harness
 npm ci
 npx playwright install chromium     # needed for the browser-QA tests
-npm test                            # unit + integration (≈ 100 tests)
+npm test                            # unit + integration (needs Chromium)
 npm run evals                       # scenario evals for the guards and gates
 npm run validate:all                # agents, contracts, subagents, skills, MCP, gates
 ```

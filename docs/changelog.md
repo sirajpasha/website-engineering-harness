@@ -5,6 +5,9 @@
 - **Client walkthrough videos**: `walkthrough` CLI command, `/website-walkthrough` slash command and `harness_walkthrough` MCP tool record desktop and phone videos of the real build (Playwright), with captions, poster stills, `walkthrough.json` and an unsigned `CLIENT_APPROVAL.md` quoting fresh measured QA evidence. Fails closed; a page that does not load makes the result NOT READY; MP4 is produced when ffmpeg is available.
 ### Fixed (browser QA false positives, found while auditing a real site)
 - Visually hidden skip links, cancelled prefetch requests and label-wrapped controls are no longer flagged as failures.
+### Fixed (found by running the README's commands as a new user)
+- `gate` no longer fails a project just because ratchet baselines do not exist yet: ratchets are opt-in and are reported as "not configured". Once baselines exist, a regression or an unmeasurable metric still fails.
+- Shell guard: `rm -rf <specific folder>` is no longer mistaken for a root delete, and `rm -fr /`, `~`, `$HOME`, `.` and `..` are now blocked.
 
 ## [2.1.1] - 2026-11-05
 ### Fixed (Stitch / MCP configuration)

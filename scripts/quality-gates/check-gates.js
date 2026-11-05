@@ -8,6 +8,7 @@
  * Default target: the current project (or the reference sample when run inside the harness repo).
  */
 
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateContracts } from '../agent-validation/validate-contracts.js';
@@ -37,25 +38,34 @@ export function checkGates(targetDir = defaultTarget()) {
   const contractValidation = validateContracts();
 
   console.log('\n--- Mechanical Gate: Monotonic Quality Ratchets ---');
-  let ratchetPassed = true;
-  try {
-    const ratchetCheck = evaluateRatchets(collectCurrentMetrics(verdict.dir), { updateBaselines: false, baselinesPath: baselinesPathFor(verdict.dir) });
-    ratchetPassed = ratchetCheck.passed;
-  } catch (err) {
-    ratchetPassed = false;
-    console.warn(`[✖] Ratchet check could not run: ${err.message}`);
+  // Ratchets are opt-in: a project that has not started them (no baselines file) is not failed for that.
+  // Once baselines exist, a regression or an unmeasurable metric fails closed.
+  let ratchets = 'satisfied';
+  const baselinesPath = baselinesPathFor(verdict.dir);
+  if (!fs.existsSync(baselinesPath)) {
+    ratchets = 'not-configured';
+    console.log('[i] Ratchets not configured for this project (optional). Run `ratchet --update` to start locking measured quality.');
+  } else {
+    try {
+      const ratchetCheck = evaluateRatchets(collectCurrentMetrics(verdict.dir), { updateBaselines: false, baselinesPath });
+      ratchets = ratchetCheck.passed ? 'satisfied' : 'failed';
+    } catch (err) {
+      ratchets = 'failed';
+      console.warn(`[✖] Ratchet check could not run: ${err.message}`);
+    }
   }
+  const ratchetPassed = ratchets !== 'failed';
 
   const allPassed = verdict.failed === 0 && contractValidation.passed && ratchetPassed;
 
   console.log('\n====================================================');
   console.log(`  Gate Audit Summary: ${verdict.passed}/${verdict.total} Gates Verified`);
   console.log(`  Machine Contracts:   ${contractValidation.passed ? 'VERIFIED' : 'FAILED'}`);
-  console.log(`  Monotonic Ratchets:  ${ratchetPassed ? 'SATISFIED' : 'REGRESSION DETECTED'}`);
+  console.log(`  Monotonic Ratchets:  ${ratchets === 'satisfied' ? 'SATISFIED' : ratchets === 'not-configured' ? 'NOT CONFIGURED (optional)' : 'REGRESSION OR UNMEASURED'}`);
   console.log(`  Overall Compliance:  ${allPassed ? 'CERTIFIED' : 'ACTION REQUIRED'}`);
   console.log('====================================================\n');
 
-  return { passed: verdict.passed, missing: verdict.failed, total: verdict.total, allPassed, results: verdict.results };
+  return { passed: verdict.passed, missing: verdict.failed, total: verdict.total, allPassed, ratchets, results: verdict.results };
 }
 
 if (process.argv[1] && process.argv[1].endsWith('check-gates.js')) {

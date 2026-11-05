@@ -34,7 +34,7 @@ Pick your AI tool. Everything acts on the project you are working in.
 /plugin install website-engineering-harness@website-engineering-harness
 ```
 You get 16 subagents, 15 slash commands (`/website-grill`, `/website-design`, `/website-test`, `/website-walkthrough`, …),
-the guard hook, and the MCP tools. (Always-on context cost is about 2.3k tokens.)
+the guard hook, and the MCP tools. (Always-on context cost is about 2.4k tokens. Restart Claude Code if the commands do not appear right away.)
 
 ### Gemini CLI (extension)
 ```bash
@@ -60,11 +60,11 @@ Register a stdio server:
 { "command": "npx", "args": ["-y", "github:sirajpasha/website-engineering-harness", "mcp"] }
 ```
 
-### Browser QA needs Playwright in your project
+### Browser QA and videos need Playwright in your project
 ```bash
 npm i -D playwright axe-core && npx playwright install chromium
 ```
-Without it the browser tools report **blocked** (and the gate fails) — they do not pretend.
+Used by `test:browser` and `walkthrough`. Without it the browser tools report **blocked** (and the gate fails) — they do not pretend.
 
 ---
 
@@ -111,7 +111,7 @@ CLI: `npx -y github:sirajpasha/website-engineering-harness <command>` (or the in
 | G2 Product | `USER_JOURNEYS.md` describes journeys | document |
 | G3 Design direction | `DESIGN_DIRECTION.md` present **and no banned AI gradients in the source** | document + **source scan** |
 | G4 UX critique | score `N/40` recorded, **0 open P0** | document |
-| G5 Stitch | `STITCH_DESIGN_SPEC.md` present | document |
+| G5 Design spec (Stitch optional) | `STITCH_DESIGN_SPEC.md` present and declares `**Source:** Stitch MCP \| Stitch SDK \| Manual` — a spec can never imply Stitch produced screens it did not | document |
 | G6 Architecture | `ARCHITECTURE.md` present | document |
 | G7 TDD | every `REQ` has a row marked PASSED that **points to a test file that exists** | document + **file check** |
 | G8 Motion | CSS has `prefers-reduced-motion` and **no animation/transition over 300ms** | document + **source scan** |
@@ -138,10 +138,13 @@ reports/walkthrough/
 ```
 
 It visits the entry page and its internal nav links, smooth-scrolls each page, opens the mobile menu on the phone cut, and burns in
-captions ("Page title · /path · build label") with a "Preview build" badge. Forms are **never** submitted.
+a compact caption ("Home · /" plus a small "your label · preview build · date" line). Forms are **never** submitted.
 Honest by construction: a page that fails to load turns the result into **NOT READY** (never shown as fine), quality figures appear
 only when a *fresh* browser-QA report exists for the same sources, and the approval boxes are never pre-ticked. `.webm` plays in
-Chrome/Edge/Firefox; for WhatsApp, email or Safari install `ffmpeg` and the command also writes an `.mp4`.
+Chrome/Edge/Firefox; for WhatsApp, email or Safari install `ffmpeg` (`winget install Gyan.FFmpeg`, `brew install ffmpeg` or
+`sudo apt install ffmpeg`) and the command also writes an `.mp4`. Example:
+`npx -y github:sirajpasha/website-engineering-harness walkthrough http://localhost:3000 --label "Acme v1" --pages "/,/about"`
+(on Windows Git Bash a bare `/` argument is rewritten by the shell; the tool undoes that for `--pages`).
 
 ### Guard hooks (Claude Code plugin)
 On every tool call the hook checks the *proposed* action and blocks it (exit 2):
@@ -152,7 +155,8 @@ weakening or deleting tests during a recorded RED phase, and an agent spawning a
 
 ### Ratchets and TDD receipts
 `ratchet --update` seeds `<project>/.harness/baselines.json` from measured values and only ever
-tightens them. `tdd:red <test>` records a SHA-256 receipt of a genuinely failing test; `tdd:verify`
+tightens them. Ratchets are **opt-in**: until you run it, `gate` reports them as "not configured" and does not fail;
+once baselines exist, a regression or an unmeasurable metric fails. `tdd:red <test>` records a SHA-256 receipt of a genuinely failing test; `tdd:verify`
 checks the RED→GREEN lifecycle.
 
 ---
@@ -168,7 +172,7 @@ agents/*.md  +  agents/*.contract.json  +  agents/claude-subagents.json     ← 
 scripts/lib/paths.js     HARNESS_ROOT (where the harness lives) vs projectRoot() (your site)
 scripts/mcp-server/      stdio MCP server — the universal adapter
 scripts/hooks/           guards (+ claude-hook.js adapter)
-scripts/browser-validation · quality-gates · ratchets · tdd · install · plugin
+scripts/browser-validation · walkthrough · quality-gates · ratchets · tdd · install · plugin
 standards/ templates/ workflows/ skills/ integrations/   guidance content
 examples/sample-website/ a reference project that passes all gates
 evals/                   scenario evals for the guards and gates
@@ -189,7 +193,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md). Edit sources, never generated files.
 
 ## What is and is not verified
 
-- **Tested in this repo:** the guards, gates, ratchets, browser QA (against a real Chromium), MCP
+- **Tested in this repo:** the guards, gates, ratchets, browser QA and walkthrough recording (against a real Chromium), MCP
   protocol handling, the installer's file output, and the plugin build — and the Claude Code plugin
   passes `claude plugin validate` and loads with 16 agents, 15 commands, 1 hook and 1 MCP server.
 - **Not exercised live here:** each third-party IDE (Cursor, Windsurf, Copilot, Codex, Gemini) loading
