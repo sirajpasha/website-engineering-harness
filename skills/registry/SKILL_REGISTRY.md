@@ -3,6 +3,8 @@
 
 This registry catalogues all approved, integrated, and evaluated skills in the Website Engineering Harness. Every skill is mapped to a designated specialist agent and verified for compatibility across AI tools.
 
+> **Note on sources.** The `Source` column names the public project a skill's working method was *inspired by*. This repository ships its own short summaries of those methods (see `skills/*/`) and does not bundle or relicense the upstream projects; see [`NOTICE.md`](../../NOTICE.md). Install upstream skills from their own repositories and check their licenses first.
+
 ---
 
 ## 1. Primary Skills Directory
@@ -20,7 +22,6 @@ This registry catalogues all approved, integrated, and evaluated skills in the W
 | **`google-stitch-mcp`** | `@google/stitch-mcp` | AI screen generation, variant exploration, design system token export | AGENT 06 (Stitch Design Engineer) | MCP client, Node.js 18+, API key | `npx -y @google/stitch-mcp` | Configured | Verified: MCP tool schema mapped in `mcp.json` | Bridges visual design to code | Google Terms |
 | **`playwright-mcp`** | `@playwright/mcp` | Real-time interactive browser exploration, DOM tree inspection, accessibility tree | AGENT 11 (Browser QA) | Playwright, Chromium, Node.js 18+ | `npx -y @playwright/mcp@latest` | Configured | Verified: MCP schema registered in `mcp.json` | Complements Playwright CLI | Apache-2.0 |
 | **`playwright-cli`** | `microsoft/playwright-cli` | Token-efficient browser operations, 6 viewport validation, screenshot diffing | AGENT 11 (Browser QA) | Playwright, Node.js | `npm install playwright` / `npx playwright` | Installed | Verified: Automated script tests 6 viewports | Complements Playwright MCP | Apache-2.0 |
-| **`ecc-core`** | `affaan-m/ECC` | Everything Claude Code agent handoffs, quality gate protocols, code review patterns | AGENT 01, 15 | Node.js, bash/pwsh | Curated integration wrappers | Retained (Curated) | Verified: Non-duplicative rules integrated into harness standards | Replaces ad-hoc prompts | MIT |
 
 ---
 

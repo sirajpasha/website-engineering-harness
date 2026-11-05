@@ -6,3 +6,6 @@ Thumbs.db
 .env.local
 coverage/
 .playwright-artifacts/
+
+# Browser QA screenshots (JSON report is kept)
+**/reports/browser-qa/*.png

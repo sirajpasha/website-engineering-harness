@@ -1,436 +1,189 @@
-# Universal Autonomous Website Engineering, Design & Quality Harness
+# Website Engineering Harness
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](VERSION)
-[![Quality Gates](https://img.shields.io/badge/quality%20gates-G1--G13-brightgreen.svg)](standards/)
-[![AI Compatibility](https://img.shields.io/badge/AI%20Compatibility-Universal-orange.svg)](AGENTS.md)
+**Give any AI coding agent a website team — and make it prove its work.**
 
-A production-grade, extensible multi-agent harness that turns any AI coding assistant (**Claude Code, Gemini / Antigravity, OpenAI Codex / Copilot, Cursor, Windsurf, Aider, OpenCode**) into a coordinated engineering organization capable of taking a website from initial business idea to production-verified release.
+[![CI](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.1.0-informational.svg)](VERSION)
 
----
+AI assistants can write a landing page in a minute, and it usually looks like every other
+landing page — and "it works on mobile" is a claim, not a result. This harness adds two things:
 
-## 🌟 Ecosystem Unification
+1. **A team.** 16 specialist roles (requirements interrogator, art director, UX critic, motion
+   engineer, TDD engineer, browser QA, security, performance, accessibility, reviewers, release
+   gatekeeper) that the AI loads one stage at a time, with design rules that reject generic
+   template looks and unmotivated gradients.
+2. **Evidence.** Thirteen quality gates backed by *measurement*: a real headless-Chromium run at six
+   viewports (overflow, tap targets, axe accessibility, lab LCP/CLS), content-aware checks of the
+   project's reports, monotonic quality ratchets, and guard hooks that block secrets, AI-slop
+   gradients and out-of-role file writes **before** they happen. A check that cannot measure
+   something says *unmeasured* and fails — it never prints PASS on faith.
 
-This harness integrates the finest engineering and design practices into a unified orchestration framework:
-
-| Ecosystem | Role & Contribution |
-|---|---|
-| **Claude Code / Universal Agent Protocol** | Orchestration, sub-agent delegation, slash commands, tool execution |
-| **Taste Skill (`Leonxlnx/taste-skill`)** | Visual art direction, anti-slop rules, distinctive aesthetic personalities |
-| **Impeccable (`pbakaus/impeccable`)** | 24-command design vocabulary, heuristic UX critique, layout & typographic polish |
-| **Emil Kowalski Skills** | 14 motion & interaction engineering skills, natural springs, reduced-motion |
-| **Google Stitch MCP & CLI** | AI UI generation, screen variants, design token export, visual prototyping |
-| **Playwright MCP, CLI & Test** | Real browser validation across 6 mandatory viewports (360px to 1920px) |
-| **Addy Osmani Agent Skills** | Authoritative Security Auditor (OWASP/STRIDE) & Web Performance Auditor (CWV) |
-| **Matt Pocock Skills** | Socratic requirement grilling, domain modeling, strict TDD Red-Green-Refactor |
-| **Everything Claude Code (ECC)** | Production workflows, quality gates, and agent handoff protocols |
+Works with **Claude Code, Gemini CLI, Cursor, Windsurf, GitHub Copilot, Codex, and any tool that
+speaks MCP or reads `AGENTS.md`.**
 
 ---
 
-## 🏛️ System Architecture
+## Install
 
+Pick your AI tool. Everything acts on the project you are working in.
+
+### Claude Code (plugin — full experience)
 ```
-website-engineering-harness/
-├── AGENTS.md                  # Universal Multi-Agent Specification
-├── CLAUDE.md                  # Claude Code CLI configuration & directives
-├── GEMINI.md                  # Gemini CLI / Antigravity configuration
-├── .cursorrules               # Cursor IDE agent instructions
-├── .windsurfrules             # Windsurf IDE agent instructions
-├── .github/                   # GitHub Copilot & Codex workspace rules
-├── mcp.json                   # Universal MCP server bindings (Stitch, Playwright)
-│
-├── agents/                    # 16 Specialized Agent Definitions
-│   ├── orchestrator.md
-│   ├── requirement-grilling.md
-│   ├── product-discovery.md
-│   ├── design-art-director.md
-│   ├── ux-ui-designer.md
-│   ├── stitch-design-engineer.md
-│   ├── motion-engineer.md
-│   ├── frontend-architect.md
-│   ├── implementation-engineer.md
-│   ├── tdd-test-engineer.md
-│   ├── browser-qa.md
-│   ├── security-auditor.md
-│   ├── web-performance-auditor.md
-│   ├── seo-accessibility.md
-│   ├── code-reviewer.md
-│   └── production-reviewer.md
-│
-├── skills/                    # Unified Skills Ecosystem
-│   ├── registry/              # SKILL_REGISTRY.md & Governance Policy
-│   ├── design/                # Taste Skill & Impeccable integration wrappers
-│   ├── engineering/           # Component architectures, contracts, conventions
-│   ├── motion/                # Emil Kowalski motion curves & gesture patterns
-│   ├── testing/               # TDD Red-Green-Refactor runners & test seams
-│   ├── browser-automation/    # Playwright multi-viewport fixtures & screenshot rules
-│   ├── security/              # OWASP Top 10 checklist & STRIDE templates
-│   ├── performance/           # Core Web Vitals audit modes & metric honesty
-│   └── production/            # Release readiness checklists & gate auditors
-│
-├── commands/                  # 14 Standard Workflow Commands
-│   ├── website-init.md
-│   ├── website-grill.md
-│   ├── website-discover.md
-│   ├── website-design.md
-│   ├── website-stitch.md
-│   ├── website-build.md
-│   ├── website-tdd.md
-│   ├── website-motion.md
-│   ├── website-test.md
-│   ├── website-security.md
-│   ├── website-performance.md
-│   ├── website-critique.md
-│   ├── website-audit.md
-│   └── website-release.md
-│
-├── workflows/                 # 8 End-to-End Execution Workflows
-│   ├── new-website.md
-│   ├── existing-website-redesign.md
-│   ├── enhancement.md
-│   ├── tdd-development.md
-│   ├── browser-qa.md
-│   ├── security-review.md
-│   ├── performance-review.md
-│   └── release.md
-│
-├── integrations/              # MCP & CLI Integration Guides & Configurations
-│   ├── google-stitch-mcp.md
-│   ├── google-stitch-cli.md
-│   ├── playwright-mcp.md
-│   ├── playwright-cli.md
-│   └── integration-validation.md
-│
-├── standards/                 # 12 Authoritative Quality Standards
-│   ├── requirements.md
-│   ├── design.md
-│   ├── ux.md
-│   ├── frontend.md
-│   ├── motion.md
-│   ├── tdd.md
-│   ├── browser-qa.md
-│   ├── security.md
-│   ├── performance.md
-│   ├── accessibility.md
-│   ├── seo.md
-│   └── production.md
-│
-├── templates/                 # 10 Traceability & Engineering Document Templates
-│   ├── project-brief.md
-│   ├── requirement-grilling.md
-│   ├── design-direction.md
-│   ├── architecture.md
-│   ├── test-plan.md
-│   ├── security-report.md
-│   ├── performance-report.md
-│   ├── design-review.md
-│   ├── release-checklist.md
-│   └── requirements-traceability.md
-│
-├── scripts/                   # Executable Cross-Platform CLI & Validation Tooling
-│   ├── website-engineering-harness-cli.js         # Master CLI runner
-│   ├── environment-audit/     # System capability & dependency auditor
-│   ├── agent-validation/      # Agent discoverability & contract tester
-│   ├── skill-validation/      # Skill registry & dependency validator
-│   ├── mcp-validation/        # Stitch & Playwright MCP tester
-│   ├── browser-validation/    # Playwright 6-viewport automation engine
-│   ├── quality-gates/         # Gates G1-G13 automated validator
-│   └── traceability/          # Requirement-to-test traceability verifier
-│
-├── docs/                      # Complete Technical Documentation & Guides
-│   ├── architecture.md
-│   ├── installation.md
-│   ├── configuration.md
-│   ├── agent-mapping.md
-│   ├── skill-registry.md
-│   ├── skill-governance.md
-│   ├── integration-guide.md
-│   ├── workflows.md
-│   ├── troubleshooting.md
-│   ├── changelog.md
-│   └── acceptance-report.md
-│
-└── examples/                  # Reference Implementations
-    └── sample-website/        # Fully implemented, production-verified sample website
+/plugin marketplace add sirajpasha/website-engineering-harness
+/plugin install website-engineering-harness@website-engineering-harness
 ```
+You get 16 subagents, 14 slash commands (`/website-grill`, `/website-design`, `/website-test`, …),
+the guard hook, and the MCP tools. (Always-on context cost is about 2.3k tokens.)
 
----
-
-## 🚦 The 13 Quality Gates (G1 - G13)
-
-No website is shipped until every gate provides objective evidence:
-
-1. **G1 Requirements:** Ambiguity grilling resolved in `REQUIREMENTS.md`.
-2. **G2 Product:** Approved IA sitemap and user journeys in `USER_JOURNEYS.md`.
-3. **G3 Design Direction:** Taste Skill anti-slop visual identity approved.
-4. **G4 UX/UI:** Impeccable 24-command heuristic review completed (scored out of 40).
-5. **G5 Stitch:** AI screen variants and design tokens integrated.
-6. **G6 Architecture:** Component contracts, routing, and state model signed off.
-7. **G7 TDD:** Red-Green-Refactor verified with passing automated unit/integration tests.
-8. **G8 Motion:** Emil Kowalski physics, micro-interactions, and reduced-motion validated.
-9. **G9 Browser QA:** Playwright tests passing on all 6 viewports with zero horizontal overflow.
-10. **G10 Security:** OWASP Top 10 + STRIDE audit with 0 Critical/High findings.
-11. **G11 Performance:** Core Web Vitals measured with strict metric honesty.
-12. **G12 Accessibility & SEO:** WCAG 2.2 AA contrast/keyboard checks and JSON-LD metadata verified.
-13. **G13 Release Review:** Independent production sign-off.
-
----
-
-## 🚀 Remote Machine Setup & Usage
-
-If you or a team member wants to use `website-engineering-harness` to create a website on a remote machine, choose one of the following methods:
-
-### Option 1: Git Clone / GitHub Template (Recommended)
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/<your-username>/website-engineering-harness.git my-new-website
-   cd my-new-website
-   ```
-2. **Install dependencies and verify environment:**
-   ```bash
-   npm install
-   npm run audit
-   ```
-3. **Open with your preferred AI tool** (see the tool-specific guides below) or launch via terminal:
-   ```bash
-   npm run website-engineering-harness init
-   ```
-
-*(Tip: On GitHub, navigate to **Settings** and mark this repository as a **"Template repository"**. Anyone can then click **"Use this template"** to create an instant new website repo).*
-
----
-
-### Option 2: Global CLI Installation
-Install the harness CLI globally on any remote machine directly from Git:
+### Gemini CLI (extension)
 ```bash
-# Install globally
-npm install -g git+https://github.com/<your-username>/website-engineering-harness.git
-
-# Run commands anywhere:
-website-engineering-harness init
-website-engineering-harness grill
-website-engineering-harness design
-website-engineering-harness critique
-website-engineering-harness build
-website-engineering-harness tdd
-website-engineering-harness test:browser
-website-engineering-harness security
-website-engineering-harness perf
-website-engineering-harness gates
-website-engineering-harness release
+gemini extensions install https://github.com/sirajpasha/website-engineering-harness
 ```
 
----
+### Cursor · Windsurf · GitHub Copilot · Codex · anything else
+```bash
+cd my-website
+npx -y github:sirajpasha/website-engineering-harness install --tool cursor     # or windsurf | copilot | codex | gemini | claude | generic | all
+```
+This writes only project-level files — instructions in each tool's native format
+(`.cursor/rules/*.mdc`, `.windsurfrules`, `.github/copilot-instructions.md`, `AGENTS.md`,
+`GEMINI.md`, `CLAUDE.md`) and, where the tool supports project-level MCP config
+(`.cursor/mcp.json`, `.vscode/mcp.json`, `.gemini/settings.json`, `.mcp.json`), the MCP server entry.
+Windsurf and Codex keep MCP config in your home directory, so the installer **prints** the snippet
+instead of editing it. Re-running is safe; your own content and other MCP servers are preserved
+(see [`SECURITY.md`](SECURITY.md) for exactly what it touches).
 
-### Option 3: Drop-In for Existing Websites (`REDESIGN` or `ENHANCE` Mode)
-To apply this harness to an existing website on a remote machine:
-1. Copy `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `mcp.json`, `agents/`, `skills/`, `standards/`, and `scripts/` into the existing project root.
-2. Run audit:
-   ```bash
-   website-engineering-harness audit
-   ```
-3. The Master Orchestrator automatically detects the existing codebase and engages:
-   - **`REDESIGN` Mode:** Catalogs UX debt in `DEFECT_REGISTER.md`, applies Impeccable critique, and crafts an anti-slop visual refresh via Taste Skill.
-   - **`ENHANCE` Mode:** Implements a scoped feature or bugfix slice under strict TDD and browser regression checks.
+### Any MCP client
+Register a stdio server:
+```json
+{ "command": "npx", "args": ["-y", "github:sirajpasha/website-engineering-harness", "mcp"] }
+```
 
----
-
-## 🤖 AI Tool Integration Guides
-
-Click each collapsible section below for exact setup and invocation instructions:
-
-<details>
-<summary><b>Using with Claude Code CLI</b></summary>
-
-### Overview
-Claude Code CLI has native first-class integration with this harness. When launched in the repository, it automatically reads [`CLAUDE.md`](CLAUDE.md), discovers all 16 agents in [`.claude/agents/`](.claude/agents/), and registers the 14 slash commands in [`.claude/commands/`](.claude/commands/).
-
-### How to Run
-1. Open terminal in the project directory:
-   ```bash
-   claude
-   ```
-2. Run the slash commands in sequence:
-   - `/website-init`: Audits runtime capabilities and scaffolds project context.
-   - `/website-grill`: Socratic requirements grilling (AGENT 02).
-   - `/website-discover`: Generates user journeys, personas, and sitemap (AGENT 03).
-   - `/website-design`: Establishes anti-slop art direction and design tokens (AGENT 04).
-   - `/website-critique`: Impeccable 24-command heuristic review (AGENT 05).
-   - `/website-stitch`: Generates screens & tokens via Stitch MCP (AGENT 06).
-   - `/website-build`: Frontend scaffolding and component implementation (AGENT 08/09).
-   - `/website-tdd`: Executes Red-Green-Refactor development slice (AGENT 10).
-   - `/website-motion`: Emil Kowalski micro-interactions and transitions (AGENT 07).
-   - `/website-test`: Cross-viewport Playwright verification across 6 viewports (AGENT 11).
-   - `/website-security`: OWASP Top 10 & STRIDE threat audit (AGENT 12).
-   - `/website-performance`: Core Web Vitals audit with metric honesty (AGENT 13).
-   - `/website-audit`: Full-suite quality audit across G1–G13 gates.
-   - `/website-release`: Quality gate G13 audit and production release sign-off (AGENT 16).
-
-### Example Prompt
-> *"Run /website-grill. I want to build a high-craft developer documentation and API platform for financial institutions."*
-</details>
-
-<details>
-<summary><b>Using with OpenAI Codex & GitHub Copilot</b></summary>
-
-### Overview
-Codex and GitHub Copilot utilize workspace context and instructions. The harness provides [`.github/copilot-instructions.md`](.github/copilot-instructions.md) and [`AGENTS.md`](AGENTS.md) as the authoritative multi-agent directives.
-
-### How to Run
-1. Open the project in VS Code with the GitHub Copilot extension active.
-2. Copilot automatically loads `.github/copilot-instructions.md` as custom workspace instructions.
-3. In Copilot Chat (or Codex agent interface), invoke the Orchestrator with structured task instructions:
-   - *"Act as Master Website Orchestrator from AGENTS.md. Initiate project mode NEW_WEBSITE for an architectural design studio."*
-   - *"Adopt AGENT 02 (Requirement Grilling Specialist). Review REQUIREMENTS.md and ask me the highest-priority unresolved question."*
-   - *"Adopt AGENT 04 (Design Art Director). Follow skills/design/taste-skill.md to define the DESIGN_TOKENS.json palette and typography."*
-   - *"Adopt AGENT 10 (TDD Specialist). Write a failing test in tests/ for REQ-003, then implement the component to make it green."*
-4. Run validation scripts directly in the integrated terminal:
-   ```bash
-   website-engineering-harness validate
-   website-engineering-harness test:browser
-   website-engineering-harness gates
-   ```
-</details>
-
-<details>
-<summary><b>Using with Gemini CLI / Google Antigravity</b></summary>
-
-### Overview
-Gemini CLI and Google Antigravity ingest [`GEMINI.md`](GEMINI.md) and [`AGENTS.md`](AGENTS.md) at startup, automatically establishing the Master Website Orchestrator persona.
-
-### How to Run
-1. Launch Gemini CLI or open the workspace in Antigravity:
-   ```bash
-   gemini
-   # or
-   agy
-   ```
-2. The agent will confirm compliance with `AGENTS.md` and `GEMINI.md`.
-3. Command the Orchestrator:
-   - *"Start a new website project: [describe your website idea]"*
-   - *"Run Stage 2: Requirement Grilling using agents/requirement-grilling.md."*
-   - *"Audit Quality Gates: run node scripts/quality-gates/check-gates.js."*
-4. Subagents can be invoked directly:
-   - Grilling -> [`agents/requirement-grilling.md`](agents/requirement-grilling.md)
-   - Art Direction -> [`agents/design-art-director.md`](agents/design-art-director.md)
-   - UI Critique -> [`agents/ux-ui-designer.md`](agents/ux-ui-designer.md)
-   - Motion -> [`agents/motion-engineer.md`](agents/motion-engineer.md)
-   - Browser QA -> [`agents/browser-qa.md`](agents/browser-qa.md)
-   - Security Audit -> [`agents/security-auditor.md`](agents/security-auditor.md)
-   - Release Audit -> [`agents/production-reviewer.md`](agents/production-reviewer.md)
-</details>
-
-<details>
-<summary><b>Using with Cursor IDE</b></summary>
-
-### Overview
-Cursor reads [`.cursorrules`](.cursorrules) and [`mcp.json`](mcp.json) at project root, enforcing anti-slop visual laws, TDD Red-Green-Refactor discipline, and metric honesty.
-
-### How to Run
-1. Open the project folder in Cursor: `cursor .`
-2. Configure MCP servers:
-   - Go to **Cursor Settings** -> **Features** -> **MCP Servers**.
-   - Ensure `mcp.json` is loaded (Playwright and Google Stitch servers).
-3. In Cursor Composer / Agent Chat:
-   - Reference `@AGENTS.md` to establish multi-agent roles.
-   - Reference `@agents/requirement-grilling.md` for requirement interrogation.
-   - Reference `@agents/design-art-director.md` and `@skills/design/taste-skill.md` when styling components.
-   - Reference `@agents/tdd-test-engineer.md` before generating component code.
-4. Run gate checks in Cursor terminal:
-   ```bash
-   website-engineering-harness gates
-   ```
-</details>
-
-<details>
-<summary><b>Using with Windsurf IDE</b></summary>
-
-### Overview
-Windsurf reads [`.windsurfrules`](.windsurfrules) and uses Cascade workflows to navigate agent specifications.
-
-### How to Run
-1. Open the folder in Windsurf: `windsurf .`
-2. In Cascade Chat:
-   - Instruct Cascade: *"You are governed by AGENTS.md. Act as Master Website Orchestrator."*
-   - Trigger stages: *"Read workflows/new-website.md and execute Stage 1 through Stage 4."*
-3. Cascade can run terminal commands directly:
-   ```bash
-   website-engineering-harness validate
-   website-engineering-harness gates
-   ```
-</details>
-
-<details>
-<summary><b>Using with Terminal / Any AI Agent (Aider, OpenCode, Cline, Terminal)</b></summary>
-
-### Overview
-Any AI coding tool or developer can operate the harness purely via standardized Markdown prompt injection and CLI scripts.
-
-### How to Run
-1. Provide `AGENTS.md` as system instructions:
-   ```bash
-   # In Aider:
-   aider --read AGENTS.md
-   ```
-2. Execute tasks using the universal binary commands:
-   ```bash
-   # Initialize project
-   website-engineering-harness init
-
-   # Run automated test suites
-   npm test
-
-   # Run 6-viewport browser QA
-   website-engineering-harness test:browser
-
-   # Check compliance with G1-G13 Quality Gates
-   website-engineering-harness gates
-
-   # Full validation
-   website-engineering-harness validate
-   ```
-</details>
+### Browser QA needs Playwright in your project
+```bash
+npm i -D playwright axe-core && npx playwright install chromium
+```
+Without it the browser tools report **blocked** (and the gate fails) — they do not pretend.
 
 ---
 
-## ⚡ Quick Start Reference (CLI & NPM)
+## Use it
+
+Start a session and say what you want. For example, in Claude Code:
+
+> `/website-grill` — I want a portfolio site for an architecture studio.
+
+The orchestrator picks a mode (`NEW_WEBSITE`, `REDESIGN`, `ENHANCE`) and walks the stages:
+
+```
+grill → discover → art direction → UX critique → architecture → TDD build → motion
+      → browser QA → security → performance → accessibility + SEO → release
+```
+
+After each stage it calls `harness_check_gates`. Each stage writes an artifact in your project root
+(`REQUIREMENTS.md`, `DESIGN_DIRECTION.md`, `UI_CRITIQUE_REPORT.md`, …) — see
+[`examples/sample-website`](examples/sample-website) for a complete reference project.
+
+### The tools your AI gets (MCP) — and the CLI equivalents
+
+| MCP tool | CLI | What it does |
+|---|---|---|
+| `harness_browser_qa` | `test:browser [file\|url]` | Headless Chromium at **360×800, 390×844, 768×1024, 1024×768, 1440×900, 1920×1080**: horizontal overflow, ≥44px tap targets on touch sizes, one `<h1>`, `<main>`, console errors, axe WCAG 2.0/2.1/2.2 A/AA, lab LCP/CLS; screenshots + `reports/browser-qa/browser-qa.json` |
+| `harness_check_gates` | `gate` | Verify G1–G13 from the project's evidence |
+| `harness_check_ratchets` | `ratchet [--update]` | Measure coverage, JS/CSS size, viewports, LCP/CLS, axe violations; may only hold or improve |
+| `harness_inspect_write` | — | Dry-run a write: secrets, banned AI gradients, agent write-roots |
+| `harness_inspect_command` | — | Dry-run a shell command for destructive patterns |
+| `harness_list_agents` | — | The 16 specialists and what each may write / spawn |
+
+Every agent is also an MCP **prompt**, and the standards, templates and workflows are MCP **resources**.
+CLI: `npx -y github:sirajpasha/website-engineering-harness <command>` (or the installed
+`website-engineering-harness` binary); run it with no arguments for the full list.
+
+---
+
+## The 13 gates — and how each is actually checked
+
+| Gate | Passes when | Check |
+|---|---|---|
+| G1 Requirements | `REQUIREMENTS.md` defines `REQ-###` ids, no placeholders | document |
+| G2 Product | `USER_JOURNEYS.md` describes journeys | document |
+| G3 Design direction | `DESIGN_DIRECTION.md` present **and no banned AI gradients in the source** | document + **source scan** |
+| G4 UX critique | score `N/40` recorded, **0 open P0** | document |
+| G5 Stitch | `STITCH_DESIGN_SPEC.md` present | document |
+| G6 Architecture | `ARCHITECTURE.md` present | document |
+| G7 TDD | every `REQ` has a row marked PASSED that **points to a test file that exists** | document + **file check** |
+| G8 Motion | CSS has `prefers-reduced-motion` and **no animation/transition over 300ms** | document + **source scan** |
+| G9 Browser QA | **fresh** Playwright report: 6/6 viewports, no overflow, axe clean — stale if sources changed | **measured** |
+| G10 Security | Critical = 0, High = 0, STRIDE present | document |
+| G11 Performance | LCP/INP/CLS each labelled `[STATIC OBSERVATION]`, `[LAB MEASURED]` or `[FIELD DATA]` | document (honesty) |
+| G12 A11y & SEO | both reports present, no failed/unchecked items | document |
+| G13 Release | **all earlier gates pass**, checklist fully ticked, sign-off recorded | derived |
+
+Be clear-eyed: gates marked *document* verify that the evidence exists, is complete, contains no
+placeholders and has no open blockers — they cannot prove a report's numbers are true. The gates
+backed by a measurement (G3, G7, G8, G9) and the ratchets are the strongest; the
+[`SECURITY.md`](SECURITY.md) and "Known limits" section say more.
+
+### Guard hooks (Claude Code plugin)
+On every tool call the hook checks the *proposed* action and blocks it (exit 2):
+destructive shell commands (hard reset, force push, `--no-verify`, `rm -rf /`), secrets in written
+content, the stock AI gradients, an agent writing outside its contract (`agents/*.contract.json`),
+weakening or deleting tests during a recorded RED phase, and an agent spawning anything not in its
+`may_spawn` list. These are a safety net, **not a sandbox** — keep your tool's own permission prompts on.
+
+### Ratchets and TDD receipts
+`ratchet --update` seeds `<project>/.harness/baselines.json` from measured values and only ever
+tightens them. `tdd:red <test>` records a SHA-256 receipt of a genuinely failing test; `tdd:verify`
+checks the RED→GREEN lifecycle.
+
+---
+
+## How it fits together
+
+```
+agents/*.md  +  agents/*.contract.json  +  agents/claude-subagents.json     ← canonical sources
+        │                                   (role text · write/spawn contract · description/tools)
+        ├──► .claude/agents/*.md      generated subagents (frontmatter)       npm run agents:sync
+        └──► plugin/                  generated Claude Code plugin            npm run build:plugin
+
+scripts/lib/paths.js     HARNESS_ROOT (where the harness lives) vs projectRoot() (your site)
+scripts/mcp-server/      stdio MCP server — the universal adapter
+scripts/hooks/           guards (+ claude-hook.js adapter)
+scripts/browser-validation · quality-gates · ratchets · tdd · install · plugin
+standards/ templates/ workflows/ skills/ integrations/   guidance content
+examples/sample-website/ a reference project that passes all gates
+evals/                   scenario evals for the guards and gates
+```
+CI (`.github/workflows/ci.yml`) runs the unit tests, the scenario evals, validation (including
+generated-file drift), a real browser run, the ratchets, and the gate audit.
+
+## Develop
 
 ```bash
-# Check environment and audit harness
-website-engineering-harness audit
-
-# Validate all agents, machine contracts, skills, and MCP configurations
-website-engineering-harness validate
-
-# Verify the 16 agent boundary contracts (*.contract.json)
-website-engineering-harness validate:contracts
-
-# Install deterministic Git pre-commit & pre-push hooks
-website-engineering-harness install-hooks
-
-# Run automated unit/integration tests
-npm test
-
-# Evaluate monotonic web quality ratchets (bundle size, coverage, CWV, viewports)
-website-engineering-harness ratchet
-
-# Record cryptographic proof of failing RED test
-website-engineering-harness tdd:red <test-file>
-
-# Verify RED receipt and certified GREEN test run
-website-engineering-harness tdd:verify
-
-# Run real browser tests across 6 viewports
-website-engineering-harness test:browser
-
-# Inspect context turns and token budget
-website-engineering-harness budget
-
-# Run autonomous PR failure diagnostic & remediation
-website-engineering-harness pr-respond
-
-# Check all 13 Quality Gates with mechanical enforcement
-website-engineering-harness gates
-
-# Display CLI help menu
-website-engineering-harness --help
+git clone https://github.com/sirajpasha/website-engineering-harness && cd website-engineering-harness
+npm ci && npx playwright install chromium
+npm test            # unit + integration
+npm run evals       # scenario evals
+npm run validate:all
 ```
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Edit sources, never generated files.
+
+## What is and is not verified
+
+- **Tested in this repo:** the guards, gates, ratchets, browser QA (against a real Chromium), MCP
+  protocol handling, the installer's file output, and the plugin build — and the Claude Code plugin
+  passes `claude plugin validate` and loads with 16 agents, 14 commands, 1 hook and 1 MCP server.
+- **Not exercised live here:** each third-party IDE (Cursor, Windsurf, Copilot, Codex, Gemini) loading
+  the files the installer writes. They follow each tool's documented project-file conventions;
+  report any mismatch as an issue.
+- **Lab, not field:** LCP/CLS come from headless Chromium on localhost with no throttling. They catch
+  regressions; they are not real-user Core Web Vitals, and the reports label them accordingly.
+- **Optional integrations** such as Google Stitch need your own credentials; nothing here calls them
+  without your key.
+
+## License and attribution
+
+MIT — see [`LICENSE`](LICENSE). Several roles are *inspired by* public projects (Taste Skill, Impeccable,
+Emil Kowalski, Addy Osmani, Matt Pocock); they are original summaries, not copies, and this project is
+not affiliated with them. See [`NOTICE.md`](NOTICE.md).

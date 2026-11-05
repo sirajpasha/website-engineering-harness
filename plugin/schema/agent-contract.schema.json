@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentContract",
+  "description": "Machine-readable boundary contract for a specialized harness agent",
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "pattern": "^[0-9]{2}-[a-z-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "allowed_read_roots": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "allowed_write_roots": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "forbidden_write_roots": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "may_spawn": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "max_context_turns": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 20
+    },
+    "token_budget_soft_limit": {
+      "type": "integer",
+      "default": 140000
+    },
+    "token_budget_hard_limit": {
+      "type": "integer",
+      "default": 190000
+    }
+  },
+  "required": [
+    "agent_id",
+    "name",
+    "role",
+    "allowed_read_roots",
+    "allowed_write_roots",
+    "forbidden_write_roots",
+    "may_spawn"
+  ],
+  "additionalProperties": false
+}

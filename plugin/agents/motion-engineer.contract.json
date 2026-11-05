@@ -1,0 +1,20 @@
+{
+  "agent_id": "10-motion-engineer",
+  "name": "Motion Design Engineer",
+  "role": "Micro-interactions, physics transitions, reduced-motion",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "MOTION_SPECIFICATION.md",
+    "styles/motion.css",
+    "src/motion/"
+  ],
+  "forbidden_write_roots": [
+    "tests/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 20,
+  "token_budget_soft_limit": 120000,
+  "token_budget_hard_limit": 180000
+}

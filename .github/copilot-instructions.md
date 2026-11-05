@@ -1,7 +1,7 @@
 # GitHub Copilot & OpenAI Codex Instructions
 
 ## Architecture Context
-This workspace is a Universal Website Engineering Harness coordinating 15 specialized agents and 13 Quality Gates (G1-G13).
+This workspace is a Universal Website Engineering Harness coordinating 16 specialized agents and 13 Quality Gates (G1-G13).
 Reference `AGENTS.md` for complete agent directory, workflows, and standards.
 
 ## Behavioral Directives

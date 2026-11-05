@@ -1,7 +1,7 @@
 # RELEASE NOTES: AETHER STUDIO v1.0.0
 
 ## Release Summary
-Initial production-verified release of Aether Studio, engineered autonomously under the Universal Website Engineering Harness.
+Initial release of Aether Studio, engineered autonomously under the Universal Website Engineering Harness.
 
 ## Key Capabilities Delivered
 - High-contrast, anti-slop visual identity with deep obsidian canvas and champagne accent.

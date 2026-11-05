@@ -12,7 +12,7 @@
   --color-border-strong: rgba(255, 255, 255, 0.16);
   --color-text-primary: #f0f2f5;
   --color-text-secondary: #9aa3b2;
-  --color-text-muted: #647087;
+  --color-text-muted: #8791a6;
   --color-accent: #45a29e;
   --color-accent-hover: #66fcf1;
   --color-focus: #66fcf1;
@@ -117,6 +117,7 @@ a {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  min-height: 44px;
 }
 
 .brand-symbol {
@@ -141,6 +142,8 @@ a {
 }
 
 .nav-toggle {
+  min-width: 44px;
+  min-height: 44px;
   display: none;
   background: transparent;
   border: 1px solid var(--color-border);
@@ -368,6 +371,7 @@ a {
 }
 
 .slider {
+  min-height: 44px;
   width: 100%;
   accent-color: var(--color-accent);
   cursor: pointer;

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { projectRoot } from '../lib/paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -87,8 +88,8 @@ export function checkAgentContract(agentName, targetRelativePath) {
   return violations;
 }
 
-export function inspectWrite({ filePath, content, agentName }) {
-  const relPath = path.relative(rootDir, path.resolve(rootDir, filePath));
+export function inspectWrite({ filePath, content, agentName, projectDir = projectRoot() }) {
+  const relPath = path.relative(projectDir, path.resolve(projectDir, filePath));
   const errors = [];
 
   // 1. Contract check
@@ -124,7 +125,7 @@ if (process.argv[1] && process.argv[1].endsWith('pre-write-gate.js')) {
     process.exit(1);
   }
 
-  const fullPath = path.resolve(rootDir, filePath);
+  const fullPath = path.resolve(projectRoot(), filePath);
   let content = '';
   if (fs.existsSync(fullPath)) {
     content = fs.readFileSync(fullPath, 'utf8');

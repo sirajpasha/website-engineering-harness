@@ -1,0 +1,178 @@
+{
+  "target": "examples\\sample-website\\index.html",
+  "measuredAt": "2026-11-05T12:10:53.343Z",
+  "tool": "playwright-chromium",
+  "sourceHash": "2ebd317677170d77c9023f04d9cce517eaef1eb2ab74f2a8a87416aad35f0501",
+  "passed": true,
+  "viewportsTested": 6,
+  "vitals": {
+    "classification": "LAB MEASURED",
+    "condition": "headless Chromium, localhost, no throttling",
+    "lcpMs": 196,
+    "cls": 0
+  },
+  "a11y": {
+    "engine": "axe-core",
+    "tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa",
+      "wcag22aa"
+    ],
+    "violations": 0,
+    "rules": []
+  },
+  "results": [
+    {
+      "viewport": "mobile-compact",
+      "width": 360,
+      "height": 800,
+      "passed": true,
+      "failures": [],
+      "metrics": {
+        "horizontalOverflowPx": 0,
+        "smallTargets": [],
+        "h1Count": 1,
+        "hasMetaViewport": true,
+        "hasMain": true,
+        "vitals": {
+          "lcpMs": 168,
+          "cls": 0
+        },
+        "a11y": {
+          "violations": []
+        },
+        "a11yViolations": 0,
+        "consoleErrors": []
+      },
+      "screenshot": "E:\\Harness\\Website\\examples\\sample-website\\reports\\browser-qa\\mobile-compact-360x800.png"
+    },
+    {
+      "viewport": "mobile-modern",
+      "width": 390,
+      "height": 844,
+      "passed": true,
+      "failures": [],
+      "metrics": {
+        "horizontalOverflowPx": 0,
+        "smallTargets": [],
+        "h1Count": 1,
+        "hasMetaViewport": true,
+        "hasMain": true,
+        "vitals": {
+          "lcpMs": 120,
+          "cls": 0
+        },
+        "a11y": {
+          "violations": []
+        },
+        "a11yViolations": 0,
+        "consoleErrors": []
+      },
+      "screenshot": "E:\\Harness\\Website\\examples\\sample-website\\reports\\browser-qa\\mobile-modern-390x844.png"
+    },
+    {
+      "viewport": "tablet-portrait",
+      "width": 768,
+      "height": 1024,
+      "passed": true,
+      "failures": [],
+      "metrics": {
+        "horizontalOverflowPx": 0,
+        "smallTargets": [],
+        "h1Count": 1,
+        "hasMetaViewport": true,
+        "hasMain": true,
+        "vitals": {
+          "lcpMs": 120,
+          "cls": 0
+        },
+        "a11y": {
+          "violations": []
+        },
+        "a11yViolations": 0,
+        "consoleErrors": []
+      },
+      "screenshot": "E:\\Harness\\Website\\examples\\sample-website\\reports\\browser-qa\\tablet-portrait-768x1024.png"
+    },
+    {
+      "viewport": "tablet-landscape",
+      "width": 1024,
+      "height": 768,
+      "passed": true,
+      "failures": [],
+      "metrics": {
+        "horizontalOverflowPx": 0,
+        "smallTargets": [
+          "button.btn (124x37)"
+        ],
+        "h1Count": 1,
+        "hasMetaViewport": true,
+        "hasMain": true,
+        "vitals": {
+          "lcpMs": 196,
+          "cls": 0
+        },
+        "a11y": {
+          "violations": []
+        },
+        "a11yViolations": 0,
+        "consoleErrors": []
+      },
+      "screenshot": "E:\\Harness\\Website\\examples\\sample-website\\reports\\browser-qa\\tablet-landscape-1024x768.png"
+    },
+    {
+      "viewport": "desktop-standard",
+      "width": 1440,
+      "height": 900,
+      "passed": true,
+      "failures": [],
+      "metrics": {
+        "horizontalOverflowPx": 0,
+        "smallTargets": [
+          "button.btn (124x37)"
+        ],
+        "h1Count": 1,
+        "hasMetaViewport": true,
+        "hasMain": true,
+        "vitals": {
+          "lcpMs": 132,
+          "cls": 0
+        },
+        "a11y": {
+          "violations": []
+        },
+        "a11yViolations": 0,
+        "consoleErrors": []
+      },
+      "screenshot": "E:\\Harness\\Website\\examples\\sample-website\\reports\\browser-qa\\desktop-standard-1440x900.png"
+    },
+    {
+      "viewport": "desktop-fhd",
+      "width": 1920,
+      "height": 1080,
+      "passed": true,
+      "failures": [],
+      "metrics": {
+        "horizontalOverflowPx": 0,
+        "smallTargets": [
+          "button.btn (124x37)"
+        ],
+        "h1Count": 1,
+        "hasMetaViewport": true,
+        "hasMain": true,
+        "vitals": {
+          "lcpMs": 140,
+          "cls": 0
+        },
+        "a11y": {
+          "violations": []
+        },
+        "a11yViolations": 0,
+        "consoleErrors": []
+      },
+      "screenshot": "E:\\Harness\\Website\\examples\\sample-website\\reports\\browser-qa\\desktop-fhd-1920x1080.png"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "agent_id": "08-implementation-engineer",
+  "name": "Website Implementation Engineer",
+  "role": "Clean code, semantic HTML, responsive frontend",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "src/",
+    "public/",
+    "styles/",
+    "index.html"
+  ],
+  "forbidden_write_roots": [
+    "tests/",
+    "reports/release-audit.md",
+    "DEFECT_REGISTER.md"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 30,
+  "token_budget_soft_limit": 150000,
+  "token_budget_hard_limit": 195000
+}

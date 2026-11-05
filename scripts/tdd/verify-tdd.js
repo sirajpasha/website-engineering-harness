@@ -3,10 +3,11 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { projectRoot } from '../lib/paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '../../');
+const rootDir = projectRoot(); // the website project (receipts, tests, telemetry live there)
 
 function sha256(data) {
   return crypto.createHash('sha256').update(data).digest('hex');

@@ -8,4 +8,3 @@ For the complete, machine-readable inventory of skills, see [`skills/registry/SK
 3. **Emil Kowalski Skills (`emilkowalski/skills`):** 14 motion & interaction design engineering capabilities.
 4. **Addy Osmani Agent Skills (`addyosmani/agent-skills`):** Security Auditor (OWASP/STRIDE) and Web Performance Auditor (CWV).
 5. **Matt Pocock Skills (`mattpocock/skills`):** Requirement grilling, domain modeling, and strict TDD.
-6. **Everything Claude Code (`affaan-m/ECC`):** Context management, hooks, and release gates.

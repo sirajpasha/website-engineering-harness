@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # CLAUDE CODE — WEBSITE ENGINEERING HARNESS INSTRUCTIONS (CLAUDE.md)
 
 You are operating within the **Universal Website Engineering, Design & Quality Harness**.
@@ -45,3 +49,39 @@ When invoked, you act as the **Master Website Engineering Orchestrator (AGENT 01
 - `/website-critique`: Impeccable 24-command heuristic critique.
 - `/website-audit`: Full-suite quality audit across all dimensions.
 - `/website-release`: Quality gate G13 audit and production readiness sign-off.
+
+---
+
+## Commands (Node ESM, no build step; only dev dependency is `playwright`)
+
+```bash
+npm test                                   # node --test over tests/ and examples/sample-website/tests/
+node --test tests/harness.test.js          # run a single test file
+node --test --test-name-pattern="<name>" tests/harness.test.js   # single test by name
+npm run validate:all                       # agents + contracts + skills + MCP (CLI `validate`)
+npm run validate:contracts                 # only agents/*.contract.json vs schema/agent-contract.schema.json
+npm run gate [-- --target <project-dir>]   # content-aware G1–G13 (rules in scripts/quality-gates/gate-rules.js); default target examples/sample-website; evidence is never taken from templates/ or examples/ unless it is the target. G9 needs <project>/reports/browser-qa/browser-qa.json from `test:browser` and goes stale if sources change (`npm run gates` = --all)
+npm run ratchet [-- --update --target <dir>]   # MEASURES coverage (node --test), JS/CSS size, and (from browser-qa.json) viewports/LCP/CLS/axe violations; baselines live in <target>/.harness/baselines.json (seeded from measurements on first --update, only ever tighten); unmeasured metric = failure
+npm run tdd:red -- <test-file>             # (CLI: tdd:red) record RED receipt; then `npm run tdd:verify`
+npm run install-hooks                      # install git pre-commit/pre-push hooks
+npm run build:plugin / check:plugin          # regenerate / verify plugin/ (generated Claude Code plugin; never edit by hand). `claude plugin validate plugin` validates it
+node scripts/website-engineering-harness-cli.js install --tool <cursor|claude|gemini|copilot|codex|windsurf|generic|all> [--dir p]   # per-tool installer (scripts/install/install.js; source text: integrations/harness-instructions.md)
+node scripts/website-engineering-harness-cli.js mcp                     # MCP stdio server (scripts/mcp-server/server.js); stdout is protocol-only
+npm run evals                              # 29 deterministic scenario evals: evals/hook-scenarios.json (claude-hook decisions) + evals/gate-scenarios.json (mutate a copy of the sample, assert exact failing gates). Fixtures never contain real-looking secrets: use @@PRIVATE_KEY@@ / @@AWS_KEY@@ tokens (the write guard blocks the fixture file otherwise)
+npm run test:browser -- [file.html|url]  # REAL Playwright run at 6 viewports; fails closed if Playwright/Chromium missing (setup: npm i; npx playwright install chromium). Writes reports/browser-qa/browser-qa.json
+node scripts/hooks/pre-write-gate.js --file <path> --agent <agent-name>   # dry-run the write guard (or set ACTIVE_AGENT)
+```
+
+## Architecture (big picture)
+
+This repo is a **harness/spec repository**, not a website. The deliverable website lives in a *target* project; `examples/sample-website/` is a reference output containing every artifact the harness expects (REQUIREMENTS.md, TEST_TRACEABILITY_MATRIX.md, *_REPORT.md, DESIGN_TOKENS.json, `src/`, `tests/`).
+
+- **Agents (`agents/`)**: each specialist has a prose definition `<name>.md`, a machine contract `<name>.contract.json` (`allowed_write_roots`, `forbidden_write_roots`, `may_spawn`; schema in `schema/`), and an entry in `claude-subagents.json` (description + tools). `.claude/agents/<name>.md` is GENERATED from these (frontmatter `name` = contract name = hook `agent_type`): edit the sources, run `npm run agents:sync`; `npm run validate:subagents` fails on drift. The hook also enforces `may_spawn` on Agent/Task calls. There are 16 agent files (incl. `motion-engineer`) even though some docs say 15.
+- **Entry points are duplicated per tool**: `CLAUDE.md`, `GEMINI.md`, `AGENTS.md` (canonical spec), `.cursorrules`, `.windsurfrules`, `.github/copilot-instructions.md`. Slash commands exist as `commands/*.md` (canonical) and `.claude/commands/`, `.claude/agents/`. Keep these in sync when changing a command, agent, or gate.
+- **CI**: `.github/workflows/ci.yml` runs npm ci, installs Chromium, then tests, evals, validate:all, test:browser, ratchet, gate (in that order). Commit `package-lock.json` (`npm ci` needs it).
+- **Two roots** (`scripts/lib/paths.js`): `HARNESS_ROOT` (agents, contracts, standards) vs `projectRoot()` (the website: `HARNESS_PROJECT_DIR` > `CLAUDE_PROJECT_DIR` > cwd). Anything that writes, gates or hooks must use projectRoot; inside this repo they coincide. Plugin subagent names arrive namespaced (`plugin:agent`) and are un-prefixed before contract lookup.
+- **Distribution**: `plugin/` (generated, committed), `.claude-plugin/marketplace.json`, `gemini-extension.json`, MCP server, installer. Public repo: keep NOTICE.md/SECURITY.md accurate; never add a hard-coded or unmeasured result.
+- **Single CLI**: `scripts/website-engineering-harness-cli.js` dispatches to the scripts under `scripts/*/` (validation, quality-gates, ratchets, tdd, hooks, telemetry, browser-validation, ci). npm scripts are thin aliases to it.
+- **Mechanical enforcement layer** (v6): `.claude/settings.json` wires `scripts/hooks/claude-hook.js` as a PreToolUse hook for Bash/Write/Edit/MultiEdit; it calls the three guards below, takes agent identity from the payload `agent_type` (main session and agents without a contract are unrestricted), blocks with exit 2. Guards: `scripts/hooks/pre-write-gate.js` (secret + anti-slop-gradient regexes + contract write-root check, agent identity via `--agent`/`ACTIVE_AGENT`), `test-write-lock.js` (blocks deleting/weakening assertions during RED), `pre-bash-gate.js` (blocks destructive git/shell). TDD receipts go to `.harness/receipts/` (SHA-256 of the failing run); ratchets compare measured metrics against `<project>/.harness/baselines.json` (values may only hold or improve; root `.harness/baselines.json` is legacy defaults); context telemetry logs to `.harness/telemetry/`.
+- **Content layers**: `skills/<domain>/` + `skills/registry/SKILL_REGISTRY.md` (+ `policy.md`) define loadable skills; `workflows/` sequence stages; `standards/` hold acceptance criteria; `templates/` seed project artifacts; `mcp.json` declares MCP servers (validated by `validate:mcp`).
+- **Traceability**: REQ-IDs flow REQUIREMENTS → ACCEPTANCE_CRITERIA → COMPONENT_INVENTORY → TEST_TRACEABILITY_MATRIX; `validate:trace` checks the matrix.

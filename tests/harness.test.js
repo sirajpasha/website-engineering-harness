@@ -17,7 +17,7 @@ import { verifyTraceability } from '../scripts/traceability/verify-traceability.
 import { inspectWrite, checkSecrets, checkAgentContract } from '../scripts/hooks/pre-write-gate.js';
 import { verifyTestModification, countAssertions } from '../scripts/hooks/test-write-lock.js';
 import { inspectCommand } from '../scripts/hooks/pre-bash-gate.js';
-import { evaluateRatchets, collectCurrentMetrics } from '../scripts/ratchets/check-ratchet.js';
+import { evaluateRatchets, collectCurrentMetrics, baselinesPathFor } from '../scripts/ratchets/check-ratchet.js';
 import { checkContextBudget } from '../scripts/telemetry/context-budget.js';
 import { diagnoseFailure } from '../scripts/ci/pr-respond.js';
 
@@ -125,7 +125,7 @@ describe('Mechanical Pillar 2: Guard Hooks & Safety Gates', () => {
 describe('Mechanical Pillar 4: Monotonic Quality Ratchets', () => {
   test('evaluates current metrics against baseline', () => {
     const metrics = collectCurrentMetrics();
-    const evaluation = evaluateRatchets(metrics, { updateBaselines: false });
+    const evaluation = evaluateRatchets(metrics, { updateBaselines: false, baselinesPath: baselinesPathFor() });
     assert.strictEqual(evaluation.passed, true, 'Current sample metrics must satisfy baseline');
     assert.strictEqual(evaluation.hasRegressions, false);
   });

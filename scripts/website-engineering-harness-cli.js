@@ -11,13 +11,14 @@ import { validateAgents } from './agent-validation/validate-agents.js';
 import { validateContracts } from './agent-validation/validate-contracts.js';
 import { validateSkills } from './skill-validation/validate-skills.js';
 import { validateMCP } from './mcp-validation/validate-mcp.js';
+import { validateSubagents } from './agent-validation/sync-claude-agents.js';
 import { checkGates } from './quality-gates/check-gates.js';
 import { verifyTraceability } from './traceability/verify-traceability.js';
 import { validateBrowser } from './browser-validation/validate-browser.js';
 import { installGitHooks } from './hooks/install-git-hooks.js';
 import { recordRedPhase } from './tdd/red-phase-recorder.js';
 import { verifyTddCycle } from './tdd/verify-tdd.js';
-import { evaluateRatchets, collectCurrentMetrics } from './ratchets/check-ratchet.js';
+import { evaluateRatchets, collectCurrentMetrics, seedBaselines, baselinesPathFor } from './ratchets/check-ratchet.js';
 import { checkContextBudget } from './telemetry/context-budget.js';
 import { handlePrResponse } from './ci/pr-respond.js';
 
@@ -50,9 +51,13 @@ Core Inspection Commands:
   gates, gate          Run Quality Gate Audit across G1 through G13 with mechanical enforcement
   test:browser         Run browser validation across the 6 mandatory viewports
 
+Use it from your AI tool:
+  install --tool <name>  Add the harness to this project for cursor|claude|gemini|copilot|codex|windsurf|generic|all
+  mcp                  Run the MCP server on stdio (what the AI tool launches)
+
 Mechanical Safeguards & Ratchets:
   install-hooks        Install Git pre-commit and pre-push deterministic interceptor hooks
-  ratchet [--update]   Evaluate monotonic quality ratchets against .harness/baselines.json
+  ratchet [--update] [--target dir]  Measure metrics and evaluate monotonic ratchets (<target>/.harness/baselines.json)
   tdd:red <test-file>  Record cryptographic proof of failing RED test in .harness/receipts/
   tdd:verify           Verify RED receipt exists and test suite is certified GREEN
   budget               Inspect context turns and token budget ceiling
@@ -91,6 +96,7 @@ async function main() {
       const sRes = validateSkills();
       const mRes = validateMCP();
       const tRes = verifyTraceability();
+      const subRes = validateSubagents({ log: console.log });
       const gRes = checkGates();
 
       console.log('\n====================================================');
@@ -98,11 +104,16 @@ async function main() {
       console.log('====================================================');
       console.log(`- Agents (MD):     ${aRes.passed}/${aRes.total} Passed`);
       console.log(`- Contracts (JSON):${cRes.passed ? 'PASSED' : 'FAILED'}`);
+      console.log(`- Subagents:       ${subRes.passed ? 'PASSED' : 'FAILED'} (.claude/agents frontmatter + drift)`);
       console.log(`- Skills:          ${sRes.passed}/${sRes.total} Passed`);
       console.log(`- MCP Config:      ${mRes.valid ? 'VALID' : 'INVALID'}`);
       console.log(`- Traceability:    ${tRes.passed ? 'PASSED' : 'FAILED'}`);
       console.log(`- Quality Gates:   ${gRes.passed}/${gRes.total} Gates Verified`);
       console.log('====================================================\n');
+      if (!(aRes.passed === aRes.total && cRes.passed && subRes.passed && sRes.passed === sRes.total && mRes.valid && tRes.passed && gRes.allPassed)) {
+        console.error('[FAIL] Harness self-validation found problems (see above).');
+        process.exitCode = 1;
+      }
       break;
 
     case 'validate:agents':
@@ -128,14 +139,36 @@ async function main() {
 
     case 'install-hooks':
     case 'hooks':
-      installGitHooks();
+      installGitHooks({ strict: args.includes('--strict') });
+      break;
+
+    case 'install': {
+      const { installTools, printResult, parseInstallArgs, TOOLS } = await import('./install/install.js');
+      const opts = parseInstallArgs(args.slice(1));
+      if (!opts.tools.length) {
+        console.error('Usage: website-engineering-harness install --tool <' + Object.keys(TOOLS).join('|') + '|all> [--dir <project>] [--runner auto|npx|node] [--force]');
+        process.exitCode = 1;
+        break;
+      }
+      try { printResult(installTools(opts)); } catch (e) { console.error(e.message); process.exitCode = 1; }
+      break;
+    }
+
+    case 'mcp':
+      // Stdio MCP server: stdout is the protocol channel, so print nothing else.
+      await import('./mcp-server/server.js');
+      await new Promise(() => {});
       break;
 
     case 'ratchet':
     case 'check-ratchet': {
       const update = args.includes('--update') || args.includes('-u');
-      const metrics = collectCurrentMetrics();
-      const outcome = evaluateRatchets(metrics, { updateBaselines: update });
+      const ti = args.indexOf('--target');
+      const target = ti >= 0 ? args[ti + 1] : undefined;
+      const metrics = collectCurrentMetrics(target);
+      const bp = baselinesPathFor(target);
+      if (update && seedBaselines(metrics, bp)) console.log('[RATCHET] Seeded new baselines from measured values.');
+      const outcome = evaluateRatchets(metrics, { updateBaselines: update, baselinesPath: bp });
       if (!outcome.passed) {
         process.exit(1);
       }
@@ -182,13 +215,16 @@ async function main() {
     }
 
     case 'gate':
-    case 'gates':
-      checkGates();
+    case 'gates': {
+      const ti = args.indexOf('--target');
+      const r = checkGates(ti >= 0 ? args[ti + 1] : undefined);
+      if (!r.allPassed) process.exitCode = 1;
       break;
+    }
 
     case 'test:browser':
     case 'test':
-      await validateBrowser();
+      { const r = await validateBrowser(args[1]); if (!r.passed) process.exitCode = 1; }
       break;
 
     case 'init':

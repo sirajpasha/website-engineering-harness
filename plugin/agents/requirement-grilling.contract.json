@@ -1,0 +1,23 @@
+{
+  "agent_id": "02-requirement-grilling",
+  "name": "Requirement Grilling Specialist",
+  "role": "Socratic interrogation, ambiguity reduction",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "REQUIREMENTS.md",
+    "docs/requirements/",
+    "templates/"
+  ],
+  "forbidden_write_roots": [
+    "src/",
+    "tests/",
+    "public/",
+    "styles/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 20,
+  "token_budget_soft_limit": 120000,
+  "token_budget_hard_limit": 180000
+}

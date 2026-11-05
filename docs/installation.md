@@ -1,36 +1,26 @@
-# INSTALLATION & COMPATIBILITY GUIDE
+# Installation
 
-## 1. Prerequisites
-- **Node.js:** v18.0.0 or newer (v22 recommended)
-- **NPM:** v9.0.0 or newer
-- **Git:** v2.30+
-- **Playwright:** Installed via `npx playwright install`
+Prerequisites: Node.js **20.13+** (22 recommended), Git. Browser QA additionally needs Playwright in
+*your project*: `npm i -D playwright axe-core && npx playwright install chromium`.
 
-## 2. Installation Across AI Environments
+See the [README](../README.md#install) for the per-tool install commands (Claude Code plugin, Gemini
+extension, Cursor / Windsurf / Copilot / Codex installer, generic MCP).
 
-### Claude Code CLI
-Claude Code automatically discovers `CLAUDE.md`, `.claude/agents/`, and `.claude/commands/`:
+## Verify an install
+
 ```bash
-claude
-# Inside Claude Code session:
-/website-init
+# in your website project
+npx -y github:sirajpasha/website-engineering-harness gate          # G1–G13 audit of this project
+npx -y github:sirajpasha/website-engineering-harness test:browser  # real 6-viewport run
 ```
 
-### Gemini CLI / Google Antigravity
-Gemini CLI / Antigravity automatically ingests `GEMINI.md` and `AGENTS.md`:
-```bash
-# Verify environment and quality gates
-npm run audit
-npm run gates
-```
+## Where things are written
 
-### Cursor & Windsurf IDEs
-Cursor and Windsurf read `.cursorrules`, `.cursor/rules/`, and `.windsurfrules`.
-Add MCP servers from `mcp.json` into Cursor Settings -> Features -> MCP Servers.
+| What | Where |
+|---|---|
+| Gate evidence documents | project root (`REQUIREMENTS.md`, `SECURITY_AUDIT_REPORT.md`, …) |
+| Browser QA evidence | `reports/browser-qa/browser-qa.json` (+ screenshots) |
+| Ratchet baselines, TDD receipts | `.harness/` |
 
-### OpenAI Codex / Copilot / Terminal
-Run the universal CLI runner directly:
-```bash
-npm run harness -- --help
-npm run validate:all
-```
+Choose the project with `CLAUDE_PROJECT_DIR`, `HARNESS_PROJECT_DIR`, or by running from its directory
+(`--target <dir>` on `gate`, `ratchet`, `test:browser`).

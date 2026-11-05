@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { projectRoot } from '../lib/paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '../../');
+const rootDir = projectRoot(); // the website project (receipts, tests, telemetry live there)
 
 export const BUDGET_DEFAULTS = {
   softTurnLimit: 20,

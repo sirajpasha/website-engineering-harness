@@ -1,14 +1,74 @@
 {
   "name": "website-engineering-harness",
-  "version": "2.0.0",
-  "description": "Universal Autonomous Website Engineering, Design & Quality Harness for Claude Code, Gemini, OpenAI Codex, Cursor, and any AI agent",
+  "version": "2.1.0",
+  "description": "Give any AI coding agent a website team: 16 specialist roles, 13 evidence-based quality gates, real Playwright QA at 6 viewports, axe accessibility, monotonic ratchets and guard hooks. Claude Code plugin, Gemini extension, MCP server, and installers for Cursor, Windsurf, Copilot and Codex.",
+  "author": {
+    "name": "Siraj",
+    "url": "https://github.com/sirajpasha"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/sirajpasha/website-engineering-harness#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirajpasha/website-engineering-harness.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sirajpasha/website-engineering-harness/issues"
+  },
+  "keywords": [
+    "ai-agent",
+    "claude-code",
+    "claude-code-plugin",
+    "mcp",
+    "model-context-protocol",
+    "gemini-cli",
+    "codex",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "playwright",
+    "axe-core",
+    "accessibility",
+    "quality-gates",
+    "tdd",
+    "website",
+    "frontend",
+    "design-system"
+  ],
+  "engines": {
+    "node": ">=20.13"
+  },
+  "type": "module",
   "main": "scripts/website-engineering-harness-cli.js",
   "bin": {
     "website-engineering-harness": "./scripts/website-engineering-harness-cli.js",
-    "website-harness": "./scripts/website-engineering-harness-cli.js",
-    "harness": "./scripts/website-engineering-harness-cli.js"
+    "website-harness": "./scripts/website-engineering-harness-cli.js"
   },
-  "type": "module",
+  "files": [
+    "scripts/",
+    "agents/",
+    "commands/",
+    "skills/",
+    "standards/",
+    "templates/",
+    "workflows/",
+    "integrations/",
+    "schema/",
+    "plugin/",
+    ".claude-plugin/",
+    ".claude/",
+    "examples/sample-website/",
+    "mcp.json",
+    "gemini-extension.json",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "NOTICE.md",
+    "LICENSE",
+    "VERSION",
+    "README.md",
+    "docs/"
+  ],
   "scripts": {
     "website-engineering-harness": "node scripts/website-engineering-harness-cli.js",
     "harness": "node scripts/website-engineering-harness-cli.js",
@@ -28,21 +88,28 @@
     "test": "node --test tests/**/*.test.js examples/sample-website/tests/**/*.test.js",
     "test:browser": "node scripts/browser-validation/validate-browser.js",
     "audit:security": "node scripts/website-engineering-harness-cli.js audit:security",
-    "audit:perf": "node scripts/website-engineering-harness-cli.js audit:perf"
+    "audit:perf": "node scripts/website-engineering-harness-cli.js audit:perf",
+    "evals": "node scripts/evals/run-evals.js",
+    "agents:sync": "node scripts/agent-validation/sync-claude-agents.js",
+    "validate:subagents": "node scripts/agent-validation/sync-claude-agents.js --check",
+    "build:plugin": "node scripts/plugin/build-plugin.js",
+    "check:plugin": "node scripts/plugin/build-plugin.js --check",
+    "mcp": "node scripts/mcp-server/server.js",
+    "install-tool": "node scripts/install/install.js",
+    "pack:check": "npm pack --dry-run"
   },
-  "keywords": [
-    "ai-agent",
-    "claude-code",
-    "gemini",
-    "codex",
-    "cursor",
-    "playwright",
-    "stitch",
-    "tdd",
-    "impeccable",
-    "taste-skill",
-    "website-engineering"
-  ],
-  "author": "Principal AI Systems Architect",
-  "license": "MIT"
+  "dependencies": {
+    "axe-core": "^4.14.0"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.40"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
 }

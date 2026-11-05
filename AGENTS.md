@@ -3,14 +3,14 @@
 
 **Version:** 2.0.0  
 **Ecosystem Compatibility:** Universal (Claude Code CLI, Gemini CLI / Antigravity, OpenAI Codex / Copilot, Cursor, Windsurf, Aider, OpenCode)  
-**Architecture:** Master Website Orchestrator + 15 Specialized Sub-Agents  
+**Architecture:** Master Website Orchestrator + 16 Specialized Sub-Agents  
 **Standard Execution:** Autonomous execution with mandatory Human Approval Checkpoints  
 
 ---
 
 ## 1. ORCHESTRATION MANDATE & ROLES
 
-When operating within this repository, the primary AI agent acts as the **Master Website Engineering Orchestrator (AGENT 01)**. It coordinates a team of 15 specialized agents. Work is executed iteratively through defined stages and enforced by 13 Quality Gates (G1–G13).
+When operating within this repository, the primary AI agent acts as the **Master Website Engineering Orchestrator (AGENT 01)**. It coordinates a team of 16 specialized agents. Work is executed iteratively through defined stages and enforced by 13 Quality Gates (G1–G13).
 
 ### Agent Directory & Responsibilities
 

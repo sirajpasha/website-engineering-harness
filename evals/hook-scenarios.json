@@ -1,0 +1,302 @@
+[
+  {
+    "id": "bash-hard-reset",
+    "description": "Destructive git reset is blocked",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "git reset --hard HEAD~3"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "reset"
+  },
+  {
+    "id": "bash-force-push",
+    "description": "Force push is blocked",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "git push origin main --force"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "Force"
+  },
+  {
+    "id": "bash-no-verify",
+    "description": "Bypassing git hooks is blocked",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "git commit -m wip --no-verify"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "no-verify|hooks"
+  },
+  {
+    "id": "bash-recursive-delete",
+    "description": "Root/wildcard recursive delete is blocked",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "rm -rf /"
+      }
+    },
+    "expect": "block"
+  },
+  {
+    "id": "bash-benign-test",
+    "description": "Running the test suite is allowed",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "npm test"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "write-private-key",
+    "description": "Writing a private key into source is blocked (token expanded by the runner)",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "src/config.js",
+        "content": "const key = `@@PRIVATE_KEY@@`"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "Secret"
+  },
+  {
+    "id": "write-aws-key",
+    "description": "Writing an AWS access key is blocked (token expanded by the runner)",
+    "payload": {
+      "tool_name": "Edit",
+      "tool_input": {
+        "file_path": "src/config.js",
+        "old_string": "x",
+        "new_string": "const id = '@@AWS_KEY@@'"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "Secret"
+  },
+  {
+    "id": "css-ai-gradient",
+    "description": "The generic AI purple gradient is rejected (anti-slop)",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "src/hero.css",
+        "content": ".hero{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "Anti-Slop"
+  },
+  {
+    "id": "css-token-colour",
+    "description": "Ordinary token-based CSS is allowed",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "src/hero.css",
+        "content": ".hero{background:var(--color-surface)}"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "agent-qa-writes-src",
+    "description": "Browser QA agent may not edit source",
+    "payload": {
+      "tool_name": "Write",
+      "agent_type": "browser-qa",
+      "tool_input": {
+        "file_path": "src/app.js",
+        "content": "x"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "browser-qa"
+  },
+  {
+    "id": "agent-reviewer-writes-src",
+    "description": "Code reviewer may not edit source",
+    "payload": {
+      "tool_name": "Edit",
+      "agent_type": "code-reviewer",
+      "tool_input": {
+        "file_path": "src/app.js",
+        "old_string": "a",
+        "new_string": "b"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "code-reviewer"
+  },
+  {
+    "id": "agent-builder-writes-tests",
+    "description": "Implementation engineer may not edit tests",
+    "payload": {
+      "tool_name": "Write",
+      "agent_type": "implementation-engineer",
+      "tool_input": {
+        "file_path": "tests/e2e/a.test.js",
+        "content": "x"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "implementation-engineer"
+  },
+  {
+    "id": "agent-builder-writes-src",
+    "description": "Implementation engineer may edit source",
+    "payload": {
+      "tool_name": "Write",
+      "agent_type": "implementation-engineer",
+      "tool_input": {
+        "file_path": "src/app.js",
+        "content": "export const a = 1;"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "agent-qa-writes-report",
+    "description": "Browser QA agent may write its report",
+    "payload": {
+      "tool_name": "Write",
+      "agent_type": "browser-qa",
+      "tool_input": {
+        "file_path": "BROWSER_QA_REPORT.md",
+        "content": "# report"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "agent-unknown-unrestricted",
+    "description": "Built-in agents without a contract are not restricted",
+    "payload": {
+      "tool_name": "Write",
+      "agent_type": "Explore",
+      "tool_input": {
+        "file_path": "src/app.js",
+        "content": "x"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "main-session-unrestricted",
+    "description": "The main session has no agent contract",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "src/app.js",
+        "content": "x"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "test-file-wiped",
+    "description": "Emptying an existing test file is blocked",
+    "payload": {
+      "tool_name": "Write",
+      "tool_input": {
+        "file_path": "tests/harness.test.js",
+        "content": ""
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "deletion|blocked"
+  },
+  {
+    "id": "read-tool-ignored",
+    "description": "Read-only tools pass through",
+    "payload": {
+      "tool_name": "Read",
+      "tool_input": {
+        "file_path": "src/app.js"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "spawn-main-any",
+    "description": "Main session may spawn any subagent",
+    "payload": {
+      "tool_name": "Agent",
+      "tool_input": {
+        "subagent_type": "browser-qa",
+        "prompt": "x",
+        "description": "x"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "spawn-leaf-blocked",
+    "description": "A leaf agent (empty may_spawn) cannot spawn a peer",
+    "payload": {
+      "tool_name": "Agent",
+      "agent_type": "browser-qa",
+      "tool_input": {
+        "subagent_type": "implementation-engineer",
+        "prompt": "x",
+        "description": "x"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "may not spawn"
+  },
+  {
+    "id": "spawn-builtin-escape-blocked",
+    "description": "A contract agent cannot spawn a contract-free built-in to escape its write roots",
+    "payload": {
+      "tool_name": "Agent",
+      "agent_type": "code-reviewer",
+      "tool_input": {
+        "subagent_type": "general-purpose",
+        "prompt": "edit src",
+        "description": "x"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "may not spawn"
+  },
+  {
+    "id": "spawn-listed-target",
+    "description": "A listed spawn target is allowed",
+    "payload": {
+      "tool_name": "Agent",
+      "agent_type": "design-art-director",
+      "tool_input": {
+        "subagent_type": "ux-ui-designer",
+        "prompt": "x",
+        "description": "x"
+      }
+    },
+    "expect": "allow"
+  },
+  {
+    "id": "spawn-unlisted-target",
+    "description": "An unlisted spawn target is blocked",
+    "payload": {
+      "tool_name": "Agent",
+      "agent_type": "design-art-director",
+      "tool_input": {
+        "subagent_type": "implementation-engineer",
+        "prompt": "x",
+        "description": "x"
+      }
+    },
+    "expect": "block",
+    "reasonMatches": "may not spawn"
+  }
+]

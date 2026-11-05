@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-11-05T11:47:29.614Z",
+  "description": "Monotonic quality ratchets seeded from measured values. Metrics may only hold or improve.",
+  "ratchets": {
+    "test_coverage_pct": {
+      "name": "Test Suite Line Coverage",
+      "direction": "increase",
+      "unit": "%",
+      "tolerance": 0,
+      "baseline": 32.74
+    },
+    "max_js_bundle_kb": {
+      "name": "Client JS Size",
+      "direction": "decrease",
+      "unit": "kB",
+      "tolerance": 0.5,
+      "baseline": 5.87
+    },
+    "max_css_bundle_kb": {
+      "name": "Client CSS Size",
+      "direction": "decrease",
+      "unit": "kB",
+      "tolerance": 0.25,
+      "baseline": 11.64
+    },
+    "core_web_vitals_lcp_ms": {
+      "name": "Largest Contentful Paint (lab)",
+      "direction": "decrease",
+      "unit": "ms",
+      "tolerance": 250,
+      "baseline": 140
+    },
+    "core_web_vitals_cls": {
+      "name": "Cumulative Layout Shift (lab)",
+      "direction": "decrease",
+      "unit": "score",
+      "tolerance": 0.01,
+      "baseline": 0
+    },
+    "viewports_passed": {
+      "name": "Responsive Viewport Pass Count",
+      "direction": "increase",
+      "unit": "viewports",
+      "tolerance": 0,
+      "baseline": 6
+    },
+    "accessibility_violations": {
+      "name": "axe WCAG 2.2 AA Violation Rules",
+      "direction": "decrease",
+      "unit": "violations",
+      "tolerance": 0,
+      "baseline": 0
+    }
+  }
+}

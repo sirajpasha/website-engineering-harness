@@ -1,0 +1,13 @@
+[
+  { "id": "control-sample-passes", "description": "Unmodified reference project passes every gate", "mutations": [], "expectFailedGates": [] },
+  { "id": "no-browser-evidence", "description": "Deleting the Playwright report fails G9 (and release)", "mutations": [{ "op": "delete", "file": "reports" }], "expectFailedGates": ["G9", "G13"] },
+  { "id": "stale-browser-evidence", "description": "Changing source after QA makes G9 stale", "mutations": [{ "op": "append", "file": "src/app.js", "text": "\n// changed after QA\n" }], "expectFailedGates": ["G9", "G13"] },
+  { "id": "open-p0-defect", "description": "An open P0 defect fails G4", "mutations": [{ "op": "replace", "file": "UI_CRITIQUE_REPORT.md", "pattern": "P0 Defects:\\*{0,2}\\s*0", "with": "P0 Defects: 3" }], "expectFailedGates": ["G4", "G13"] },
+  { "id": "high-security-finding", "description": "A High security finding fails G10", "mutations": [{ "op": "replace", "file": "SECURITY_AUDIT_REPORT.md", "pattern": "High Vulnerabilities:\\*{0,2}\\s*0", "with": "High Vulnerabilities: 2" }], "expectFailedGates": ["G10", "G13"] },
+  { "id": "unfilled-template", "description": "Leftover template placeholders fail the gate", "mutations": [{ "op": "append", "file": "ARCHITECTURE.md", "text": "\n{{COMPONENT_TREE}} TODO\n" }], "expectFailedGates": ["G6", "G13"] },
+  { "id": "slow-animation", "description": "A 900ms transition fails G8", "mutations": [{ "op": "append", "file": "src/styles.css", "text": "\n.x{transition:opacity 900ms ease}\n" }, { "op": "rehash-browser" }], "expectFailedGates": ["G8", "G13"] },
+  { "id": "ai-gradient-in-source", "description": "A banned gradient in CSS fails G3", "mutations": [{ "op": "append", "file": "src/styles.css", "text": "\n.h{background:linear-gradient(135deg,#667eea,#764ba2)}\n" }, { "op": "rehash-browser" }], "expectFailedGates": ["G3", "G13"] },
+  { "id": "untraced-requirement", "description": "A requirement without a test row fails G7", "mutations": [{ "op": "append", "file": "REQUIREMENTS.md", "text": "\n| `REQ-042` | Ghost feature | Never tested | P1 | `AC-042` |\n" }], "expectFailedGates": ["G7", "G13"] },
+  { "id": "unlabelled-vitals", "description": "Unclassified performance numbers fail G11", "mutations": [{ "op": "replace", "file": "PERFORMANCE_AUDIT_REPORT.md", "pattern": "`\\[STATIC OBSERVATION\\]`", "with": "", "flags": "g" }], "expectFailedGates": ["G11", "G13"] },
+  { "id": "unchecked-release-item", "description": "An unchecked release item fails G13 only", "mutations": [{ "op": "replace", "file": "RELEASE_CHECKLIST.md", "pattern": "- \\[x\\] \\*\\*Gate G5", "with": "- [ ] **Gate G5" }], "expectFailedGates": ["G13"] }
+]

@@ -1,0 +1,22 @@
+{
+  "name": "website-engineering-harness",
+  "version": "2.1.0",
+  "description": "Give any AI coding agent a website team: 16 specialist roles, 13 evidence-based quality gates, real Playwright QA at 6 viewports, axe accessibility, monotonic ratchets and guard hooks. Claude Code plugin, Gemini extension, MCP server, and installers for Cursor, Windsurf, Copilot and Codex.",
+  "author": {
+    "name": "Siraj",
+    "url": "https://github.com/sirajpasha"
+  },
+  "homepage": "https://github.com/sirajpasha/website-engineering-harness",
+  "repository": "https://github.com/sirajpasha/website-engineering-harness",
+  "license": "MIT",
+  "keywords": [
+    "website",
+    "frontend",
+    "design",
+    "quality-gates",
+    "playwright",
+    "accessibility",
+    "tdd",
+    "agents"
+  ]
+}

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { projectRoot } from '../lib/paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,8 +29,8 @@ export function countAssertions(testCode) {
 /**
  * Validates that modifying a test file does not weaken test coverage
  */
-export function verifyTestModification({ filePath, oldContent, newContent, isRedPhaseActive = false }) {
-  const relPath = path.relative(rootDir, path.resolve(rootDir, filePath)).replace(/\\/g, '/');
+export function verifyTestModification({ filePath, oldContent, newContent, isRedPhaseActive = false, projectDir = projectRoot() }) {
+  const relPath = path.relative(projectDir, path.resolve(projectDir, filePath)).replace(/\\/g, '/');
   const violations = [];
 
   // Check if it's a test file
@@ -76,7 +77,7 @@ if (process.argv[1] && process.argv[1].endsWith('test-write-lock.js')) {
     process.exit(1);
   }
 
-  const fullPath = path.resolve(rootDir, filePath);
+  const fullPath = path.resolve(projectRoot(), filePath);
   if (!fs.existsSync(fullPath)) {
     console.log('[PASS] New test file creation allowed.');
     process.exit(0);
