@@ -76,3 +76,59 @@ describe('validateBrowser with a real browser', { skip: !hasPlaywright && 'playw
     assert.equal(r.passed, true, JSON.stringify(r.results.map(x => x.failures)));
   });
 });
+
+describe('validateBrowser does not flag legitimate patterns (real browser)', { skip: !hasPlaywright && 'playwright not installed' }, () => {
+  const page = (extraHead, body) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>t</title>
+    <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .sr-only:focus{position:static;width:auto;height:auto;clip:auto;margin:0}</style>${extraHead}</head><body>${body}</body></html>`;
+  const run = async (html) => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bq-ok-'));
+    const file = path.join(dir, 'index.html');
+    fs.writeFileSync(file, html);
+    return validateBrowser(file, { outDir: dir, log: () => {} });
+  };
+
+  test('a visually hidden "skip to content" link is not a tap-target failure', async () => {
+    const r = await run(page('', '<a class="sr-only" href="#main">Skip to main content</a><main id="main"><h1>Hello</h1></main>'));
+    assert.equal(r.passed, true, JSON.stringify(r.results.map(x => x.failures)));
+  });
+
+  test('a cancelled background request (e.g. a router prefetch) is not a console error', async () => {
+    const script = '<script>const c=new AbortController();fetch("/slow.json",{signal:c.signal}).catch(()=>{});c.abort();</script>';
+    const r = await run(page('', `<main><h1>Hello</h1></main>${script}`));
+    assert.equal(r.passed, true, JSON.stringify(r.results.map(x => x.failures)));
+  });
+
+  test('a genuinely small visible tap target is still caught', async () => {
+    const r = await run(page('', '<main><h1>Hello</h1><a href="/x" style="display:block;width:30px;height:16px">x</a></main>'));
+    assert.equal(r.results.find(v => v.width === 390).passed, false);
+  });
+});
+
+describe('tap targets: a control inside a <label> is as large as its label (real browser)', { skip: !hasPlaywright && 'playwright not installed' }, () => {
+  const html = (body) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>t</title></head><body><main><h1>Hello</h1>${body}</main></body></html>`;
+  const run = async (body) => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bq-lbl-'));
+    const file = path.join(dir, 'index.html');
+    fs.writeFileSync(file, html(body));
+    return validateBrowser(file, { outDir: dir, log: () => {} });
+  };
+  test('a small checkbox inside a large label passes', async () => {
+    const r = await run('<label style="display:flex;min-height:48px;width:100%;align-items:center"><input type="checkbox" style="width:13px;height:16px"> I agree to the terms</label>');
+    assert.equal(r.results.find(v => v.width === 390).passed, true, JSON.stringify(r.results.map(x => x.failures)));
+  });
+  test('a small checkbox with no label is still flagged', async () => {
+    const r = await run('<input type="checkbox" style="width:13px;height:16px" aria-label="x">');
+    assert.equal(r.results.find(v => v.width === 390).passed, false);
+  });
+});
+
+describe('tap targets: a control with a separate <label for> uses the label (real browser)', { skip: !hasPlaywright && 'playwright not installed' }, () => {
+  test('checkbox + sibling label[for] with a large label passes', async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bq-for-'));
+    const file = path.join(dir, 'index.html');
+    fs.writeFileSync(file, '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>t</title></head><body><main><h1>Hello</h1><div style="display:flex;gap:8px"><input type="checkbox" id="c" style="width:13px;height:16px"><label for="c" style="display:block;min-height:48px;padding:12px 0">I agree to the terms and conditions of this form</label></div></main></body></html>');
+    const r = await validateBrowser(file, { outDir: dir, log: () => {} });
+    assert.equal(r.results.find(v => v.width === 390).passed, true, JSON.stringify(r.results.map(x => x.failures)));
+  });
+});

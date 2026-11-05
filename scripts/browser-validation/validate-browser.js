@@ -45,8 +45,17 @@ function collectPageMetrics(minTarget) {
     const cs = getComputedStyle(el);
     if (cs.visibility === 'hidden' || cs.display === 'none') continue;
     if (cs.display === 'inline' && el.tagName === 'A') continue; // WCAG 2.5.8 inline exception
-    const r = el.getBoundingClientRect();
+    // A labelable control is activated by clicking any of its <label>s (wrapping or <label for>), so the largest
+    // label counts as part of its tap target.
+    let r = el.getBoundingClientRect();
+    if (el.labels && el.labels.length) {
+      for (const l of el.labels) {
+        const lr = l.getBoundingClientRect();
+        if (lr.width * lr.height > r.width * r.height) r = lr;
+      }
+    }
     if (r.width === 0 || r.height === 0) continue;
+    if (r.width <= 1 && r.height <= 1) continue; // visually hidden (.sr-only skip links): not a tap target until focused
     if (r.width < minTarget || r.height < minTarget) {
       const label = el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/)[0] : '');
       smallTargets.push(`${label} (${Math.round(r.width)}x${Math.round(r.height)})`);
@@ -217,7 +226,11 @@ export async function validateBrowser(targetPath, options = {}) {
       const consoleErrors = [];
       page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
       page.on('pageerror', e => consoleErrors.push(e.message));
-      page.on('requestfailed', r => consoleErrors.push(`request failed: ${r.url()}`));
+      page.on('requestfailed', r => {
+        // A cancelled request (router prefetch cut short, aborted fetch) is normal browser behaviour, not a failure.
+        if (/ERR_ABORTED/.test(r.failure()?.errorText || '')) return;
+        consoleErrors.push(`request failed: ${r.url()}`);
+      });
 
       let metrics;
       let screenshot = null;
