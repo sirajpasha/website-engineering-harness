@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [Unreleased]
+### Fixed
+- `npm run ci:local` restores the sample's tracked `browser-qa.json` after the run, so a local CI run no longer dirties the working tree. The file stays tracked: gates, ratchets and evals read it as fixture evidence (untracking it breaks 6 tests and 10 evals on a fresh clone).
+
 ## [2.2.1] - 2026-11-06
 ### Fixed
 - **CLI banner** printed a hard-coded `v2.0.0`; it now reads the real package version (guarded by a test that also keeps `VERSION`, `package.json`, the marketplace, the Gemini extension and `AGENTS.md` in sync).
