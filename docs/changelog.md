@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.2.0] - 2026-11-05
+### Added
+- **Client walkthrough videos**: `walkthrough` CLI command, `/website-walkthrough` slash command and `harness_walkthrough` MCP tool record desktop and phone videos of the real build (Playwright), with captions, poster stills, `walkthrough.json` and an unsigned `CLIENT_APPROVAL.md` quoting fresh measured QA evidence. Fails closed; a page that does not load makes the result NOT READY; MP4 is produced when ffmpeg is available.
+### Fixed (browser QA false positives, found while auditing a real site)
+- Visually hidden skip links, cancelled prefetch requests and label-wrapped controls are no longer flagged as failures.
+
 ## [2.1.1] - 2026-11-05
 ### Fixed (Stitch / MCP configuration)
 - The npm packages `@google/stitch-mcp` and `@google/stitch-cli` named in earlier versions **do not exist** (404). They are removed from `mcp.json`, the Stitch agent, command, registry and docs, along with the invented `stitch_*` tool names.

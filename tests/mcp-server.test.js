@@ -61,7 +61,7 @@ describe('MCP server (stdio)', () => {
   test('tools/list exposes the harness tools with input schemas', async () => {
     const r = await c.request('tools/list');
     const names = r.result.tools.map(t => t.name).sort();
-    for (const n of ['harness_browser_qa', 'harness_check_gates', 'harness_check_ratchets', 'harness_inspect_command', 'harness_inspect_write', 'harness_list_agents']) {
+    for (const n of ['harness_browser_qa', 'harness_walkthrough', 'harness_check_gates', 'harness_check_ratchets', 'harness_inspect_command', 'harness_inspect_write', 'harness_list_agents']) {
       assert.ok(names.includes(n), `missing tool ${n}`);
     }
     assert.ok(r.result.tools.every(t => t.description && t.inputSchema?.type === 'object'));
@@ -116,6 +116,13 @@ describe('MCP server (stdio)', () => {
     const out = JSON.parse(r.result.content[0].text);
     assert.equal(out.viewportsTested, 6, out.log);
     assert.equal(out.passed, true, out.log);
+  });
+
+  test('harness_walkthrough fails closed on a missing target instead of pretending', async () => {
+    const r = await c.request('tools/call', { name: 'harness_walkthrough', arguments: { target: path.join(project, 'definitely-missing.html') } });
+    const out = JSON.parse(r.result.content[0].text);
+    assert.equal(out.passed, false);
+    assert.equal(out.recorded, false);
   });
 
   test('unknown tool returns a tool error, not a crash', async () => {

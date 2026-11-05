@@ -23,6 +23,7 @@ const { HARNESS_ROOT, projectRoot, defaultTarget } = await import('../lib/paths.
 const { verifyGates } = await import('../quality-gates/gate-rules.js');
 const { validateBrowser } = await import('../browser-validation/validate-browser.js');
 const { collectCurrentMetrics, evaluateRatchets, seedBaselines, baselinesPathFor } = await import('../ratchets/check-ratchet.js');
+const { recordWalkthrough } = await import('../walkthrough/walkthrough.js');
 const { inspectWrite } = await import('../hooks/pre-write-gate.js');
 const { inspectCommand } = await import('../hooks/pre-bash-gate.js');
 
@@ -79,6 +80,24 @@ const TOOLS = [
       if (!fs.existsSync(bp)) return text({ passed: false, note: 'No baselines yet. Call again with update=true to seed them from the measured values.', metrics });
       const r = evaluateRatchets(metrics, { baselinesPath: bp, updateBaselines: !!args?.update, log: () => {} });
       return text({ passed: r.passed, seeded, hasRegressions: r.hasRegressions, unmeasured: r.unmeasured, results: r.results });
+    }
+  },
+  {
+    name: 'harness_walkthrough',
+    description: 'Record desktop and phone VIDEOS of the real, running website (headless Chromium via Playwright) for client approval: scripted scroll tour of each page, mobile-menu demo, on-screen captions. Writes desktop.webm / phone.webm (+ .mp4 when ffmpeg exists), poster images, walkthrough.json and an UNSIGNED CLIENT_APPROVAL.md with measured QA evidence. A page that fails to load makes the result "not ready". Fails closed if Playwright is missing.',
+    inputSchema: { type: 'object', properties: { target: { type: 'string', description: 'HTML file or http(s) URL (default: the project entry page).' }, project_dir: { type: 'string' }, out_dir: { type: 'string' }, pages: { type: 'array', items: { type: 'string' }, description: 'Paths to show, e.g. ["/","/about"]. Default: the entry page plus its internal nav links.' }, devices: { type: 'array', items: { type: 'string', enum: ['desktop', 'phone'] } }, label: { type: 'string', description: 'Name shown in captions and the approval sheet, e.g. "Acme website v1".' }, captions: { type: 'boolean' } } },
+    run: async (args) => {
+      const dir = projectArg(args);
+      const { findEntryHtml } = await import('../lib/paths.js');
+      const target = args?.target
+        ? (/^https?:/i.test(args.target) ? args.target : path.resolve(dir, args.target))
+        : findEntryHtml(dir) || path.join(dir, 'index.html');
+      const lines = [];
+      const r = await recordWalkthrough(target, {
+        log: (l) => lines.push(l), outDir: args?.out_dir ? path.resolve(dir, args.out_dir) : undefined,
+        pages: args?.pages, devices: args?.devices, label: args?.label, captions: args?.captions !== false
+      });
+      return text({ passed: r.passed, recorded: r.recorded, blocked: !!r.blocked, outDir: r.outDir, devices: r.devices, notes: r.notes, log: lines.join('\n') });
     }
   },
   {

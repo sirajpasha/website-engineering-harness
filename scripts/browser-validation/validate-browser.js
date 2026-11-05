@@ -140,7 +140,7 @@ export function evaluateViewportMetrics(metrics, viewport) {
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.ico': 'image/x-icon' };
 
 /** Minimal static server so ES modules and root-relative assets load like production. */
-function serveDir(dir) {
+export function serveDir(dir) {
   const server = http.createServer((req, res) => {
     const rel = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     const file = path.resolve(dir, '.' + rel);
@@ -153,7 +153,7 @@ function serveDir(dir) {
   return new Promise(resolve => server.listen(0, '127.0.0.1', () => resolve(server)));
 }
 
-function resolveTarget(target) {
+export function resolveTarget(target) {
   if (!target) {
     // No explicit target: the user's project entry page, or the reference sample inside the harness repo.
     const sample = path.join(rootDir, 'examples/sample-website/index.html');

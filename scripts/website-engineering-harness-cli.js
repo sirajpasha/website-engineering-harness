@@ -51,6 +51,10 @@ Core Inspection Commands:
   gates, gate          Run Quality Gate Audit across G1 through G13 with mechanical enforcement
   test:browser         Run browser validation across the 6 mandatory viewports
 
+Client deliverables:
+  walkthrough [url|file] Record desktop + phone videos of the real build and an unsigned CLIENT_APPROVAL.md
+                       [--out dir] [--devices desktop,phone] [--pages /,/about] [--label "Name v1"] [--no-captions]
+
 Use it from your AI tool:
   install --tool <name>  Add the harness to this project for cursor|claude|gemini|copilot|codex|windsurf|generic|all
   mcp                  Run the MCP server on stdio (what the AI tool launches)
@@ -141,6 +145,14 @@ async function main() {
     case 'hooks':
       installGitHooks({ strict: args.includes('--strict') });
       break;
+
+    case 'walkthrough': {
+      const { recordWalkthrough, parseWalkthroughArgs } = await import('./walkthrough/walkthrough.js');
+      const { target, options } = parseWalkthroughArgs(args.slice(1));
+      const r = await recordWalkthrough(target, options);
+      if (!r.passed) process.exitCode = 1;
+      break;
+    }
 
     case 'install': {
       const { installTools, printResult, parseInstallArgs, TOOLS } = await import('./install/install.js');

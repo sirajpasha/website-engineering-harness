@@ -25,6 +25,7 @@ evidence-based quality gates for building stunning, accessible, fast websites. A
 | `harness_browser_qa` | `harness test:browser [file\|url]` | run Chromium at 6 viewports: overflow, tap targets, axe, lab LCP/CLS |
 | `harness_check_gates` | `harness gate` | verify gates G1–G13 from the project's evidence files |
 | `harness_check_ratchets` | `harness ratchet [--update]` | measured quality may only hold or improve |
+| `harness_walkthrough` | `harness walkthrough [url\|file]` | record desktop + phone videos of the real build and an unsigned CLIENT_APPROVAL.md for client sign-off |
 | `harness_inspect_write` | — | dry-run a file write (secrets, AI-slop gradients, agent write-roots) |
 | `harness_inspect_command` | — | dry-run a shell command for destructive patterns |
 | `harness_list_agents` | — | list the specialists and what each may write/spawn |

@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.1.1-informational.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.2.0-informational.svg)](VERSION)
 
 AI assistants can write a landing page in a minute, and it usually looks like every other
 landing page — and "it works on mobile" is a claim, not a result. This harness adds two things:
@@ -33,7 +33,7 @@ Pick your AI tool. Everything acts on the project you are working in.
 /plugin marketplace add sirajpasha/website-engineering-harness
 /plugin install website-engineering-harness@website-engineering-harness
 ```
-You get 16 subagents, 14 slash commands (`/website-grill`, `/website-design`, `/website-test`, …),
+You get 16 subagents, 15 slash commands (`/website-grill`, `/website-design`, `/website-test`, `/website-walkthrough`, …),
 the guard hook, and the MCP tools. (Always-on context cost is about 2.3k tokens.)
 
 ### Gemini CLI (extension)
@@ -92,6 +92,7 @@ After each stage it calls `harness_check_gates`. Each stage writes an artifact i
 | `harness_browser_qa` | `test:browser [file\|url]` | Headless Chromium at **360×800, 390×844, 768×1024, 1024×768, 1440×900, 1920×1080**: horizontal overflow, ≥44px tap targets on touch sizes, one `<h1>`, `<main>`, console errors, axe WCAG 2.0/2.1/2.2 A/AA, lab LCP/CLS; screenshots + `reports/browser-qa/browser-qa.json` |
 | `harness_check_gates` | `gate` | Verify G1–G13 from the project's evidence |
 | `harness_check_ratchets` | `ratchet [--update]` | Measure coverage, JS/CSS size, viewports, LCP/CLS, axe violations; may only hold or improve |
+| `harness_walkthrough` | `walkthrough [url\|file]` | Record **desktop and phone videos** of the real build for client approval (see below) |
 | `harness_inspect_write` | — | Dry-run a write: secrets, banned AI gradients, agent write-roots |
 | `harness_inspect_command` | — | Dry-run a shell command for destructive patterns |
 | `harness_list_agents` | — | The 16 specialists and what each may write / spawn |
@@ -124,6 +125,23 @@ Be clear-eyed: gates marked *document* verify that the evidence exists, is compl
 placeholders and has no open blockers — they cannot prove a report's numbers are true. The gates
 backed by a measurement (G3, G7, G8, G9) and the ratchets are the strongest; the
 [`SECURITY.md`](SECURITY.md) and "Known limits" section say more.
+
+### Client approval video
+`walkthrough` (or `/website-walkthrough`, or the `harness_walkthrough` tool) records the **real, running site** in headless Chromium and produces a package you can send to a client:
+
+```
+reports/walkthrough/
+  desktop.webm   phone.webm        continuous recordings (.mp4 too when ffmpeg is installed)
+  desktop-poster.png ...           a still of each video
+  walkthrough.json                 machine-readable record (pages, HTTP status, files)
+  CLIENT_APPROVAL.md               what is shown + measured QA numbers + an UNSIGNED decision block
+```
+
+It visits the entry page and its internal nav links, smooth-scrolls each page, opens the mobile menu on the phone cut, and burns in
+captions ("Page title · /path · build label") with a "Preview build" badge. Forms are **never** submitted.
+Honest by construction: a page that fails to load turns the result into **NOT READY** (never shown as fine), quality figures appear
+only when a *fresh* browser-QA report exists for the same sources, and the approval boxes are never pre-ticked. `.webm` plays in
+Chrome/Edge/Firefox; for WhatsApp, email or Safari install `ffmpeg` and the command also writes an `.mp4`.
 
 ### Guard hooks (Claude Code plugin)
 On every tool call the hook checks the *proposed* action and blocks it (exit 2):
@@ -173,7 +191,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md). Edit sources, never generated files.
 
 - **Tested in this repo:** the guards, gates, ratchets, browser QA (against a real Chromium), MCP
   protocol handling, the installer's file output, and the plugin build — and the Claude Code plugin
-  passes `claude plugin validate` and loads with 16 agents, 14 commands, 1 hook and 1 MCP server.
+  passes `claude plugin validate` and loads with 16 agents, 15 commands, 1 hook and 1 MCP server.
 - **Not exercised live here:** each third-party IDE (Cursor, Windsurf, Copilot, Codex, Gemini) loading
   the files the installer writes. They follow each tool's documented project-file conventions;
   report any mismatch as an issue.

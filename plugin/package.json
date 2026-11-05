@@ -1,6 +1,6 @@
 {
   "name": "website-engineering-harness",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "private": true,
   "type": "module",
   "description": "Generated Claude Code plugin build of website-engineering-harness. Do not edit; see scripts/plugin/build-plugin.js."
