@@ -73,7 +73,7 @@ export function expectedFiles() {
     name: 'website-engineering-harness',
     version: pkg.version,
     description: pkg.description,
-    author: { name: 'Siraj', url: 'https://github.com/sirajpasha' },
+    author: { name: 'InfoDatSystems', url: 'https://github.com/sirajpasha' },
     homepage: 'https://github.com/sirajpasha/website-engineering-harness',
     repository: 'https://github.com/sirajpasha/website-engineering-harness',
     license: 'MIT',
