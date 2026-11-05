@@ -7,7 +7,7 @@
 | AGENT 03 | Product Discovery Specialist | `/website-discover`, `npm run harness discover`| Addy Osmani interview-me | Gate G2 |
 | AGENT 04 | Design Art Director | `/website-design`, `npm run harness design` | Taste Skill (Leonxlnx) | Gate G3 |
 | AGENT 05 | UX/UI Design Specialist | `/website-critique`, `npm run harness critique`| Impeccable (Paul Bakaus) | Gate G4 |
-| AGENT 06 | Google Stitch Design Engineer | `/website-stitch`, `npm run harness stitch` | Google Stitch MCP / CLI | Gate G5 |
+| AGENT 06 | Google Stitch Design Engineer | `/website-stitch`, `npm run harness stitch` | Google Stitch MCP / SDK (optional) | Gate G5 |
 | AGENT 07 | Motion & Interaction Engineer | `/website-motion`, `npm run harness motion` | Emil Kowalski Skills | Gate G8 |
 | AGENT 08 | Frontend Architect | `/website-build`, `npm run harness build` | Frontend Standards | Gate G6 |
 | AGENT 09 | Website Implementation Engineer | Implementation Slices | Semantic Modular HTML/JS | Gate G7/G8 |

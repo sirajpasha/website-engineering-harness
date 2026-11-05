@@ -13,6 +13,7 @@ npx playwright install chromium     # needed for the browser-QA tests
 npm test                            # unit + integration (needs Chromium)
 npm run evals                       # scenario evals for the guards and gates
 npm run validate:all                # agents, contracts, subagents, skills, MCP, gates
+npm run ci:local                    # the full GitHub Actions workflow, locally
 ```
 
 Node 20+ (22 recommended).
@@ -37,7 +38,7 @@ Node 20+ (22 recommended).
 ## Pull requests
 
 - One logical change per PR; describe the *why* and how you verified it.
-- `npm test`, `npm run evals`, `npm run validate:all` must pass locally.
+- Run `npm run ci:local` (executes the whole GitHub Actions workflow locally) and make sure it passes before pushing.
 - Update `docs/changelog.md` for user-visible changes.
 
 By contributing you agree your contribution is licensed under the MIT License.

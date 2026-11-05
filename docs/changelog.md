@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## [2.2.1] - 2026-11-06
+### Fixed
+- **CLI banner** printed a hard-coded `v2.0.0`; it now reads the real package version (guarded by a test that also keeps `VERSION`, `package.json`, the marketplace, the Gemini extension and `AGENTS.md` in sync).
+- **`AGENTS.md`** version was stale.
+### Documentation (revalidated against the code)
+- `docs/integration-guide.md`: removed the misleading Stitch key steps (Stitch is optional, see `integrations/`), documented the Playwright-in-your-project requirement, the MCP server entry and `walkthrough`.
+- `docs/installation.md`: opt-in ratchets and walkthrough commands, output location.
+- `docs/troubleshooting.md`: walkthrough (ffmpeg, NOT READY, Git Bash paths) and ratchet entries.
+- `docs/agent-mapping.md`: Stitch is MCP/SDK, not a CLI. `docs/skill-governance.md`: Node 20.13+. `CLAUDE.md`: eval count 37.
+- README version badge.
+### Added
+- `npm run ci:local` runs every `run:` step of `.github/workflows/ci.yml` locally, in order, so CI is exercised before pushing (cannot drift from the workflow; `--list` prints the steps).
+
 ## [2.2.0] - 2026-11-05
 ### Added
 - **Client walkthrough videos**: `walkthrough` CLI command, `/website-walkthrough` slash command and `harness_walkthrough` MCP tool record desktop and phone videos of the real build (Playwright), with captions, poster stills, `walkthrough.json` and an unsigned `CLIENT_APPROVAL.md` quoting fresh measured QA evidence. Fails closed; a page that does not load makes the result NOT READY; MP4 is produced when ffmpeg is available.
