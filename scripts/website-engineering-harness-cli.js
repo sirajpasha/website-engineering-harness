@@ -4,6 +4,7 @@
  * Compatible with Claude Code CLI, Gemini CLI / Antigravity, OpenAI Codex / Copilot, Cursor, Windsurf, or Terminal.
  */
 
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runEnvironmentAudit } from './environment-audit/audit-environment.js';
@@ -25,6 +26,7 @@ import { handlePrResponse } from './ci/pr-respond.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '../');
+const VERSION = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf8')).version;
 
 const args = process.argv.slice(2);
 const command = args[0] ? args[0].toLowerCase().replace(/^--?/, '') : 'help';
@@ -32,7 +34,7 @@ const command = args[0] ? args[0].toLowerCase().replace(/^--?/, '') : 'help';
 function showHelp() {
   console.log(`
 ===================================================================
-  UNIVERSAL WEBSITE ENGINEERING, DESIGN & QUALITY HARNESS (v2.0.0)
+  UNIVERSAL WEBSITE ENGINEERING, DESIGN & QUALITY HARNESS (v${VERSION})
 ===================================================================
 
 Usage:
