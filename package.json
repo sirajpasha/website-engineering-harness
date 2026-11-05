@@ -97,6 +97,7 @@
     "mcp": "node scripts/mcp-server/server.js",
     "install-tool": "node scripts/install/install.js",
     "pack:check": "npm pack --dry-run",
+    "ci:local": "node scripts/ci/run-ci-local.js",
     "walkthrough": "node scripts/walkthrough/walkthrough.js"
   },
   "dependencies": {

@@ -63,6 +63,7 @@ npm run validate:contracts                 # only agents/*.contract.json vs sche
 npm run gate [-- --target <project-dir>]   # content-aware G1–G13 (rules in scripts/quality-gates/gate-rules.js); default target examples/sample-website; evidence is never taken from templates/ or examples/ unless it is the target. G9 needs <project>/reports/browser-qa/browser-qa.json from `test:browser` and goes stale if sources change (`npm run gates` = --all)
 npm run ratchet [-- --update --target <dir>]   # MEASURES coverage (node --test), JS/CSS size, and (from browser-qa.json) viewports/LCP/CLS/axe violations; baselines live in <target>/.harness/baselines.json (seeded from measurements on first --update, only ever tighten); unmeasured metric = failure
 npm run tdd:red -- <test-file>             # (CLI: tdd:red) record RED receipt; then `npm run tdd:verify`
+npm run ci:local                           # run the GitHub Actions CI workflow locally (all run: steps of ci.yml); do this before every push/PR
 npm run install-hooks                      # install git pre-commit/pre-push hooks
 npm run build:plugin / check:plugin          # regenerate / verify plugin/ (generated Claude Code plugin; never edit by hand). `claude plugin validate plugin` validates it
 node scripts/website-engineering-harness-cli.js install --tool <cursor|claude|gemini|copilot|codex|windsurf|generic|all> [--dir p]   # per-tool installer (scripts/install/install.js; source text: integrations/harness-instructions.md)
