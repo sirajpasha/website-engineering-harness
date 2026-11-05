@@ -4,9 +4,9 @@
   "description": "Give any AI coding agent a website team: 16 specialist roles, 13 evidence-based quality gates, real Playwright QA at 6 viewports, axe accessibility, monotonic ratchets and guard hooks. Claude Code plugin, Gemini extension, MCP server, and installers for Cursor, Windsurf, Copilot and Codex.",
   "author": {
     "name": "InfoDatSystems",
-    "url": "https://github.com/sirajpasha"
+    "url": "https://www.infodatsystems.com"
   },
-  "homepage": "https://github.com/sirajpasha/website-engineering-harness",
+  "homepage": "https://www.infodatsystems.com",
   "repository": "https://github.com/sirajpasha/website-engineering-harness",
   "license": "MIT",
   "keywords": [

@@ -184,6 +184,6 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md). Edit sources, never generated files.
 
 ## License and attribution
 
-MIT — see [`LICENSE`](LICENSE). Several roles are *inspired by* public projects (Taste Skill, Impeccable,
+Maintained by [InfoDatSystems](https://www.infodatsystems.com). MIT — see [`LICENSE`](LICENSE). Several roles are *inspired by* public projects (Taste Skill, Impeccable,
 Emil Kowalski, Addy Osmani, Matt Pocock); they are original summaries, not copies, and this project is
 not affiliated with them. See [`NOTICE.md`](NOTICE.md).

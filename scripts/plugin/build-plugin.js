@@ -73,8 +73,8 @@ export function expectedFiles() {
     name: 'website-engineering-harness',
     version: pkg.version,
     description: pkg.description,
-    author: { name: 'InfoDatSystems', url: 'https://github.com/sirajpasha' },
-    homepage: 'https://github.com/sirajpasha/website-engineering-harness',
+    author: { name: 'InfoDatSystems', url: 'https://www.infodatsystems.com' },
+    homepage: 'https://www.infodatsystems.com',
     repository: 'https://github.com/sirajpasha/website-engineering-harness',
     license: 'MIT',
     keywords: ['website', 'frontend', 'design', 'quality-gates', 'playwright', 'accessibility', 'tdd', 'agents']
