@@ -1,0 +1,20 @@
+{
+  "agent_id": "13-web-performance-auditor",
+  "name": "Web Performance Auditor",
+  "role": "Core Web Vitals, bundle size, metric honesty",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "PERFORMANCE_AUDIT_REPORT.md",
+    "reports/performance/",
+    "DEFECT_REGISTER.md"
+  ],
+  "forbidden_write_roots": [
+    "src/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 20,
+  "token_budget_soft_limit": 120000,
+  "token_budget_hard_limit": 180000
+}

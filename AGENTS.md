@@ -106,3 +106,25 @@ Every project maintained under this harness must preserve continuous traceabilit
 1. **Anti-Slop Visual Law:** No unmotivated purple/blue gradients, no default Inter cards with arbitrary rounded corners, no placeholder content without intent.
 2. **Never Fabricate Test Results:** Never claim a browser test, performance metric, or security check succeeded without running the actual tool or script. If a tool lacks network or credentials, state exact blocking dependencies.
 3. **No Premature Release Declarations:** Quality Gate G13 cannot be bypassed. Critical/High findings block release.
+
+---
+
+## 7. MECHANICAL ENFORCEMENT & MONOTONIC RATCHET LAYER
+
+Beyond prompt-level guidelines, this harness implements deterministic mechanical safeguards:
+
+1. **Machine-Readable Contracts (`agents/*.contract.json`):** Every agent is bound by `allowed_write_roots`, `forbidden_write_roots`, and `may_spawn` permissions. Reviewers cannot edit code; builders cannot edit review verdicts.
+2. **Guard Hooks (`scripts/hooks/`):**
+   - `pre-write-gate.js`: Detects secrets and enforces agent write boundaries.
+   - `test-write-lock.js`: Physically prevents deleting or weakening test assertions during active RED TDD cycles.
+   - `pre-bash-gate.js`: Blocks destructive shell commands (`git reset --hard`, `git push --force`).
+3. **Cryptographic TDD Proofs (`scripts/tdd/`):**
+   - `red-phase-recorder.js` logs SHA-256 hashes of test failures in `.harness/receipts/red-phase.receipt.json`.
+   - `verify-tdd.js` cryptographically verifies RED-to-GREEN lifecycle before G7 certification.
+4. **Monotonic Quality Ratchets (`.harness/baselines.json`):**
+   - Bundle size, test coverage, Core Web Vitals, and responsive viewport pass rates can only stay flat or improve.
+   - Regressions immediately fail git pre-commit and CI gates (`website-engineering-harness ratchet`).
+5. **Context Budget & Circuit Breaker (`scripts/telemetry/context-budget.js`):**
+   - Soft warning at 140,000 tokens / 20 turns.
+   - Hard circuit breaker at 190,000 tokens / 30 turns.
+

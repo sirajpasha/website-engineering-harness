@@ -1,0 +1,21 @@
+{
+  "agent_id": "16-production-reviewer",
+  "name": "Production Readiness & Release Reviewer",
+  "role": "Gate consolidation, release verification",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "RELEASE_CHECKLIST.md",
+    "RELEASE_NOTES.md",
+    "reports/release-audit.md"
+  ],
+  "forbidden_write_roots": [
+    "src/",
+    "tests/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 20,
+  "token_budget_soft_limit": 120000,
+  "token_budget_hard_limit": 180000
+}

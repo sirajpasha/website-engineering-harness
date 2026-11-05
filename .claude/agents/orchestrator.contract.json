@@ -1,0 +1,40 @@
+{
+  "agent_id": "01-orchestrator",
+  "name": "Master Website Orchestrator",
+  "role": "Orchestration, routing, quality gate enforcement",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    ".harness/",
+    "docs/",
+    "reports/",
+    "DEFECT_REGISTER.md",
+    "TEST_TRACEABILITY_MATRIX.md",
+    "README.md",
+    "VERSION"
+  ],
+  "forbidden_write_roots": [
+    "src/"
+  ],
+  "may_spawn": [
+    "02-requirement-grilling",
+    "03-product-discovery",
+    "04-design-art-director",
+    "05-ux-ui-designer",
+    "06-stitch-design-engineer",
+    "07-frontend-architect",
+    "08-implementation-engineer",
+    "09-tdd-test-engineer",
+    "10-motion-engineer",
+    "11-browser-qa",
+    "12-security-auditor",
+    "13-web-performance-auditor",
+    "14-seo-accessibility",
+    "15-code-reviewer",
+    "16-production-reviewer"
+  ],
+  "max_context_turns": 30,
+  "token_budget_soft_limit": 150000,
+  "token_budget_hard_limit": 195000
+}

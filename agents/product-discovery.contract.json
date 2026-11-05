@@ -1,0 +1,23 @@
+{
+  "agent_id": "03-product-discovery",
+  "name": "Product Discovery Specialist",
+  "role": "User journeys, personas, sitemaps, IA",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "USER_JOURNEYS.md",
+    "docs/discovery/",
+    "SITEMAP.md"
+  ],
+  "forbidden_write_roots": [
+    "src/",
+    "tests/",
+    "public/",
+    "styles/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 20,
+  "token_budget_soft_limit": 120000,
+  "token_budget_hard_limit": 180000
+}

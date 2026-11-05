@@ -1,0 +1,21 @@
+{
+  "agent_id": "05-ux-ui-designer",
+  "name": "UX/UI Design Specialist",
+  "role": "Usability, design critique, layout, typesetting",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "UI_CRITIQUE_REPORT.md",
+    "docs/ux/",
+    "DEFECT_REGISTER.md"
+  ],
+  "forbidden_write_roots": [
+    "src/",
+    "tests/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 20,
+  "token_budget_soft_limit": 120000,
+  "token_budget_hard_limit": 180000
+}

@@ -1,0 +1,21 @@
+{
+  "agent_id": "11-browser-qa",
+  "name": "Playwright Browser Engineer",
+  "role": "Viewport QA, real browser automation, traces",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "BROWSER_QA_REPORT.md",
+    "tests/e2e/",
+    "reports/browser-qa/",
+    "DEFECT_REGISTER.md"
+  ],
+  "forbidden_write_roots": [
+    "src/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 25,
+  "token_budget_soft_limit": 140000,
+  "token_budget_hard_limit": 190000
+}

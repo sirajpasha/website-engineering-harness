@@ -1,0 +1,24 @@
+{
+  "agent_id": "04-design-art-director",
+  "name": "Design Art Director",
+  "role": "Visual identity, anti-slop, aesthetics",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "DESIGN_DIRECTION.md",
+    "docs/design/",
+    "tokens/"
+  ],
+  "forbidden_write_roots": [
+    "src/app.js",
+    "tests/"
+  ],
+  "may_spawn": [
+    "05-ux-ui-designer",
+    "06-stitch-design-engineer"
+  ],
+  "max_context_turns": 25,
+  "token_budget_soft_limit": 140000,
+  "token_budget_hard_limit": 190000
+}

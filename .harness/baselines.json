@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-11-05T12:00:00Z",
+  "description": "Monotonic Web Quality Ratchet Baselines. Metrics must only stay flat or improve; regressions trigger build failures.",
+  "ratchets": {
+    "test_coverage_pct": {
+      "name": "Test Suite Line Coverage",
+      "baseline": 90.0,
+      "direction": "increase",
+      "unit": "%",
+      "tolerance": 0.0
+    },
+    "max_js_bundle_kb": {
+      "name": "Maximum Client JS Bundle Size",
+      "baseline": 50.0,
+      "direction": "decrease",
+      "unit": "kB",
+      "tolerance": 1.0
+    },
+    "max_css_bundle_kb": {
+      "name": "Maximum Client CSS Bundle Size",
+      "baseline": 25.0,
+      "direction": "decrease",
+      "unit": "kB",
+      "tolerance": 0.5
+    },
+    "core_web_vitals_lcp_ms": {
+      "name": "Largest Contentful Paint (LCP)",
+      "baseline": 2500,
+      "direction": "decrease",
+      "unit": "ms",
+      "tolerance": 50
+    },
+    "core_web_vitals_cls": {
+      "name": "Cumulative Layout Shift (CLS)",
+      "baseline": 0.10,
+      "direction": "decrease",
+      "unit": "score",
+      "tolerance": 0.01
+    },
+    "viewports_passed": {
+      "name": "Responsive Viewport Pass Count",
+      "baseline": 6,
+      "direction": "increase",
+      "unit": "viewports",
+      "tolerance": 0
+    },
+    "accessibility_violations": {
+      "name": "WCAG 2.2 AA Accessibility Violations",
+      "baseline": 0,
+      "direction": "decrease",
+      "unit": "violations",
+      "tolerance": 0
+    }
+  }
+}

@@ -398,16 +398,37 @@ Any AI coding tool or developer can operate the harness purely via standardized 
 # Check environment and audit harness
 website-engineering-harness audit
 
-# Validate all agents, skills, and MCP configurations
+# Validate all agents, machine contracts, skills, and MCP configurations
 website-engineering-harness validate
+
+# Verify the 16 agent boundary contracts (*.contract.json)
+website-engineering-harness validate:contracts
+
+# Install deterministic Git pre-commit & pre-push hooks
+website-engineering-harness install-hooks
 
 # Run automated unit/integration tests
 npm test
 
+# Evaluate monotonic web quality ratchets (bundle size, coverage, CWV, viewports)
+website-engineering-harness ratchet
+
+# Record cryptographic proof of failing RED test
+website-engineering-harness tdd:red <test-file>
+
+# Verify RED receipt and certified GREEN test run
+website-engineering-harness tdd:verify
+
 # Run real browser tests across 6 viewports
 website-engineering-harness test:browser
 
-# Check all 13 Quality Gates
+# Inspect context turns and token budget
+website-engineering-harness budget
+
+# Run autonomous PR failure diagnostic & remediation
+website-engineering-harness pr-respond
+
+# Check all 13 Quality Gates with mechanical enforcement
 website-engineering-harness gates
 
 # Display CLI help menu

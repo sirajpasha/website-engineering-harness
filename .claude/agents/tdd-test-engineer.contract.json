@@ -1,0 +1,22 @@
+{
+  "agent_id": "09-tdd-test-engineer",
+  "name": "TDD & Test Engineering Specialist",
+  "role": "RED-GREEN-REFACTOR, test seams, test suites",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "tests/",
+    ".harness/receipts/",
+    "vitest.config.js",
+    "playwright.config.js",
+    "TEST_TRACEABILITY_MATRIX.md"
+  ],
+  "forbidden_write_roots": [
+    "reports/release-audit.md"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 25,
+  "token_budget_soft_limit": 140000,
+  "token_budget_hard_limit": 190000
+}

@@ -1,0 +1,22 @@
+{
+  "agent_id": "06-stitch-design-engineer",
+  "name": "Google Stitch Design Engineer",
+  "role": "AI design generation, tokens, variants",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "STITCH_DESIGN_SPEC.md",
+    "DESIGN_TOKENS.json",
+    "styles/tokens/",
+    "docs/stitch/"
+  ],
+  "forbidden_write_roots": [
+    "tests/",
+    "reports/"
+  ],
+  "may_spawn": [],
+  "max_context_turns": 25,
+  "token_budget_soft_limit": 140000,
+  "token_budget_hard_limit": 190000
+}

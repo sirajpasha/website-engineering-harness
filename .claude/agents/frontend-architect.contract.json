@@ -1,0 +1,24 @@
+{
+  "agent_id": "07-frontend-architect",
+  "name": "Frontend Architect",
+  "role": "Stack evaluation, modular structure, tokens",
+  "allowed_read_roots": [
+    "*"
+  ],
+  "allowed_write_roots": [
+    "ARCHITECTURE.md",
+    "COMPONENT_INVENTORY.md",
+    "docs/architecture/",
+    "package.json"
+  ],
+  "forbidden_write_roots": [
+    "reports/release-audit.md"
+  ],
+  "may_spawn": [
+    "08-implementation-engineer",
+    "09-tdd-test-engineer"
+  ],
+  "max_context_turns": 25,
+  "token_budget_soft_limit": 140000,
+  "token_budget_hard_limit": 190000
+}

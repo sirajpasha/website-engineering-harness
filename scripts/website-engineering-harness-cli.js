@@ -8,11 +8,18 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runEnvironmentAudit } from './environment-audit/audit-environment.js';
 import { validateAgents } from './agent-validation/validate-agents.js';
+import { validateContracts } from './agent-validation/validate-contracts.js';
 import { validateSkills } from './skill-validation/validate-skills.js';
 import { validateMCP } from './mcp-validation/validate-mcp.js';
 import { checkGates } from './quality-gates/check-gates.js';
 import { verifyTraceability } from './traceability/verify-traceability.js';
 import { validateBrowser } from './browser-validation/validate-browser.js';
+import { installGitHooks } from './hooks/install-git-hooks.js';
+import { recordRedPhase } from './tdd/red-phase-recorder.js';
+import { verifyTddCycle } from './tdd/verify-tdd.js';
+import { evaluateRatchets, collectCurrentMetrics } from './ratchets/check-ratchet.js';
+import { checkContextBudget } from './telemetry/context-budget.js';
+import { handlePrResponse } from './ci/pr-respond.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,13 +41,22 @@ Usage:
 
 Core Inspection Commands:
   audit                Run full environment and runtime capability audit
-  validate             Validate all 16 agents, skill registry, and MCP bindings
-  validate:agents      Verify the 16 specialized agent definitions
+  validate             Validate all 16 agents, machine contracts, skill registry, and MCP bindings
+  validate:agents      Verify the 16 specialized agent markdown definitions
+  validate:contracts   Verify the 16 machine-enforceable agent boundary contracts (*.contract.json)
   validate:skills      Verify skill registry, governance policy, and wrappers
   validate:mcp         Verify Model Context Protocol configuration (mcp.json)
   validate:trace       Verify Requirement-to-Test Traceability Matrix
-  gates, gate          Run Quality Gate Audit across G1 through G13
+  gates, gate          Run Quality Gate Audit across G1 through G13 with mechanical enforcement
   test:browser         Run browser validation across the 6 mandatory viewports
+
+Mechanical Safeguards & Ratchets:
+  install-hooks        Install Git pre-commit and pre-push deterministic interceptor hooks
+  ratchet [--update]   Evaluate monotonic quality ratchets against .harness/baselines.json
+  tdd:red <test-file>  Record cryptographic proof of failing RED test in .harness/receipts/
+  tdd:verify           Verify RED receipt exists and test suite is certified GREEN
+  budget               Inspect context turns and token budget ceiling
+  pr-respond [--log f] Run autonomous self-healing CI diagnostic and remediation loop
 
 Workflow Commands (Simulate/Route to Agent):
   init                 Initialize project scaffolding & environment audit
@@ -71,6 +87,7 @@ async function main() {
     case 'validate:all':
       console.log('>>> RUNNING COMPREHENSIVE HARNESS SELF-VALIDATION <<<\n');
       const aRes = validateAgents();
+      const cRes = validateContracts();
       const sRes = validateSkills();
       const mRes = validateMCP();
       const tRes = verifyTraceability();
@@ -79,16 +96,22 @@ async function main() {
       console.log('\n====================================================');
       console.log('  OVERALL HARNESS SELF-VALIDATION SUMMARY');
       console.log('====================================================');
-      console.log(`- Agents:        ${aRes.passed}/${aRes.total} Passed`);
-      console.log(`- Skills:        ${sRes.passed}/${sRes.total} Passed`);
-      console.log(`- MCP Config:    ${mRes.valid ? 'VALID' : 'INVALID'}`);
-      console.log(`- Traceability:  ${tRes.passed ? 'PASSED' : 'FAILED'}`);
-      console.log(`- Quality Gates: ${gRes.passed}/${gRes.total} Gates Verified`);
+      console.log(`- Agents (MD):     ${aRes.passed}/${aRes.total} Passed`);
+      console.log(`- Contracts (JSON):${cRes.passed ? 'PASSED' : 'FAILED'}`);
+      console.log(`- Skills:          ${sRes.passed}/${sRes.total} Passed`);
+      console.log(`- MCP Config:      ${mRes.valid ? 'VALID' : 'INVALID'}`);
+      console.log(`- Traceability:    ${tRes.passed ? 'PASSED' : 'FAILED'}`);
+      console.log(`- Quality Gates:   ${gRes.passed}/${gRes.total} Gates Verified`);
       console.log('====================================================\n');
       break;
 
     case 'validate:agents':
       validateAgents();
+      break;
+
+    case 'validate:contracts':
+    case 'contracts':
+      validateContracts();
       break;
 
     case 'validate:skills':
@@ -103,6 +126,61 @@ async function main() {
       verifyTraceability();
       break;
 
+    case 'install-hooks':
+    case 'hooks':
+      installGitHooks();
+      break;
+
+    case 'ratchet':
+    case 'check-ratchet': {
+      const update = args.includes('--update') || args.includes('-u');
+      const metrics = collectCurrentMetrics();
+      const outcome = evaluateRatchets(metrics, { updateBaselines: update });
+      if (!outcome.passed) {
+        process.exit(1);
+      }
+      break;
+    }
+
+    case 'tdd:red':
+    case 'tdd-red': {
+      const testFile = args[1] || 'examples/sample-website/tests/sample-website.test.js';
+      const testCommand = args[2] || '';
+      recordRedPhase({ testFile, testCommand });
+      break;
+    }
+
+    case 'tdd:verify':
+    case 'tdd-verify': {
+      const result = verifyTddCycle();
+      if (!result.passed) {
+        process.exit(1);
+      }
+      break;
+    }
+
+    case 'budget':
+    case 'telemetry': {
+      const turns = parseInt(args[1], 10) || 5;
+      const tokens = parseInt(args[2], 10) || 25000;
+      const budgetRes = checkContextBudget({ currentTurns: turns, estimatedTokens: tokens });
+      console.log(`Context Budget Status: [${budgetRes.status}]`);
+      console.log(`  Current Turns:     ${turns}`);
+      console.log(`  Estimated Tokens:  ${tokens.toLocaleString()}`);
+      if (budgetRes.warnings.length > 0) {
+        budgetRes.warnings.forEach(w => console.warn(`  ${w}`));
+      } else {
+        console.log('  [PASS] Context usage well within safe operational headroom.');
+      }
+      break;
+    }
+
+    case 'pr-respond': {
+      const logFile = args[1] || '';
+      handlePrResponse({ logFile });
+      break;
+    }
+
     case 'gate':
     case 'gates':
       checkGates();
@@ -116,7 +194,8 @@ async function main() {
     case 'init':
       console.log('>>> Initializing Universal Website Harness Scaffolding <<<');
       runEnvironmentAudit();
-      console.log('\n[✔] Project environment ready. Proceed to requirement grilling via "/website-grill".');
+      installGitHooks();
+      console.log('\n[✔] Project environment and deterministic hooks ready. Proceed to requirement grilling via "/website-grill".');
       break;
 
     case 'grill':
