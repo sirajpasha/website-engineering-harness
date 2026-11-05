@@ -47,6 +47,28 @@
     "expect": "block"
   },
   {
+    "id": "bash-delete-home",
+    "description": "Deleting the home directory is blocked, whatever the flag order",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "rm -fr ~"
+      }
+    },
+    "expect": "block"
+  },
+  {
+    "id": "bash-delete-specific-folder",
+    "description": "Deleting a specific folder is allowed (not mistaken for a root delete)",
+    "payload": {
+      "tool_name": "Bash",
+      "tool_input": {
+        "command": "rm -rf /tmp/build-output"
+      }
+    },
+    "expect": "allow"
+  },
+  {
     "id": "bash-benign-test",
     "description": "Running the test suite is allowed",
     "payload": {

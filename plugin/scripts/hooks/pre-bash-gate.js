@@ -13,7 +13,14 @@ const BLOCKED_PATTERNS = [
     reason: 'Force-pushing rewrites remote history and violates release governance.'
   },
   {
-    pattern: /(?:rm\s+-rf\s+[\/\*]|rmdir\s+\/s\s+\/q\s+[\\\/.]|del\s+\/f\s+\/s\s+\/q\s+\*)/i,
+    // rm with recursive/force flags (any order, split or combined, or --no-preserve-root) whose target is the
+    // filesystem root, the home directory, a bare wildcard, or the current/parent directory. Deleting a specific
+    // folder (rm -rf /tmp/build, rm -rf ./dist) is NOT matched.
+    pattern: /\brm\s+(?:(?:-[a-z]+|--no-preserve-root)\s+)+(?:--\s+)?(?:\/\*?|\*|~\/?\*?|\$HOME\/?\*?|\.{1,2}|\.\/\*)(?=\s|$|[;&|])/i,
+    reason: 'Recursive root, home, wildcard or working-directory deletion is prohibited.'
+  },
+  {
+    pattern: /(?:rmdir\s+\/s\s+\/q\s+[\\\/.]|del\s+\/f\s+\/s\s+\/q\s+\*)/i,
     reason: 'Recursive root or wildcard deletion is prohibited.'
   },
   {
