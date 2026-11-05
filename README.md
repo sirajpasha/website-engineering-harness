@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.2.0-informational.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.2.1-informational.svg)](VERSION)
 
 AI assistants can write a landing page in a minute, and it usually looks like every other
 landing page — and "it works on mobile" is a claim, not a result. This harness adds two things:
