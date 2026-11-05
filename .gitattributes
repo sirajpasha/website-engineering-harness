@@ -1,0 +1,6 @@
+# Keep line endings identical on every platform (the plugin drift check and hashes rely on stable content)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.woff2 binary
