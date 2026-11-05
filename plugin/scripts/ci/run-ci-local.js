@@ -37,6 +37,11 @@ export function localCommand(cmd) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const steps = parseSteps(fs.readFileSync(path.join(root, '.github/workflows/ci.yml'), 'utf8'));
   if (process.argv.includes('--list')) { steps.forEach((s, i) => console.log(`${i + 1}. ${s.name}: ${localCommand(s.run)}`)); process.exit(0); }
+  // CI regenerates tracked evidence (the sample's browser-qa.json is a fixture that gates, ratchets
+  // and evals read, so it must stay committed). Restore it afterwards so a local run leaves the tree clean.
+  const tracked = ['examples/sample-website/reports/browser-qa/browser-qa.json'].map((f) => path.join(root, f));
+  const snapshot = tracked.map((f) => (fs.existsSync(f) ? fs.readFileSync(f) : null));
+  const restore = () => tracked.forEach((f, i) => { if (snapshot[i]) fs.writeFileSync(f, snapshot[i]); });
   const results = [];
   for (const s of steps) {
     console.log(`\n=== [${results.length + 1}/${steps.length}] ${s.name}\n$ ${localCommand(s.run)}`);
@@ -44,6 +49,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     results.push({ name: s.name, ok: r.status === 0 });
     if (r.status !== 0) break;
   }
+  restore();
   console.log('\n=== Local CI summary');
   for (const r of results) console.log(`${r.ok ? 'PASS' : 'FAIL'}  ${r.name}`);
   const ok = results.length === steps.length && results.every((r) => r.ok);
