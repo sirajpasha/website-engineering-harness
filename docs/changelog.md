@@ -10,6 +10,8 @@
 - `docs/troubleshooting.md`: walkthrough (ffmpeg, NOT READY, Git Bash paths) and ratchet entries.
 - `docs/agent-mapping.md`: Stitch is MCP/SDK, not a CLI. `docs/skill-governance.md`: Node 20.13+. `CLAUDE.md`: eval count 37.
 - README version badge.
+### Added
+- `npm run ci:local` runs every `run:` step of `.github/workflows/ci.yml` locally, in order, so CI is exercised before pushing (cannot drift from the workflow; `--list` prints the steps).
 
 ## [2.2.0] - 2026-11-05
 ### Added
