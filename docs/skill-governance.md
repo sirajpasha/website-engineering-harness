@@ -9,7 +9,7 @@ Every new skill proposed for inclusion must pass the 10-point evaluation defined
 2. Codebase quality and test coverage.
 3. Proven author credibility.
 4. Comprehensive documentation.
-5. Compatibility with Node.js 18+ and modern browser engines.
+5. Compatibility with Node.js 20.13+ and modern browser engines.
 6. Clean security posture (no arbitrary code execution).
 7. Zero functional overlap with existing registered skills.
 8. Low token consumption footprint.
