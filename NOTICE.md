@@ -23,8 +23,9 @@ If you want the full upstream skills, install them from their own repositories a
 
 - [Playwright](https://playwright.dev) (Apache-2.0) and [axe-core](https://github.com/dequelabs/axe-core) (MPL-2.0)
   are optional dependencies installed in *your* project; they are not redistributed here.
-- Google Stitch MCP (`@google/stitch-mcp`) is referenced in `mcp.json` and the Stitch agent. It
-  needs your own `STITCH_API_KEY` and is subject to Google's terms.
+- Google Stitch is optional and **not bundled**. The Stitch agent and `integrations/google-stitch-*.md` explain how to
+  connect it with your own API key; it is subject to Google's terms. (This project previously named npm packages
+  `@google/stitch-mcp` / `@google/stitch-cli` that do not exist; that was corrected in 2.1.1.)
 
 ## Sample website
 

@@ -2,6 +2,7 @@
 
 **Engineer:** AGENT 06 (Google Stitch Design Engineer)  
 **Quality Gate G5 Status:** `PASSED`  
+**Source:** Manual  
 
 ## 1. Screen Mappings & Design System
 - `screen_hero`: Responsive Hero surface with live ping dot and dual action triggers.

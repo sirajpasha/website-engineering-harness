@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.1.1] - 2026-11-05
+### Fixed (Stitch / MCP configuration)
+- The npm packages `@google/stitch-mcp` and `@google/stitch-cli` named in earlier versions **do not exist** (404). They are removed from `mcp.json`, the Stitch agent, command, registry and docs, along with the invented `stitch_*` tool names.
+- Stitch is now clearly **optional and not bundled**: `integrations/google-stitch-mcp.md` documents what was and was not verified and how to connect it with your own key at user scope; `integrations/google-stitch-sdk.md` replaces the nonexistent CLI page; `integrations/stitch.mcp.example.json` is a reference-only shape.
+- Gate **G5** now requires `STITCH_DESIGN_SPEC.md` to declare `**Source:** Stitch MCP | Stitch SDK | Manual`, so a spec can never imply Stitch generated screens it did not. The sample site declares `Manual`.
+- `mcp.json` pins `@playwright/mcp` to an exact version instead of `@latest`; `validate:mcp` treats Stitch as optional and understands HTTP servers.
+
 ## [2.1.0] - 2026-11-05
 ### Distribution (public release)
 - **Claude Code plugin** (`plugin/`, generated; marketplace manifest in `.claude-plugin/`): 16 subagents, 14 slash commands, PreToolUse guard hook, MCP server.

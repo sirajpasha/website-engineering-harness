@@ -7,21 +7,15 @@ Configure the following environment variables in your local `.env` or system env
 - `PORT`: Default local preview port (default: `3000`).
 
 ## 2. Model Context Protocol (`mcp.json`)
-The root `mcp.json` defines standard bindings for Playwright and Google Stitch:
+The root `mcp.json` defines a pinned Playwright MCP binding:
 ```json
 {
   "mcpServers": {
     "playwright": {
       "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"]
-    },
-    "google-stitch": {
-      "command": "npx",
-      "args": ["-y", "@google/stitch-mcp"],
-      "env": {
-        "STITCH_API_KEY": "${STITCH_API_KEY}"
-      }
+      "args": ["-y", "@playwright/mcp@0.0.84"]
     }
   }
 }
 ```
+Google Stitch is optional and not bundled; see `integrations/google-stitch-mcp.md` (user-scope setup with your own key).

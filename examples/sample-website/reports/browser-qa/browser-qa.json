@@ -1,6 +1,6 @@
 {
   "target": "examples\\sample-website\\index.html",
-  "measuredAt": "2026-11-05T12:10:53.343Z",
+  "measuredAt": "2026-11-05T13:48:20.861Z",
   "tool": "playwright-chromium",
   "sourceHash": "2ebd317677170d77c9023f04d9cce517eaef1eb2ab74f2a8a87416aad35f0501",
   "passed": true,
@@ -8,7 +8,7 @@
   "vitals": {
     "classification": "LAB MEASURED",
     "condition": "headless Chromium, localhost, no throttling",
-    "lcpMs": 196,
+    "lcpMs": 188,
     "cls": 0
   },
   "a11y": {
@@ -37,7 +37,7 @@
         "hasMetaViewport": true,
         "hasMain": true,
         "vitals": {
-          "lcpMs": 168,
+          "lcpMs": 188,
           "cls": 0
         },
         "a11y": {
@@ -61,7 +61,7 @@
         "hasMetaViewport": true,
         "hasMain": true,
         "vitals": {
-          "lcpMs": 120,
+          "lcpMs": 124,
           "cls": 0
         },
         "a11y": {
@@ -85,7 +85,7 @@
         "hasMetaViewport": true,
         "hasMain": true,
         "vitals": {
-          "lcpMs": 120,
+          "lcpMs": 148,
           "cls": 0
         },
         "a11y": {
@@ -111,7 +111,7 @@
         "hasMetaViewport": true,
         "hasMain": true,
         "vitals": {
-          "lcpMs": 196,
+          "lcpMs": 148,
           "cls": 0
         },
         "a11y": {
@@ -137,7 +137,7 @@
         "hasMetaViewport": true,
         "hasMain": true,
         "vitals": {
-          "lcpMs": 132,
+          "lcpMs": 160,
           "cls": 0
         },
         "a11y": {
@@ -163,7 +163,7 @@
         "hasMetaViewport": true,
         "hasMain": true,
         "vitals": {
-          "lcpMs": 140,
+          "lcpMs": 168,
           "cls": 0
         },
         "a11y": {

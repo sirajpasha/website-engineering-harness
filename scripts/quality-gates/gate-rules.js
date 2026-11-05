@@ -86,7 +86,15 @@ export const GATES = [
       return problems.length ? fail(...problems) : ok();
     }
   },
-  { id: 'G5', name: 'Google Stitch', files: ['STITCH_DESIGN_SPEC.md'], verify: () => ok() },
+  {
+    id: 'G5', name: 'Google Stitch', files: ['STITCH_DESIGN_SPEC.md'],
+    // Stitch is optional, but the spec must say honestly where its screens came from.
+    verify: ({ docs }) => {
+      const m = docs['STITCH_DESIGN_SPEC.md'].match(/\*\*Source:\*\*\s*(.+)/i);
+      if (!m) return fail('STITCH_DESIGN_SPEC.md has no "**Source:**" line (Stitch MCP | Stitch SDK | Manual)');
+      return /^(Stitch MCP|Stitch SDK|Manual)\b/i.test(m[1].trim()) ? ok() : fail(`Unrecognised Source "${m[1].trim()}" — use Stitch MCP, Stitch SDK or Manual`);
+    }
+  },
   { id: 'G6', name: 'Frontend Architecture', files: ['ARCHITECTURE.md'], verify: () => ok() },
   {
     id: 'G7', name: 'TDD Verification', files: ['REQUIREMENTS.md', 'TEST_TRACEABILITY_MATRIX.md'],

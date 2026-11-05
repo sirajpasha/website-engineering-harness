@@ -21,7 +21,7 @@ When operating within this repository, the primary AI agent acts as the **Master
 | **03** | **Product Discovery Specialist** | User journeys, personas, sitemaps, IA | Addy Osmani: `interview-me`, product discovery | [`agents/product-discovery.md`](agents/product-discovery.md) |
 | **04** | **Design Art Director** | Visual identity, anti-slop, aesthetics | Leonxlnx: `taste-skill` | [`agents/design-art-director.md`](agents/design-art-director.md) |
 | **05** | **UX/UI Design Specialist** | Usability, design critique, layout, typesetting | Paul Bakaus: `impeccable` (24 commands) | [`agents/ux-ui-designer.md`](agents/ux-ui-designer.md) |
-| **06** | **Google Stitch Design Engineer** | AI design generation, tokens, variants | Google Stitch MCP (`@google/stitch-mcp`) & Stitch CLI | [`agents/stitch-design-engineer.md`](agents/stitch-design-engineer.md) |
+| **06** | **Google Stitch Design Engineer** | AI design generation, tokens, variants | Google Stitch (optional; user-connected MCP or `@google/stitch-sdk`) | [`agents/stitch-design-engineer.md`](agents/stitch-design-engineer.md) |
 | **07** | **Frontend Architect** | Stack evaluation, modular structure, tokens | Architecture, state, routing, component contracts | [`agents/frontend-architect.md`](agents/frontend-architect.md) |
 | **08** | **Website Implementation Engineer** | Clean code, semantic HTML, responsive frontend | Modular engineering, design fidelity, DRY principles | [`agents/implementation-engineer.md`](agents/implementation-engineer.md) |
 | **09** | **TDD & Test Engineering Specialist** | RED-GREEN-REFACTOR, test seams, test suites | Matt Pocock: `tdd`, `diagnosing-bugs`; Addy Osmani: `tdd` | [`agents/tdd-test-engineer.md`](agents/tdd-test-engineer.md) |

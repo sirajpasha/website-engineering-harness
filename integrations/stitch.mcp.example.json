@@ -1,0 +1,10 @@
+{
+  "_comment": "REFERENCE ONLY - not loaded by any tool. Confirm the endpoint and header name against Google's Stitch MCP setup docs first. Put the real key in your environment / user-scope config, never in a project file.",
+  "mcpServers": {
+    "stitch": {
+      "type": "http",
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": { "X-Goog-Api-Key": "${STITCH_API_KEY}" }
+    }
+  }
+}

@@ -9,5 +9,6 @@
   { "id": "ai-gradient-in-source", "description": "A banned gradient in CSS fails G3", "mutations": [{ "op": "append", "file": "src/styles.css", "text": "\n.h{background:linear-gradient(135deg,#667eea,#764ba2)}\n" }, { "op": "rehash-browser" }], "expectFailedGates": ["G3", "G13"] },
   { "id": "untraced-requirement", "description": "A requirement without a test row fails G7", "mutations": [{ "op": "append", "file": "REQUIREMENTS.md", "text": "\n| `REQ-042` | Ghost feature | Never tested | P1 | `AC-042` |\n" }], "expectFailedGates": ["G7", "G13"] },
   { "id": "unlabelled-vitals", "description": "Unclassified performance numbers fail G11", "mutations": [{ "op": "replace", "file": "PERFORMANCE_AUDIT_REPORT.md", "pattern": "`\\[STATIC OBSERVATION\\]`", "with": "", "flags": "g" }], "expectFailedGates": ["G11", "G13"] },
+  { "id": "stitch-no-provenance", "description": "A Stitch spec that does not say where its screens came from fails G5", "mutations": [{ "op": "replace", "file": "STITCH_DESIGN_SPEC.md", "pattern": "\\*\\*Source:\\*\\* Manual", "with": "" }], "expectFailedGates": ["G5", "G13"] },
   { "id": "unchecked-release-item", "description": "An unchecked release item fails G13 only", "mutations": [{ "op": "replace", "file": "RELEASE_CHECKLIST.md", "pattern": "- \\[x\\] \\*\\*Gate G5", "with": "- [ ] **Gate G5" }], "expectFailedGates": ["G13"] }
 ]

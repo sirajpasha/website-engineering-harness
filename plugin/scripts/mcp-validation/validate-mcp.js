@@ -33,23 +33,25 @@ export function validateMCP() {
 
     for (const [name, srv] of Object.entries(servers)) {
       console.log(`- Server: ${name}`);
-      console.log(`  Command: ${srv.command} ${srv.args ? srv.args.join(' ') : ''}`);
+      console.log(srv.url ? `  URL: ${srv.url}` : `  Command: ${srv.command} ${srv.args ? srv.args.join(' ') : ''}`);
       const envKeys = Object.keys(srv.env || {});
       console.log(`  Environment variables: ${envKeys.length > 0 ? envKeys.join(', ') : 'none'}`);
       console.log(`  [✔] Config syntax valid\n`);
     }
 
     const hasPlaywright = !!servers['playwright'];
-    const hasStitch = !!servers['google-stitch'];
+    const hasStitch = !!(servers['google-stitch'] || servers['stitch']);
 
     console.log(`[${hasPlaywright ? '✔' : '✖'}] Playwright MCP server configured`);
-    console.log(`[${hasStitch ? '✔' : '✖'}] Google Stitch MCP server configured`);
+    console.log(hasStitch
+      ? '[✔] Stitch MCP server configured'
+      : '[i] Stitch MCP not configured (optional; see integrations/google-stitch-mcp.md — specs are then authored manually)');
 
     console.log('\n====================================================');
     console.log('  MCP Validation: PASSED');
     console.log('====================================================\n');
 
-    return { valid: true, hasPlaywright, hasStitch };
+    return { valid: true, hasPlaywright, hasStitch, stitch: hasStitch ? 'configured' : 'optional-not-configured' };
   } catch (err) {
     console.log(`[✖] MCP configuration error: ${err.message}`);
     return { valid: false, error: err.message };

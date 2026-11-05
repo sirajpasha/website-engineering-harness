@@ -5,19 +5,9 @@
       "command": "npx",
       "args": [
         "-y",
-        "@playwright/mcp@latest"
+        "@playwright/mcp@0.0.84"
       ],
       "env": {}
-    },
-    "google-stitch": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@google/stitch-mcp"
-      ],
-      "env": {
-        "STITCH_API_KEY": "${STITCH_API_KEY}"
-      }
     }
   }
 }

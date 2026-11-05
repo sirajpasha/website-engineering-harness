@@ -43,7 +43,8 @@ describe('Harness Architecture & Integrity Tests', () => {
     const mcp = validateMCP();
     assert.strictEqual(mcp.valid, true, 'mcp.json must be valid JSON');
     assert.strictEqual(mcp.hasPlaywright, true, 'Playwright MCP must be configured');
-    assert.strictEqual(mcp.hasStitch, true, 'Google Stitch MCP must be configured');
+    // Stitch is optional and not bundled (the npm package once named here does not exist).
+    assert.strictEqual(mcp.stitch, mcp.hasStitch ? 'configured' : 'optional-not-configured');
   });
 
   test('requirement-to-test traceability matrix is verified', () => {

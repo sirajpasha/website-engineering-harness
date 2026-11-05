@@ -9,7 +9,7 @@
       "name": "website-engineering-harness",
       "source": "./plugin",
       "description": "16 specialist subagents, 14 slash commands, guard hooks and an MCP server that turn Claude Code into a website team with mechanical quality gates (Playwright 6-viewport QA, axe, lab vitals, ratchets, TDD receipts).",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "category": "development",
       "keywords": ["website", "frontend", "design", "quality-gates", "playwright", "accessibility", "tdd"]
     }
