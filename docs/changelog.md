@@ -1,7 +1,11 @@
 # CHANGELOG
 
-## [Unreleased]
+## [2.3.0] - 2026-11-06
+### Added
+- **Browser QA evidence can now be bound to a URL target** (#8). `test:browser <url> [--project dir]` (and the `harness_browser_qa` MCP tool) records a `sourceHash` of the project sources for a running server, using the same hash the quality gates compute, so gate **G9** works for server-rendered sites (Next.js, etc.) and still detects stale evidence after a source change. The project is `--project`, else `HARNESS_PROJECT_DIR` / `CLAUDE_PROJECT_DIR` / the working directory (never the harness repo itself). The report also records `sourceBinding`. Limit, stated plainly: the hash binds the evidence to the sources as they were when measured; it cannot prove the server at the URL was built from them.
 ### Fixed
+- A URL run no longer writes its evidence into the harness repo; it goes to `<project>/reports/browser-qa`.
+- `docs/installation.md` wrongly said `--target` works on `test:browser`; the option is `--project`.
 - `npm run ci:local` restores the sample's tracked `browser-qa.json` after the run, so a local CI run no longer dirties the working tree. The file stays tracked: gates, ratchets and evals read it as fixture evidence (untracking it breaks 6 tests and 10 evals on a fresh clone).
 
 ## [2.2.1] - 2026-11-06

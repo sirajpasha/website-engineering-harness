@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/sirajpasha/website-engineering-harness/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.2.1-informational.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.3.0-informational.svg)](VERSION)
 
 AI assistants can write a landing page in a minute, and it usually looks like every other
 landing page — and "it works on mobile" is a claim, not a result. This harness adds two things:
@@ -65,6 +65,7 @@ Register a stdio server:
 npm i -D playwright axe-core && npx playwright install chromium
 ```
 Used by `test:browser` and `walkthrough`. Without it the browser tools report **blocked** (and the gate fails) — they do not pretend.
+Testing a running server (Next.js, etc.)? Pass `--project <dir>` (or set `HARNESS_PROJECT_DIR`) so the evidence is bound to that project's sources and gate G9 can tell when it has gone stale.
 
 ---
 
@@ -89,7 +90,7 @@ After each stage it calls `harness_check_gates`. Each stage writes an artifact i
 
 | MCP tool | CLI | What it does |
 |---|---|---|
-| `harness_browser_qa` | `test:browser [file\|url]` | Headless Chromium at **360×800, 390×844, 768×1024, 1024×768, 1440×900, 1920×1080**: horizontal overflow, ≥44px tap targets on touch sizes, one `<h1>`, `<main>`, console errors, axe WCAG 2.0/2.1/2.2 A/AA, lab LCP/CLS; screenshots + `reports/browser-qa/browser-qa.json` |
+| `harness_browser_qa` | `test:browser [file\|url] [--project dir]` | Headless Chromium at **360×800, 390×844, 768×1024, 1024×768, 1440×900, 1920×1080**: horizontal overflow, ≥44px tap targets on touch sizes, one `<h1>`, `<main>`, console errors, axe WCAG 2.0/2.1/2.2 A/AA, lab LCP/CLS; screenshots + `reports/browser-qa/browser-qa.json` |
 | `harness_check_gates` | `gate` | Verify G1–G13 from the project's evidence |
 | `harness_check_ratchets` | `ratchet [--update]` | Measure coverage, JS/CSS size, viewports, LCP/CLS, axe violations; may only hold or improve |
 | `harness_walkthrough` | `walkthrough [url\|file]` | Record **desktop and phone videos** of the real build for client approval (see below) |
