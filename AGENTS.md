@@ -1,7 +1,7 @@
 # UNIVERSAL MULTI-AGENT SPECIFICATION (AGENTS.md)
 # AUTONOMOUS WEBSITE ENGINEERING, DESIGN & QUALITY HARNESS
 
-**Version:** 2.2.1  
+**Version:** 2.3.0  
 **Ecosystem Compatibility:** Universal (Claude Code CLI, Gemini CLI / Antigravity, OpenAI Codex / Copilot, Cursor, Windsurf, Aider, OpenCode)  
 **Architecture:** Master Website Orchestrator + 16 Specialized Sub-Agents  
 **Standard Execution:** Autonomous execution with mandatory Human Approval Checkpoints  

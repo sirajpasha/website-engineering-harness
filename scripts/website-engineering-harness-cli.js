@@ -51,7 +51,8 @@ Core Inspection Commands:
   validate:mcp         Verify Model Context Protocol configuration (mcp.json)
   validate:trace       Verify Requirement-to-Test Traceability Matrix
   gates, gate          Run Quality Gate Audit across G1 through G13 with mechanical enforcement
-  test:browser         Run browser validation across the 6 mandatory viewports
+  test:browser [file|url] [--project dir] [--out dir]  Run browser validation across the 6 mandatory viewports
+                       (a URL run binds its evidence to the project sources, so the gate can detect stale evidence)
 
 Client deliverables:
   walkthrough [url|file] Record desktop + phone videos of the real build and an unsigned CLIENT_APPROVAL.md
@@ -238,7 +239,14 @@ async function main() {
 
     case 'test:browser':
     case 'test':
-      { const r = await validateBrowser(args[1]); if (!r.passed) process.exitCode = 1; }
+      {
+        const rest = args.slice(1);
+        const take = (flag) => { const i = rest.indexOf(flag); return i >= 0 ? rest.splice(i, 2)[1] : undefined; };
+        const outDir = take('--out');
+        const projectDir = take('--project');
+        const r = await validateBrowser(rest[0], { outDir, projectDir });
+        if (!r.passed) process.exitCode = 1;
+      }
       break;
 
     case 'init':

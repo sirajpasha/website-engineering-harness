@@ -32,4 +32,4 @@ Until `ratchet --update` is run, `gate` reports ratchets as "not configured" and
 | Client approval videos and sheet | `reports/walkthrough/` |
 
 Choose the project with `CLAUDE_PROJECT_DIR`, `HARNESS_PROJECT_DIR`, or by running from its directory
-(`--target <dir>` on `gate`, `ratchet`, `test:browser`).
+(`--target <dir>` on `gate` and `ratchet`; `--project <dir>` on `test:browser` when you point it at a running URL such as a Next.js server).

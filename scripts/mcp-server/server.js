@@ -59,7 +59,8 @@ const TOOLS = [
         ? (/^https?:/i.test(args.target) ? args.target : path.resolve(dir, args.target))
         : findEntryHtml(dir) || path.join(dir, 'index.html');
       const lines = [];
-      const r = await validateBrowser(target, { log: (l) => lines.push(l) });
+      // projectDir binds a URL run's evidence to this project's sources (file targets already bind to their own folder).
+      const r = await validateBrowser(target, { projectDir: dir, log: (l) => lines.push(l) });
       return text({
         passed: r.passed, blocked: !!r.blocked, reason: r.reason, viewportsTested: r.viewportsTested,
         viewports: r.results.map(v => ({ viewport: v.viewport, passed: v.passed, failures: v.failures })),
