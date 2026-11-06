@@ -14,7 +14,7 @@ npm i -D playwright axe-core && npx playwright install chromium
 ```
 Run the 6-viewport verification suite (fails closed if Playwright is missing):
 ```bash
-npx -y github:sirajpasha/website-engineering-harness test:browser [file.html|url]
+npx -y github:sirajpasha/website-engineering-harness test:browser [file.html|url] [--project <dir>]
 ```
 Or interactively via Playwright MCP in Claude Code / Cursor.
 

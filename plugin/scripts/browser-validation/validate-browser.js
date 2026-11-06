@@ -10,7 +10,13 @@
  * Fail-closed: if Playwright (or a browser) is unavailable, or the target does
  * not exist, the result is `passed: false` and the process exits non-zero.
  *
- * Usage: node scripts/browser-validation/validate-browser.js [file.html | http(s)://url] [--out dir]
+ * Usage: node scripts/browser-validation/validate-browser.js [file.html | http(s)://url] [--out dir] [--project dir]
+ *
+ * Evidence binding: the report records a sourceHash of the PROJECT's sources so the quality gates can reject stale
+ * evidence. For a file target that project is the file's folder. For a URL target (a running dev/preview server) it is
+ * --project, else HARNESS_PROJECT_DIR / CLAUDE_PROJECT_DIR / the working directory (unless that is the harness repo itself).
+ * The hash binds the evidence to the sources as they were when measured; it cannot prove the server at the URL was built
+ * from them, which is why the report also records `sourceBinding`.
  */
 
 import fs from 'node:fs';
@@ -153,6 +159,17 @@ export function serveDir(dir) {
   return new Promise(resolve => server.listen(0, '127.0.0.1', () => resolve(server)));
 }
 
+/**
+ * Which project directory the evidence belongs to (and is hashed from), or null when there is none.
+ * Pure given its inputs, so it is unit-tested without a browser.
+ */
+export function resolveEvidenceProject(target, options = {}, env = process.env, cwd = process.cwd()) {
+  if (target.file) return path.dirname(target.file); // static file: the folder it lives in (unchanged behaviour)
+  if (options.projectDir) return path.resolve(options.projectDir);
+  const dir = projectRoot(env, cwd);
+  return isHarnessRepo(dir) ? null : dir; // inside the harness repo a URL run has no project to bind to
+}
+
 export function resolveTarget(target) {
   if (!target) {
     // No explicit target: the user's project entry page, or the reference sample inside the harness repo.
@@ -208,10 +225,13 @@ export async function validateBrowser(targetPath, options = {}) {
   }
 
   // Evidence lives with the project under test: <project>/reports/browser-qa
-  const projectDir = target.file ? path.dirname(target.file) : null;
+  const projectDir = resolveEvidenceProject(target, options);
+  const sourceBinding = target.file ? 'file-target' : projectDir ? 'url-target:project-sources-at-measure-time' : 'none';
   const outDir = options.outDir || path.join(projectDir || rootDir, 'reports', 'browser-qa');
   fs.mkdirSync(outDir, { recursive: true });
-  log(`Target: ${target.label}\n`);
+  log(`Target: ${target.label}`);
+  if (sourceBinding.startsWith('url-target')) log(`Evidence bound to project sources: ${projectDir}`);
+  log('');
   const results = [];
 
   try {
@@ -266,6 +286,7 @@ export async function validateBrowser(targetPath, options = {}) {
     measuredAt: new Date().toISOString(),
     tool: 'playwright-chromium',
     sourceHash: projectDir ? hashProjectSources(projectDir) : null,
+    sourceBinding,
     passed,
     viewportsTested: results.length,
     vitals: aggregateVitals(results),
@@ -284,5 +305,7 @@ if (process.argv[1] && process.argv[1].endsWith('validate-browser.js')) {
   const args = process.argv.slice(2);
   const outIdx = args.indexOf('--out');
   const outDir = outIdx >= 0 ? args.splice(outIdx, 2)[1] : undefined;
-  validateBrowser(args[0], { outDir }).then(r => process.exit(r.passed ? 0 : 1));
+  const projIdx = args.indexOf('--project');
+  const projectDir = projIdx >= 0 ? args.splice(projIdx, 2)[1] : undefined;
+  validateBrowser(args[0], { outDir, projectDir }).then(r => process.exit(r.passed ? 0 : 1));
 }
