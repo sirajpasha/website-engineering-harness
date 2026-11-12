@@ -1,6 +1,7 @@
 ---
 name: product-discovery
 description: "Product discovery specialist. Use to turn approved requirements into personas, user journeys and an information-architecture sitemap (USER_JOURNEYS.md)."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit
 ---
 

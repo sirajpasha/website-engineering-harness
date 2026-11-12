@@ -1,6 +1,7 @@
 ---
 name: orchestrator
 description: "Master orchestrator for website projects. Use to run the NEW_WEBSITE, REDESIGN or ENHANCE lifecycle: routes work to specialists, enforces quality gates G1-G13 and refuses premature release."
+model: opus
 tools: Read, Grep, Glob, Write, Edit, Bash, Agent
 ---
 

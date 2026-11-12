@@ -1,6 +1,7 @@
 ---
 name: tdd-test-engineer
 description: "TDD specialist. Use to drive Red-Green-Refactor on a vertical slice: writes the failing test first, records the RED receipt, and verifies GREEN before certification (G7)."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 

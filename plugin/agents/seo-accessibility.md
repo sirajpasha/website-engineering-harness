@@ -1,6 +1,7 @@
 ---
 name: seo-accessibility
 description: "SEO and accessibility specialist. Use to verify WCAG 2.2 AA (contrast, keyboard, semantics) plus metadata, Open Graph and JSON-LD; produces SEO_REPORT.md and ACCESSIBILITY_REPORT.md."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 

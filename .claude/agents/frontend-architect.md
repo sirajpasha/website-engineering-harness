@@ -1,6 +1,7 @@
 ---
 name: frontend-architect
 description: "Frontend architect. Use to choose the stack, define component hierarchy, state model, routing and design-token wiring before implementation starts (ARCHITECTURE.md)."
+model: opus
 tools: Read, Grep, Glob, Write, Edit, Agent
 ---
 

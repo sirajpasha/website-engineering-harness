@@ -1,6 +1,7 @@
 ---
 name: ux-ui-designer
 description: "UX/UI critic using the Impeccable 24-command heuristics. Use to critique layouts, hierarchy, typesetting and usability and to produce a P0-P3 prioritised UI_CRITIQUE_REPORT.md."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit
 ---
 

@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadRegistry, validateRegistry } from '../lib/model-registry.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '../../');
@@ -45,6 +46,10 @@ export function buildSubagent(name) {
   const body = fs.readFileSync(path.join(agentsDir, `${name}.md`), 'utf8').replace(/\r\n/g, '\n');
 
   const lines = ['---', `name: ${name}`, `description: ${yamlString(meta.description)}`];
+  const reg = loadRegistry();
+  const modelKey = reg.agents[name];
+  if (!modelKey) throw new Error(`No model assignment for '${name}' in agents/model-registry.json`);
+  lines.push(`model: ${reg.models[modelKey].alias}`);
   if (meta.tools) {
     const tools = [...meta.tools];
     if (contract.may_spawn.length > 0 && !tools.includes('Agent')) tools.push('Agent');
@@ -70,7 +75,7 @@ export function parseFrontmatter(text) {
 }
 
 export function validateSubagents({ claudeAgentsDir: dir = claudeAgentsDir, log = () => {} } = {}) {
-  const errors = [];
+  const errors = validateRegistry(loadRegistry(), listAgentNames()).map(e => `model-registry: ${e}`);
   for (const name of listAgentNames()) {
     const file = path.join(dir, `${name}.md`);
     if (!fs.existsSync(file)) { errors.push(`.claude/agents/${name}.md is missing (run npm run agents:sync)`); continue; }

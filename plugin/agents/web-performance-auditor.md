@@ -1,6 +1,7 @@
 ---
 name: web-performance-auditor
 description: "Web performance auditor. Use to review Core Web Vitals, asset weight and render-blocking resources; separates lab-measured numbers from static observations and never invents metrics."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 
