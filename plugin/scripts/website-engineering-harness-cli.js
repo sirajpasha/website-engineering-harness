@@ -23,6 +23,9 @@ import { evaluateRatchets, collectCurrentMetrics, seedBaselines, baselinesPathFo
 import { checkContextBudget } from './telemetry/context-budget.js';
 import { handlePrResponse } from './ci/pr-respond.js';
 import { classifyRequest } from './lib/classify-request.js';
+import { validateRegister, nextRunnable } from './lib/task-register.js';
+import { startRun, timeStatus, MODE_MINUTES } from './lib/time-controller.js';
+import { projectRoot } from './lib/paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -56,6 +59,8 @@ Core Inspection Commands:
                        (a URL run binds its evidence to the project sources, so the gate can detect stale evidence)
 
 Client deliverables:
+  tasks <validate|next> [file]  Validate the task register (deps, cycles, file ownership) / list runnable tasks
+  time <start|status> [mode]    Execution time controller (EXPRESS 60 / PROFESSIONAL 90 / ADVANCED 120 min targets)
   classify <create|redesign|improve> <text>  Classify a request into a lifecycle mode + project sub-type (JSON)
   walkthrough [url|file] Record desktop + phone videos of the real build and an unsigned CLIENT_APPROVAL.md
                        [--out dir] [--devices desktop,phone] [--pages /,/about] [--label "Name v1"] [--no-captions]
@@ -150,6 +155,42 @@ async function main() {
     case 'hooks':
       installGitHooks({ strict: args.includes('--strict') });
       break;
+
+    case 'tasks': {
+      const [sub, file] = args.slice(1);
+      const f = path.resolve(file || path.join(projectRoot(), '.harness', 'tasks.json'));
+      if (!fs.existsSync(f)) { console.error(`No task register at ${f}`); process.exitCode = 2; break; }
+      const tasks = JSON.parse(fs.readFileSync(f, 'utf8'));
+      const errs = validateRegister(tasks);
+      if (sub === 'validate') {
+        errs.forEach(e => console.log(`[x] ${e}`));
+        console.log(errs.length ? `${errs.length} problem(s)` : `[ok] ${tasks.length} task(s) valid`);
+        if (errs.length) process.exitCode = 1;
+      } else if (sub === 'next') {
+        if (errs.length) { errs.forEach(e => console.log(`[x] ${e}`)); process.exitCode = 1; break; }
+        console.log(JSON.stringify(nextRunnable(tasks).map(t => ({ id: t.id, agent: t.agent, model: t.model, file_ownership: t.file_ownership })), null, 2));
+      } else { console.error('Usage: tasks <validate|next> [file]'); process.exitCode = 2; }
+      break;
+    }
+
+    case 'time': {
+      const [sub, mode] = args.slice(1);
+      const runFile = path.join(projectRoot(), '.harness', 'run.json');
+      try {
+        if (sub === 'start') {
+          const run = startRun((mode || 'PROFESSIONAL').toUpperCase());
+          fs.mkdirSync(path.dirname(runFile), { recursive: true });
+          fs.writeFileSync(runFile, JSON.stringify(run, null, 2));
+          console.log(`Started ${run.mode} run (${run.budgetMin} min target) at ${run.startedAt}`);
+        } else if (sub === 'status') {
+          if (!fs.existsSync(runFile)) { console.error('No run started: use `time start [EXPRESS|PROFESSIONAL|ADVANCED]`'); process.exitCode = 2; break; }
+          const st = timeStatus(JSON.parse(fs.readFileSync(runFile, 'utf8')));
+          console.log(JSON.stringify(st, null, 2));
+          if (st.exceeded) process.exitCode = 1;
+        } else { console.error(`Usage: time <start|status> [${Object.keys(MODE_MINUTES).join('|')}]`); process.exitCode = 2; }
+      } catch (e) { console.error(e.message); process.exitCode = 2; }
+      break;
+    }
 
     case 'classify': {
       const [sub, ...rest] = args.slice(1);

@@ -4,6 +4,9 @@
 ### Added
 - **Central model registry** (`agents/model-registry.json`, `scripts/lib/model-registry.js`): role/task routing, explicit fallbacks, escalation; `model:` is written into generated subagents.
 - **Primary commands** `/website-create`, `/website-redesign`, `/website-improve` (18 slash commands total), backed by a deterministic request classifier (`classify <create|redesign|improve> <text>`) that maps a request to a lifecycle mode and a project sub-type and records low-confidence results as assumptions. New `templates/assumptions.md` assumption register.
+- **Task register** (`scripts/lib/task-register.js`, CLI `tasks validate|next`): per-task agent, model, dependencies, inputs/outputs, file ownership, acceptance, time budget, status and evidence. Rejects cycles, unknown agents/models, ownership outside the agent's contract and unordered overlapping ownership; the scheduler starts at 2 concurrent tasks and never starts a task with unfinished dependencies or ownership that clashes with a running one.
+- **Time controller** (`time start|status`): EXPRESS 60 / PROFESSIONAL 90 / ADVANCED 120 minute targets with honest elapsed/remaining reporting; time pressure never waives security gates.
+- **Model usage log** (`scripts/lib/model-usage.js`): append-only `.harness/telemetry/model-usage.jsonl` recording substitutions; tokens only when supplied.
 - Known limits: the classifier is keyword-based (no model call); exact model ids are unverified against an installed Claude Code.
 
 ## [2.3.0] - 2026-11-06
