@@ -7,6 +7,7 @@
 - **Task register** (`scripts/lib/task-register.js`, CLI `tasks validate|next`): per-task agent, model, dependencies, inputs/outputs, file ownership, acceptance, time budget, status and evidence. Rejects cycles, unknown agents/models, ownership outside the agent's contract and unordered overlapping ownership; the scheduler starts at 2 concurrent tasks and never starts a task with unfinished dependencies or ownership that clashes with a running one.
 - **Time controller** (`time start|status`): EXPRESS 60 / PROFESSIONAL 90 / ADVANCED 120 minute targets with honest elapsed/remaining reporting; time pressure never waives security gates.
 - **Model usage log** (`scripts/lib/model-usage.js`): append-only `.harness/telemetry/model-usage.jsonl` recording substitutions; tokens only when supplied.
+- **Optional-integration adapters** (`scripts/lib/adapters.js`, CLI `adapters [--json]`): Stitch, Figma, Playwright MCP/CLI, Semgrep, ZAP, Lighthouse, GitHub and Sentry, each with offline capability discovery, credential-name checks (values never printed), timeout, bounded retries, cost class, approval flag and an explicit fallback (Stitch/Figma -> local design; Playwright MCP -> CLI -> reported limitation; Lighthouse -> Playwright lab vitals; Semgrep/ZAP -> reported as not run). Discovery never claims a live connection (`live_verified` is always false). Usage goes to `.harness/telemetry/adapter-usage.jsonl`.
 - Known limits: the classifier is keyword-based (no model call); exact model ids are unverified against an installed Claude Code.
 
 ## [2.3.0] - 2026-11-06

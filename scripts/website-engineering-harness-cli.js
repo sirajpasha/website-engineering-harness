@@ -26,6 +26,7 @@ import { classifyRequest } from './lib/classify-request.js';
 import { validateRegister, nextRunnable } from './lib/task-register.js';
 import { startRun, timeStatus, MODE_MINUTES } from './lib/time-controller.js';
 import { projectRoot } from './lib/paths.js';
+import { ADAPTERS, discoverAll, resolveAdapter, defaultProbe } from './lib/adapters.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,6 +60,7 @@ Core Inspection Commands:
                        (a URL run binds its evidence to the project sources, so the gate can detect stale evidence)
 
 Client deliverables:
+  adapters [--json]             Discover optional integrations (Stitch, Figma, Playwright MCP/CLI, Semgrep, ZAP, Lighthouse, GitHub, Sentry) and their fallbacks
   tasks <validate|next> [file]  Validate the task register (deps, cycles, file ownership) / list runnable tasks
   time <start|status> [mode]    Execution time controller (EXPRESS 60 / PROFESSIONAL 90 / ADVANCED 120 min targets)
   classify <create|redesign|improve> <text>  Classify a request into a lifecycle mode + project sub-type (JSON)
@@ -155,6 +157,23 @@ async function main() {
     case 'hooks':
       installGitHooks({ strict: args.includes('--strict') });
       break;
+
+    case 'adapters': {
+      const d = discoverAll(defaultProbe());
+      if (args.includes('--json')) {
+        const resolved = Object.fromEntries(Object.entries(ADAPTERS).filter(([, a]) => a.optional).map(([id]) => [id, resolveAdapter(id, d)]));
+        console.log(JSON.stringify({ discovery: d, resolved }, null, 2));
+        break;
+      }
+      console.log('Optional integrations (none is required; credential values are never printed):');
+      for (const [id, a] of Object.entries(ADAPTERS)) {
+        if (!a.optional) continue;
+        const r = resolveAdapter(id, d);
+        const use = r.adapter === id ? 'use' : r.adapter ? `fallback -> ${r.adapter}` : 'not run';
+        console.log(`  ${id.padEnd(15)} ${d[id].status.padEnd(17)} ${use}${a.approval_required ? '  [approval required]' : ''}`);
+      }
+      break;
+    }
 
     case 'tasks': {
       const [sub, file] = args.slice(1);
