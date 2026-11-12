@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.4.0] - Unreleased
+### Added
+- **Central model registry** (`agents/model-registry.json`, `scripts/lib/model-registry.js`): role/task routing, explicit fallbacks, escalation; `model:` is written into generated subagents.
+- **Primary commands** `/website-create`, `/website-redesign`, `/website-improve` (18 slash commands total), backed by a deterministic request classifier (`classify <create|redesign|improve> <text>`) that maps a request to a lifecycle mode and a project sub-type and records low-confidence results as assumptions. New `templates/assumptions.md` assumption register.
+- Known limits: the classifier is keyword-based (no model call); exact model ids are unverified against an installed Claude Code.
+
 ## [2.3.0] - 2026-11-06
 ### Added
 - **Browser QA evidence can now be bound to a URL target** (#8). `test:browser <url> [--project dir]` (and the `harness_browser_qa` MCP tool) records a `sourceHash` of the project sources for a running server, using the same hash the quality gates compute, so gate **G9** works for server-rendered sites (Next.js, etc.) and still detects stale evidence after a source change. The project is `--project`, else `HARNESS_PROJECT_DIR` / `CLAUDE_PROJECT_DIR` / the working directory (never the harness repo itself). The report also records `sourceBinding`. Limit, stated plainly: the hash binds the evidence to the sources as they were when measured; it cannot prove the server at the URL was built from them.

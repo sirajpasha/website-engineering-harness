@@ -82,7 +82,7 @@ export const TOOLS = {
   claude: (ctx) => {
     ctx.actions.push(mergeMcpJson(path.join(ctx.dir, '.mcp.json'), '.mcp.json', 'mcpServers', ctx.stdio, ctx.force));
     ctx.actions.push(writeBlock(path.join(ctx.dir, 'CLAUDE.md'), 'CLAUDE.md'));
-    ctx.notes.push('Claude Code: for the 16 subagents, 15 slash commands and the guard hooks, install the plugin:\n    /plugin marketplace add sirajpasha/website-engineering-harness\n    /plugin install website-engineering-harness@website-engineering-harness');
+    ctx.notes.push('Claude Code: for the 16 subagents, 18 slash commands and the guard hooks, install the plugin:\n    /plugin marketplace add sirajpasha/website-engineering-harness\n    /plugin install website-engineering-harness@website-engineering-harness');
   },
   cursor: (ctx) => {
     ctx.actions.push(mergeMcpJson(path.join(ctx.dir, '.cursor', 'mcp.json'), '.cursor/mcp.json', 'mcpServers', ctx.stdio, ctx.force));

@@ -33,7 +33,7 @@ Pick your AI tool. Everything acts on the project you are working in.
 /plugin marketplace add sirajpasha/website-engineering-harness
 /plugin install website-engineering-harness@website-engineering-harness
 ```
-You get 16 subagents, 15 slash commands (`/website-grill`, `/website-design`, `/website-test`, `/website-walkthrough`, …),
+You get 16 subagents, 18 slash commands (`/website-grill`, `/website-design`, `/website-test`, `/website-walkthrough`, …),
 the guard hook, and the MCP tools. (Always-on context cost is about 2.4k tokens. Restart Claude Code if the commands do not appear right away.)
 
 ### Gemini CLI (extension)
@@ -196,7 +196,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md). Edit sources, never generated files.
 
 - **Tested in this repo:** the guards, gates, ratchets, browser QA and walkthrough recording (against a real Chromium), MCP
   protocol handling, the installer's file output, and the plugin build — and the Claude Code plugin
-  passes `claude plugin validate` and loads with 16 agents, 15 commands, 1 hook and 1 MCP server.
+  passes `claude plugin validate` and loads with 16 agents, 18 commands, 1 hook and 1 MCP server.
 - **Not exercised live here:** each third-party IDE (Cursor, Windsurf, Copilot, Codex, Gemini) loading
   the files the installer writes. They follow each tool's documented project-file conventions;
   report any mismatch as an issue.

@@ -22,6 +22,7 @@ import { verifyTddCycle } from './tdd/verify-tdd.js';
 import { evaluateRatchets, collectCurrentMetrics, seedBaselines, baselinesPathFor } from './ratchets/check-ratchet.js';
 import { checkContextBudget } from './telemetry/context-budget.js';
 import { handlePrResponse } from './ci/pr-respond.js';
+import { classifyRequest } from './lib/classify-request.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -55,6 +56,7 @@ Core Inspection Commands:
                        (a URL run binds its evidence to the project sources, so the gate can detect stale evidence)
 
 Client deliverables:
+  classify <create|redesign|improve> <text>  Classify a request into a lifecycle mode + project sub-type (JSON)
   walkthrough [url|file] Record desktop + phone videos of the real build and an unsigned CLIENT_APPROVAL.md
                        [--out dir] [--devices desktop,phone] [--pages /,/about] [--label "Name v1"] [--no-captions]
 
@@ -148,6 +150,18 @@ async function main() {
     case 'hooks':
       installGitHooks({ strict: args.includes('--strict') });
       break;
+
+    case 'classify': {
+      const [sub, ...rest] = args.slice(1);
+      try {
+        const projectDir = process.env.HARNESS_PROJECT_DIR || process.env.CLAUDE_PROJECT_DIR || process.cwd();
+        const hasProject = fs.existsSync(path.join(projectDir, 'package.json')) || fs.existsSync(path.join(projectDir, 'index.html'));
+        const r = classifyRequest({ command: sub, text: rest.join(' '), hasProject });
+        console.log(JSON.stringify(r, null, 2));
+        if (r.blocked) process.exitCode = 1;
+      } catch (e) { console.error(e.message); process.exitCode = 2; }
+      break;
+    }
 
     case 'walkthrough': {
       const { recordWalkthrough, parseWalkthroughArgs } = await import('./walkthrough/walkthrough.js');
