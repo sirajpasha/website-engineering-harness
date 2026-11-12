@@ -1,6 +1,7 @@
 ---
 name: code-reviewer
 description: "Independent code and architecture reviewer. Use after implementation for a two-axis review (standards and spec). Read-only on source: writes only its review report and defect register."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 

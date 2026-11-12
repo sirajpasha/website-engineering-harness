@@ -1,6 +1,7 @@
 ---
 name: production-reviewer
 description: "Production readiness reviewer. Use last: independently consolidates gates G1-G13 and signs off or blocks release in RELEASE_CHECKLIST.md. Cannot edit source or tests."
+model: opus
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 

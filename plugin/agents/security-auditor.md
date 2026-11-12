@@ -1,6 +1,7 @@
 ---
 name: security-auditor
 description: "Security auditor (OWASP Top 10 + STRIDE). Use for a threat model and vulnerability review of a site; produces SECURITY_AUDIT_REPORT.md. Any Critical/High finding blocks release."
+model: opus
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 

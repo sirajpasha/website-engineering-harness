@@ -1,0 +1,48 @@
+{
+  "_comment": "Single source of truth for model routing. `alias` is written into generated .claude/agents frontmatter (Claude Code resolves aliases to whatever the installed environment provides). `id` is the exact identifier to verify at runtime; never assume availability. Edit here, then run `npm run agents:sync`.",
+  "default_model": "sonnet",
+  "models": {
+    "opus":   { "alias": "opus",   "id": "claude-opus-5-5",   "role": "orchestrator", "fallback": "sonnet" },
+    "sonnet": { "alias": "sonnet", "id": "claude-sonnet-5-5", "role": "engineering",  "fallback": "opus" },
+    "haiku":  { "alias": "haiku",  "id": "claude-haiku-5-5",  "role": "throughput",   "fallback": "sonnet" },
+    "fable":  { "alias": "opus",   "id": "claude-fable-5-2",  "role": "challenger", "reports_to": "opus", "optional": true, "verify_exact_id": true, "fallback": "opus" }
+  },
+  "allocation_targets": { "opus": 0.15, "sonnet": 0.65, "haiku": 0.2 },
+  "agents": {
+    "orchestrator": "opus",
+    "frontend-architect": "opus",
+    "security-auditor": "opus",
+    "production-reviewer": "opus",
+    "requirement-grilling": "sonnet",
+    "product-discovery": "sonnet",
+    "design-art-director": "sonnet",
+    "ux-ui-designer": "sonnet",
+    "stitch-design-engineer": "sonnet",
+    "implementation-engineer": "sonnet",
+    "tdd-test-engineer": "sonnet",
+    "motion-engineer": "sonnet",
+    "browser-qa": "sonnet",
+    "web-performance-auditor": "sonnet",
+    "seo-accessibility": "sonnet",
+    "code-reviewer": "sonnet"
+  },
+  "task_classes": {
+    "orchestration": "opus",
+    "architecture": "opus",
+    "security-decision": "opus",
+    "release-approval": "opus",
+    "independent-review": "fable",
+    "implementation": "sonnet",
+    "debugging": "sonnet",
+    "refactoring": "sonnet",
+    "test-implementation": "sonnet",
+    "documentation": "haiku",
+    "seo-metadata": "haiku",
+    "test-data": "haiku",
+    "config": "haiku",
+    "report-generation": "haiku",
+    "research": "haiku"
+  },
+  "escalation": { "after_failures": 2, "to": "opus", "max_retries": 3 },
+  "logging": { "path": ".harness/telemetry/model-usage.jsonl", "record_substitutions": true }
+}

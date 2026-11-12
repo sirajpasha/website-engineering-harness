@@ -1,6 +1,7 @@
 ---
 name: design-art-director
 description: "Art director enforcing anti-slop visual direction (Taste Skill). Use to set or review the aesthetic thesis, palette, typography and to reject generic template looks and unmotivated gradients."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Agent
 ---
 

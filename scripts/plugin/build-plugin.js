@@ -62,6 +62,7 @@ export function expectedFiles() {
     put(`agents/${name}.contract.json`, fs.readFileSync(path.join(HARNESS_ROOT, 'agents', `${name}.contract.json`)));
   }
   put('agents/claude-subagents.json', fs.readFileSync(path.join(HARNESS_ROOT, 'agents', 'claude-subagents.json')));
+  put('agents/model-registry.json', fs.readFileSync(path.join(HARNESS_ROOT, 'agents', 'model-registry.json')));
 
   for (const f of fs.readdirSync(path.join(HARNESS_ROOT, 'commands')).filter(x => x.endsWith('.md'))) {
     put(`commands/${f}`, commandWithFrontmatter(norm(fs.readFileSync(path.join(HARNESS_ROOT, 'commands', f), 'utf8'))));

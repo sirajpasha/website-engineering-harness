@@ -1,6 +1,7 @@
 ---
 name: implementation-engineer
 description: "Implementation engineer. Use to write semantic, responsive, accessible frontend code in src/ against an approved design and failing tests. Cannot edit tests or review verdicts."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 

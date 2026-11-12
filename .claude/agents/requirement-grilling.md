@@ -1,6 +1,7 @@
 ---
 name: requirement-grilling
 description: "Requirements interrogator. Use before any design or code when a website brief is vague: asks one high-leverage question at a time and produces REQUIREMENTS.md with REQ-IDs."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit
 ---
 

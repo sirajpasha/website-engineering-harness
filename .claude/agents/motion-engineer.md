@@ -1,6 +1,7 @@
 ---
 name: motion-engineer
 description: "Motion and interaction engineer (Emil Kowalski standard). Use to add micro-interactions and transitions under 300ms with natural easing and full prefers-reduced-motion support."
+model: sonnet
 tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 
