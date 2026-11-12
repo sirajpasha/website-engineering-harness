@@ -14,11 +14,12 @@ const BASE = { create: 'NEW_WEBSITE', redesign: 'REDESIGN', improve: 'ENHANCE' }
 // Order matters: more specific types first.
 const RULES = [
   ['E_COMMERCE', /\b(e-?commerce|online (shop|store)|shop(ping)?|cart|checkout|storefront|catalog(ue)? with prices)\b/i],
-  ['BOOKING_WEBSITE', /\b(book(ing|ings)?|appointments?|reservations?|schedul(e|ing))\b/i],
-  ['CUSTOMER_PORTAL', /\b(portal|log ?in|sign ?in|customer account|client area|dashboard for (customers|clients))\b/i],
+  // An explicit "landing page" wins over feature words in the same brief (e.g. a conference schedule).
   ['LANDING_PAGE', /\b(landing page|one-?page|single page|launch page|waitlist)\b/i],
-  ['FULL_STACK_MVP', /\b(mvp|database|backend|full-?stack|api|user accounts?)\b/i],
-  ['CONTENT_WEBSITE', /\b(blog|articles?|magazine|news|publication|documentation site|docs site)\b/i],
+  ['BOOKING_WEBSITE', /\b(book(ing|ings)?|appointments?|reservations?|schedul(e|ing) (an? )?(appointment|visit|call|demo|meeting))\b/i],
+  ['CUSTOMER_PORTAL', /\b(portal|log ?in|sign ?in|customer account|client area|dashboard for (customers|clients))\b/i],
+  ['FULL_STACK_MVP', /\b(mvp|database|backend|full-?stack|api|user accounts?|saas|subscriptions?)\b/i],
+  ['CONTENT_WEBSITE', /\b(blog|articles?|magazine|news|publication|documentation site|docs site|portfolio|gallery|showcase|case stud(y|ies))\b/i],
   ['CORPORATE_WEBSITE', /\b(company|corporate|business|firm|agency|export|import|services|enquir(y|ies)|about us)\b/i],
 ];
 

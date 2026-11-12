@@ -60,7 +60,9 @@ Core Inspection Commands:
                        (a URL run binds its evidence to the project sources, so the gate can detect stale evidence)
 
 Client deliverables:
-  adapters [--json]             Discover optional integrations (Stitch, Figma, Playwright MCP/CLI, Semgrep, ZAP, Lighthouse, GitHub, Sentry) and their fallbacks
+  benchmark [--json]            Run the 24-spec classification benchmark (live quality dimensions are reported as unmeasured)
+  acceptance                    Run the 20 acceptance scenarios (manual and gap scenarios are listed, not counted as passed)
+  adapters [--json]            Discover optional integrations (Stitch, Figma, Playwright MCP/CLI, Semgrep, ZAP, Lighthouse, GitHub, Sentry) and their fallbacks
   tasks <validate|next> [file]  Validate the task register (deps, cycles, file ownership) / list runnable tasks
   time <start|status> [mode]    Execution time controller (EXPRESS 60 / PROFESSIONAL 90 / ADVANCED 120 min targets)
   classify <create|redesign|improve> <text>  Classify a request into a lifecycle mode + project sub-type (JSON)
@@ -157,6 +159,33 @@ async function main() {
     case 'hooks':
       installGitHooks({ strict: args.includes('--strict') });
       break;
+
+    case 'benchmark': {
+      if (!fs.existsSync(path.join(rootDir, 'benchmarks', 'specs.json'))) { console.error('benchmark is a harness-development command: run it from a clone of the harness repository.'); process.exitCode = 2; break; }
+      const { loadSpecs, validateSuite, runClassificationBenchmark, buildReport } = await import('./lib/benchmark.js');
+      const specs = loadSpecs();
+      const problems = validateSuite(specs);
+      const run = runClassificationBenchmark(specs);
+      const report = buildReport(run);
+      if (args.includes('--json')) console.log(JSON.stringify({ problems, run, report }, null, 2));
+      else {
+        problems.forEach(p => console.log(`[x] ${p}`));
+        run.results.forEach(r => console.log(`${r.ok ? '[PASS]' : '[FAIL]'} ${r.id}${r.detail ? ` - ${r.detail}` : ''}`));
+        console.log(`\nClassification: ${run.passed}/${run.total}. Live dimensions (design, security, a11y, performance, SEO, time, tokens, defects, rework): unmeasured.`);
+      }
+      if (problems.length || run.passed !== run.total) process.exitCode = 1;
+      break;
+    }
+
+    case 'acceptance': {
+      if (!fs.existsSync(path.join(rootDir, 'evals', 'acceptance-scenarios.json'))) { console.error('acceptance is a harness-development command: run it from a clone of the harness repository.'); process.exitCode = 2; break; }
+      const { loadScenarios, runAcceptance } = await import('./evals/run-acceptance.js');
+      const r = runAcceptance(loadScenarios());
+      for (const x of r.results) console.log(`${x.ran ? (x.ok ? '[PASS]' : '[FAIL]') : '[NOT RUN]'} #${String(x.n).padStart(2)} ${x.kind.padEnd(9)} ${x.title}${x.detail ? ` - ${x.detail}` : ''}`);
+      console.log(`\n${r.summary.passed}/${r.summary.total} passed; not executed: manual ${r.summary.manual}, gap ${r.summary.gap}`);
+      if (r.results.some(x => x.ran && !x.ok)) process.exitCode = 1;
+      break;
+    }
 
     case 'adapters': {
       const d = discoverAll(defaultProbe());

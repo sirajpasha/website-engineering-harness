@@ -1,0 +1,22 @@
+[
+  { "n": 1, "title": "Simple corporate website from one paragraph", "kind": "partial", "check": "classify-corporate", "note": "Mechanism only: brief -> NEW_WEBSITE/CORPORATE_WEBSITE. A live end-to-end build is not run here." },
+  { "n": 2, "title": "Premium product website", "kind": "manual", "note": "Needs a live design + build run; judged by humans against the design standards." },
+  { "n": 3, "title": "E-commerce website", "kind": "partial", "check": "classify-ecommerce", "note": "Mechanism only: classified as E_COMMERCE. Live build not run." },
+  { "n": 4, "title": "Authenticated customer portal", "kind": "partial", "check": "classify-portal", "note": "Mechanism only: classified as CUSTOMER_PORTAL. Live build not run." },
+  { "n": 5, "title": "Full-stack website with database", "kind": "partial", "check": "classify-fullstack", "note": "Mechanism only: classified as FULL_STACK_MVP. Live build not run." },
+  { "n": 6, "title": "Website redesign", "kind": "partial", "check": "redesign-guard", "note": "Guard only: refuses without an existing project, accepts with one. Live redesign not run." },
+  { "n": 7, "title": "Existing project enhancement", "kind": "partial", "check": "improve-guard", "note": "Guard only: refuses without an existing project, accepts with one. Live enhancement not run." },
+  { "n": 8, "title": "Ambiguous specification", "kind": "automated", "check": "ambiguous-spec" },
+  { "n": 9, "title": "Missing external credentials", "kind": "automated", "check": "missing-credentials" },
+  { "n": 10, "title": "Google Stitch unavailable", "kind": "automated", "check": "stitch-fallback" },
+  { "n": 11, "title": "Playwright MCP unavailable", "kind": "automated", "check": "playwright-mcp-fallback" },
+  { "n": 12, "title": "Playwright CLI failure", "kind": "automated", "check": "playwright-cli-failure" },
+  { "n": 13, "title": "Security vulnerability detected", "kind": "automated", "ref": { "eval": "high-security-finding" } },
+  { "n": 14, "title": "Performance regression detected", "kind": "partial", "ref": { "test": "tests/ratchet-metrics.test.js", "name": "regression fails" }, "note": "Ratchet mechanism (shared by all measured metrics). A real regression on a real site is not simulated." },
+  { "n": 15, "title": "Accessibility failure detected", "kind": "partial", "ref": { "test": "tests/ratchet-metrics.test.js", "name": "regression fails" }, "note": "Ratchet mechanism incl. axe violations. A real a11y failure on a real site is not simulated." },
+  { "n": 16, "title": "Execution time exceeded", "kind": "automated", "check": "time-exceeded" },
+  { "n": 17, "title": "Subscription usage limit approached", "kind": "partial", "check": "budget-hard-stop", "note": "Context/turn budget circuit breaker only. Claude Pro subscription usage cannot be read programmatically, so real usage limits are not detected." },
+  { "n": 18, "title": "Concurrent agent file conflict", "kind": "automated", "check": "ownership-conflict" },
+  { "n": 19, "title": "Stale evidence detected", "kind": "automated", "ref": { "eval": "stale-browser-evidence" } },
+  { "n": 20, "title": "Production deployment approval required", "kind": "gap", "note": "Approval is required by instructions (commands, CLAUDE.md) but is not mechanically enforced: no hook blocks a production deploy command. Recorded as a known gap." }
+]
